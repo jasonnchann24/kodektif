@@ -23,7 +23,7 @@ export default {
   /*
    ** Global CSS
    */
-  css: [],
+  css: ['@/assets/scss/main.scss'],
   /*
    ** Plugins to load before mounting the App
    */
@@ -42,8 +42,17 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     // Doc: https://github.com/nuxt-community/dotenv-module
-    '@nuxtjs/dotenv'
+    '@nuxtjs/dotenv',
+    'bootstrap-vue/nuxt',
+    '@nuxtjs/style-resources'
   ],
+  bootstrapVue: {
+    bootstrapCSS: false,
+    bootstrapVueCSS: false
+  },
+  styleResources: {
+    scss: '@/assets/scss/_variables.scss'
+  },
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
@@ -56,7 +65,7 @@ export default {
     /*
      ** You can extend webpack config here
      */
-    extend(config, { isDev, isClient }) {
+    extend(config) {
       config.module.rules.push({
         test: /\.worker\.js$/,
         use: { loader: 'worker-loader' }
