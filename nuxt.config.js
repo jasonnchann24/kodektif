@@ -1,5 +1,6 @@
+import i18n from './config/i18n'
+
 export default {
-  mode: 'universal',
   /*
    ** Headers of the page
    */
@@ -32,6 +33,7 @@ export default {
    ** Customize the progress-bar color
    */
   loading: { color: '#fff' },
+  components: true,
   /*
    ** Global CSS
    */
@@ -39,29 +41,41 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [],
+  plugins: ['@/plugins/bootstrap.js'],
   /*
    ** Nuxt.js dev-modules
    */
   buildModules: [
-    // Doc: https://github.com/nuxt-community/eslint-module
-    '@nuxtjs/eslint-module'
+    '@nuxtjs/eslint-module',
+    [
+      'nuxt-i18n',
+      {
+        strategy: 'prefix_and_default',
+        defaultLocale: 'en',
+        locales: [
+          {
+            code: 'en',
+            name: 'English'
+          },
+          {
+            code: 'id',
+            name: 'Bahasa Indonesia'
+          }
+        ],
+        vueI18n: i18n
+      }
+    ]
   ],
   /*
    ** Nuxt.js modules
    */
   modules: [
-    // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    // Doc: https://github.com/nuxt-community/dotenv-module
+    '@nuxtjs/auth-next',
     '@nuxtjs/dotenv',
-    'bootstrap-vue/nuxt',
     '@nuxtjs/style-resources'
   ],
-  bootstrapVue: {
-    bootstrapCSS: false,
-    bootstrapVueCSS: false
-  },
+
   styleResources: {
     scss: '@/assets/scss/_variables.scss'
   },
@@ -82,11 +96,20 @@ export default {
     /*
      ** You can extend webpack config here
      */
-    extend(config) {
+    extend(config, { isDev, isClient }) {
       config.module.rules.push({
         test: /\.worker\.js$/,
         use: { loader: 'worker-loader' }
       })
+
+      if (isDev && isClient) {
+        config.module.rules.push({
+          enforce: 'pre',
+          test: /\.(js|vue)$/,
+          loader: 'eslint-loader',
+          exclude: /(node_modules)/
+        })
+      }
     }
   }
 }
