@@ -17,8 +17,11 @@
       </button>
       <div
         id="navbarNavDropdown"
-        class="collapse navbar-collapse justify-content-end"
+        class="collapse navbar-collapse justify-content-between"
       >
+        <ul class="navbar-nav">
+          <CoreLangChange />
+        </ul>
         <ul class="navbar-nav">
           <li v-if="!isAuthenticated" class="nav-item">
             <nuxtLink :to="localePath('/auth/login')" class="nav-link" tag="a">
