@@ -7,8 +7,6 @@
 
 ------------
 
-[TOC]
-
 # About
 **En** : Kodektif mission is mainly to help beginners to learn, discuss about programming for free ( in many languages ), especially for people who are still hard in English language. This platform is developed in Indonesia. So in the meantime, this platform is meant to support English and Indonesian language.
 
