@@ -1,22 +1,24 @@
-# kodektif
+<h1 align="center">KODEKTIF</h1>
 
-> Programming Learning Platform
+> **En** : Kodektif is an open - source web application about programming, with friendly community for learning, discuss, and more.
 
-## Build Setup
+> **Id** : Kodektif merupakan aplikasi berbasis sumber terbuka seputar pemograman dengan komunitas yang ramah untuk pembelajaran, diskusi, dan lain-lain. 
 
-```bash
-# install dependencies
-$ npm install
 
-# serve with hot reload at localhost:3000
-$ npm run dev
+------------
 
-# build for production and launch server
-$ npm run build
-$ npm run start
+[TOC]
 
-# generate static project
-$ npm run generate
-```
+# About
+**En** : Kodektif mission is mainly to help beginners to learn, discuss about programming for free ( in many languages ), especially for people who are still hard in English language. This platform is developed in Indonesia. So in the meantime, this platform is meant to support English and Indonesian language.
 
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+Kodektif hopes this platform can be useful for newcomers - advanced programmers.
+
+# To do
+WIP
+
+# Development
+WIP
+
+# Contributing
+WIP
