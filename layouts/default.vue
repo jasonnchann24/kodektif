@@ -1,7 +1,9 @@
 <template>
   <div>
     <CoreNavbar />
-    <nuxt />
+    <div class="p-4 overflow-hidden">
+      <nuxt />
+    </div>
   </div>
 </template>
 

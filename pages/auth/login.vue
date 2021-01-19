@@ -1,9 +1,9 @@
 <template>
   <div class="container">
     <h1 class="text-primary">Login</h1>
-    <b-button @click="login('github')"
-      ><i class="lni lni-github-original"></i
-    ></b-button>
+    <button @click="login('github')">
+      <i class="lni lni-github-original"></i>
+    </button>
   </div>
 </template>
 
@@ -11,6 +11,8 @@
 export default {
   name: 'Login',
   layout: 'auth',
+  middleware: 'auth',
+  auth: 'guest',
   methods: {
     login(provider) {
       window.location.href = `${process.env.BASE_URL}/login/${provider}`

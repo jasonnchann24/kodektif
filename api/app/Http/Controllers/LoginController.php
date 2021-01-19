@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use GuzzleHttp\Exception\ClientException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Redirect;
 use Laravel\Socialite\Facades\Socialite;
 
 class LoginController extends Controller
@@ -54,8 +56,8 @@ class LoginController extends Controller
         );
 
         $token = $userCreated->createToken('token-name')->plainTextToken;
-
-        return response()->json($userCreated, 200, ['Access-Token' => $token]);
+        $cookie = Cookie::make('access.token.kt', $token);
+        return Redirect::away(config('app.client_url') . '/auth/success?provider=' . $provider . '&access_token=' . $token, 302);
     }
 
     protected function validateProvider($provider)
@@ -63,5 +65,11 @@ class LoginController extends Controller
         if (!in_array($provider, ['github'])) {
             return response()->json(['error' => 'Please login using github.'], 422);
         }
+    }
+
+    public function logout(Request $request)
+    {
+        $request->user()->currentAccessToken()->delete();
+        return response()->json(['message' => 'Logged out.'], 200);
     }
 }

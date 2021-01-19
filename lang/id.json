@@ -1,5 +1,10 @@
 {
     "navbar": {
-        "login": "Masuk"
+        "login": "Masuk",
+        "profile": "Profil"
+    },
+    "landing": {
+        "welcome-title": "Selamat Datang di Kodektif !",
+        "welcome-subtitle": "Dunia mengenai pemograman."
     }
 }

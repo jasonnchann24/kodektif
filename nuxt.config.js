@@ -89,6 +89,37 @@ export default {
     https: process.env.HTTPS_BOOLEAN || false,
     proxy: false
   },
+
+  auth: {
+    localStorage: false,
+    redirect: {
+      login: '/auth/login',
+      // logout: '/',
+      // callback: '/login',
+      home: '/'
+    },
+    strategies: {
+      local: {
+        token: {
+          required: false,
+          type: false
+        },
+        user: {
+          property: 'data'
+        },
+        endpoints: {
+          user: {
+            url: '/user',
+            method: 'get'
+          },
+          logout: {
+            method: 'post',
+            url: '/logout'
+          }
+        }
+      }
+    }
+  },
   /*
    ** Build configuration
    */
