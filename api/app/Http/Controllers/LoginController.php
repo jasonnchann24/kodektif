@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use GuzzleHttp\Exception\ClientException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Redirect;
 use Laravel\Socialite\Facades\Socialite;
@@ -18,7 +19,7 @@ class LoginController extends Controller
             return $validated;
         }
 
-        return Socialite::driver($provider)->stateless()->redirect();
+        return Socialite::driver($provider)->redirect();
     }
 
     public function handleProviderCallback($provider)
@@ -29,7 +30,7 @@ class LoginController extends Controller
         }
 
         try {
-            $user = Socialite::driver($provider)->stateless()->user();
+            $user = Socialite::driver($provider)->user();
         } catch (ClientException $e) {
             return response()->json(['error' => 'Invalid credentials provided.'], 422);
         }
@@ -55,9 +56,10 @@ class LoginController extends Controller
             ]
         );
 
-        $token = $userCreated->createToken('token-name')->plainTextToken;
-        $cookie = Cookie::make('access.token.kt', $token);
-        return Redirect::away(config('app.client_url') . '/auth/success?provider=' . $provider . '&access_token=' . $token, 302);
+        Auth::login($userCreated);
+        // $token = $userCreated->createToken('token-name')->plainTextToken;
+        // $cookie = Cookie::make('access.token.kt', $token);
+        return Redirect::away(config('app.client_url') . '/auth/success?provider=' . $provider, 302);
     }
 
     protected function validateProvider($provider)
@@ -69,7 +71,9 @@ class LoginController extends Controller
 
     public function logout(Request $request)
     {
-        $request->user()->currentAccessToken()->delete();
+        Auth::guard('web')->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
         return response()->json(['message' => 'Logged out.'], 200);
     }
 }

@@ -105,12 +105,14 @@ export default {
           type: false
         },
         user: {
-          property: 'data'
+          property: 'data',
+          autoFetch: true
         },
         endpoints: {
           user: {
             url: '/user',
-            method: 'get'
+            method: 'get',
+            withCredentials: true
           },
           logout: {
             method: 'post',

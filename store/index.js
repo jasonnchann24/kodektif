@@ -10,6 +10,14 @@ export const getters = {
   }
 }
 
-export const mutations = {}
+export const mutations = {
+  SET_USER_LOGGED_IN(state) {
+    state.auth.loggedIn = true
+  }
+}
 
-export const actions = {}
+export const actions = {
+  SUCCESSFUL_LOGIN({ commit }) {
+    commit('SET_USER_LOGGED_IN')
+  }
+}

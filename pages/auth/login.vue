@@ -15,7 +15,7 @@ export default {
   auth: 'guest',
   methods: {
     login(provider) {
-      window.location.href = `${process.env.BASE_URL}/login/${provider}`
+      window.location.href = `http://localhost:8000/login/${provider}`
     }
   }
 }

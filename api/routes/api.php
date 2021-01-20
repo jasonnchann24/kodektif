@@ -24,6 +24,3 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('logout', [LoginController::class, 'logout']);
 });
-
-Route::get('login/{provider}', [LoginController::class, 'redirectToProvider']);
-Route::get('login/{provider}/callback', [LoginController::class, 'handleProviderCallback']);

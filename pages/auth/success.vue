@@ -8,11 +8,15 @@
 export default {
   name: 'LoginSuccess',
 
-  mounted() {
-    this.$auth.strategy.token.set('Bearer ' + this.$route.query.access_token)
-    this.$auth.fetchUser().then(() => {
+  async mounted() {
+    try {
+      const res = await this.$axios.$get('/user')
+      await this.$auth.setUser(res.data)
+      await this.$store.dispatch('SUCCESSFUL_LOGIN')
       this.$router.push({ path: '/', query: {} })
-    })
+    } catch (err) {
+      this.$router.push({ path: '/auth/login', query: {} })
+    }
   },
   methods: {}
 }
