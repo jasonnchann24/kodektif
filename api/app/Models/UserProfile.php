@@ -20,4 +20,9 @@ class UserProfile extends Model
         'github_link',
         'others_link',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
