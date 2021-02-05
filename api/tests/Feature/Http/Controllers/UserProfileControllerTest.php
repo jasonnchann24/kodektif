@@ -65,7 +65,6 @@ class UserProfileControllerTest extends TestCase
     public function user_can_not_update_other_user_profile()
     {
         $user1 = User::factory()->create();
-
         $user2 = User::factory()->create();
         $profile2 = $this->createUserProfile($user2);
 

@@ -74,15 +74,4 @@ class UserProfileController extends Controller
             200
         );
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\UserProfile  $userProfile
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(UserProfile $userProfile)
-    {
-        //
-    }
 }
