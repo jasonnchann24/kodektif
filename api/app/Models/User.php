@@ -43,7 +43,7 @@ class User extends Authenticatable
     ];
 
     protected $with = [
-        'roles'
+        'roles', 'provider'
     ];
 
     public function provider()
