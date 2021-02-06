@@ -24,11 +24,17 @@ class UserProfileFactory extends Factory
     {
         return [
             'country' => $this->faker->countryCode,
-            'about' => $this->faker->paragraph(),
-            'facebook_link' => $this->faker->url,
-            'linkedin_link' => $this->faker->url,
-            'github_link' => $this->faker->url,
-            'others_link' => $this->faker->url,
+            'about' => $this->faker->realText(),
+            'facebook_link' => $this->generateLink(),
+            'linkedin_link' => $this->generateLink(),
+            'github_link' => $this->generateLink(),
+            'others_link' => $this->generateLink(),
         ];
+    }
+
+    protected function generateLink()
+    {
+        $bool = (bool)random_int(0, 1);
+        return $bool ? $this->faker->url : null;
     }
 }
