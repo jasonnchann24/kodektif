@@ -18,11 +18,8 @@ class UserProfileControllerTest extends TestCase
         $store = $this->json('POST', '/api/user-profiles');
         $store->assertStatus(401);
 
-        $put = $this->json('PUT', '/api/user-profiles/-1');
+        $put = $this->json('PATCH', '/api/user-profiles/-1');
         $put->assertStatus(401);
-
-        $delete = $this->json('DELETE', '/api/user-profiles/-1');
-        $delete->assertStatus(401);
     }
 
     /** @test */
@@ -77,6 +74,36 @@ class UserProfileControllerTest extends TestCase
             ->assertStatus(403);
 
         $this->assertDatabaseMissing('user_profiles', $updateData);
+    }
+
+    /** @test */
+    public function suspended_user_can_not_create_profile()
+    {
+        $user = User::factory()->create();
+        $user->is_suspended = true;
+        $user->save();
+
+        $this->actingAs($user);
+
+        $this->json('POST', '/api/user-profiles')
+            ->assertStatus(403);
+    }
+
+    /** @test */
+    public function suspended_user_can_not_update_own_profile()
+    {
+        $user = User::factory()->create();
+        $profile = $this->createUserProfile($user);
+        $user->is_suspended = true;
+        $user->save();
+
+        $this->actingAs($user);
+        $this->json(
+            'PATCH',
+            '/api/user-profiles/' . $profile['id'],
+            ['about' => 'still can update']
+        )
+            ->assertStatus(403);
     }
 
     protected function createUserProfile($user)
