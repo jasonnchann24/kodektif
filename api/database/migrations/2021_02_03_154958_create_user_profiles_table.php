@@ -16,12 +16,12 @@ class CreateUserProfilesTable extends Migration
         Schema::create('user_profiles', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->string('country');
-            $table->text('about');
-            $table->string('facebook_link', 512);
-            $table->string('linkedin_link', 512);
-            $table->string('github_link', 512);
-            $table->string('others_link', 512);
+            $table->string('country')->nullable();
+            $table->text('about')->nullable();
+            $table->string('facebook_link', 512)->nullable();
+            $table->string('linkedin_link', 512)->nullable();
+            $table->string('github_link', 512)->nullable();
+            $table->string('others_link', 512)->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');
