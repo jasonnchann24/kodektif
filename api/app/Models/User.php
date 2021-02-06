@@ -42,6 +42,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    protected $with = [
+        'roles'
+    ];
+
     public function provider()
     {
         return $this->hasOne(Provider::class, 'user_id', 'id');
@@ -50,5 +54,21 @@ class User extends Authenticatable
     public function profile()
     {
         return $this->hasOne(UserProfile::class);
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
+
+    public function is($roleName)
+    {
+        foreach ($this->roles()->get() as $userRole) {
+            if ($userRole == $roleName) {
+                return true;
+            }
+
+            return false;
+        }
     }
 }
