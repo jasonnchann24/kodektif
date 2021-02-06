@@ -40,7 +40,7 @@ class UserProfileControllerTest extends TestCase
 
         $this->json('GET', '/api/user-profiles/' . $data['id'])
             ->assertStatus(200)
-            ->assertJsonFragment(['user_id' => "$user->id"]);
+            ->assertJsonFragment(['user_id' => $user->id]);
     }
 
     /** @test */
