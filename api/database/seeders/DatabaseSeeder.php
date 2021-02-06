@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Database\Seeders\User\RoleSeeder;
 use Database\Seeders\User\UserProfileSeeder;
 use Illuminate\Database\Seeder;
 
@@ -16,6 +17,7 @@ class DatabaseSeeder extends Seeder
     {
         if (config('app.env') != 'production') {
             $this->call(UserProfileSeeder::class);
+            $this->call(RoleSeeder::class);
         }
     }
 }

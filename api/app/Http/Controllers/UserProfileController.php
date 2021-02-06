@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UserProfileStoreRequest;
 use App\Http\Requests\UserProfileUpdateRequest;
-use App\Http\Resources\UserProfileResource;
+use App\Http\Resources\User\UserProfileResource;
 use App\Models\UserProfile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
