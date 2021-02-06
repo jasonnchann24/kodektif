@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\SuspendController;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Resources\User\UserResource;
 use App\Models\User;
@@ -24,6 +25,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('logout', [LoginController::class, 'logout']);
+    Route::post('suspend-user/{id}', [SuspendController::class, 'suspendUser']);
+    Route::post('unsuspend-user/{id}', [SuspendController::class, 'unSuspendUser']);
 });
 
 Route::apiResource('user-profiles', UserProfileController::class)->except(['index', 'destroy']);
