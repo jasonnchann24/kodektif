@@ -15,17 +15,26 @@ class SuspendController extends Controller
 
     public function suspendUser($id)
     {
-        $targetUser = User::findOrFail($id);
-        $targetUser->is_suspended = true;
-        $targetUser->save();
-        return Response::json(['message' => 'Suspended'], 200);
+        $this->handleSuspend($id, true);
+        return Response::json(
+            ['message' => 'Suspended'],
+            200
+        );
     }
 
     public function unSuspendUser($id)
     {
+        $this->handleSuspend($id, false);
+        return Response::json(
+            ['message' => 'Un-suspend'],
+            200
+        );
+    }
+
+    protected function handleSuspend($id, $suspend)
+    {
         $targetUser = User::findOrFail($id);
-        $targetUser->is_suspended = false;
+        $targetUser->is_suspended = $suspend;
         $targetUser->save();
-        return Response::json(['message' => 'Un-suspend'], 200);
     }
 }
