@@ -29,7 +29,6 @@ class UserProfileControllerTest extends TestCase
         $data = $this->createUserProfile($user);
 
         $this->assertDatabaseHas('user_profiles', ['user_id' => $user->id]);
-        $this->assertEquals(1, $user->profile->count());
     }
 
     /** @test */
