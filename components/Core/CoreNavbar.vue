@@ -42,7 +42,7 @@
                 {{ $t('navbar.profile') }}
               </span>
               <img
-                :src="loggedInUser.avatar"
+                :src="loggedInUser.provider.avatar"
                 alt=""
                 width="50"
                 height="50"

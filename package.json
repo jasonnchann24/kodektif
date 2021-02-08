@@ -12,18 +12,18 @@
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore ."
   },
   "dependencies": {
-    "@babel/generator": "^7.12.11",
-    "@babel/parser": "^7.12.11",
-    "@babel/traverse": "^7.12.12",
-    "@nuxtjs/auth-next": "^5.0.0-1610809099.bcf293f",
-    "@nuxtjs/axios": "^5.12.5",
+    "@babel/generator": "^7.12.15",
+    "@babel/parser": "^7.12.15",
+    "@babel/traverse": "^7.12.13",
+    "@nuxtjs/auth-next": "^5.0.0-1611574754.9020f2a",
+    "@nuxtjs/axios": "^5.13.0",
     "@nuxtjs/dotenv": "^1.4.0",
     "@nuxtjs/style-resources": "^1.0.0",
     "@popperjs/core": "^2.6.0",
     "bootstrap": "^5.0.0-beta1",
     "node-sass": "^5.0.0",
     "nuxt": "^2.14.12",
-    "nuxt-i18n": "^6.18.0",
+    "nuxt-i18n": "^6.20.0",
     "sass-loader": "^10.1.1"
   },
   "devDependencies": {
@@ -35,7 +35,7 @@
     "eslint-loader": "^4.0.2",
     "eslint-plugin-nuxt": "^2.0.0",
     "eslint-plugin-prettier": "^3.3.1",
-    "eslint-plugin-vue": "^7.4.1",
+    "eslint-plugin-vue": "^7.5.0",
     "prettier": "^1.19.1",
     "worker-loader": "^3.0.7"
   }

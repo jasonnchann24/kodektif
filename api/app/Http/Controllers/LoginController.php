@@ -35,6 +35,11 @@ class LoginController extends Controller
             return response()->json(['error' => 'Invalid credentials provided.'], 422);
         }
 
+        /**
+         * To do 
+         * need to handle if user change provider email, it wont create new user. 
+         * Possible way, add provider_id to user model 
+         */
         $userCreated = User::firstOrCreate(
             [
                 'email' => $user->getEmail()

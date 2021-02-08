@@ -99,7 +99,7 @@ export default {
       home: '/'
     },
     strategies: {
-      local: {
+      cookie: {
         token: {
           required: false,
           type: false
