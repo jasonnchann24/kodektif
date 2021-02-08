@@ -10,6 +10,7 @@ use Tests\TestCase;
 
 class SuspendControllerTest extends TestCase
 {
+    use RefreshDatabase;
     /** @test */
     public function non_admin_user_can_not_access_suspend_apis()
     {

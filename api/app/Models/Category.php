@@ -11,21 +11,21 @@ class Category extends Model
 
     protected $fillable = [
         'name',
-        'category_id'
+        'parent_id'
     ];
 
     public function subCategories()
     {
-        return $this->hasMany(Category::class);
+        return $this->hasMany(Category::class, 'parent_id');
     }
 
     public function allSubCategories()
     {
-        return $this->hasMany(Category::class)->with('subCategories');
+        return $this->hasMany(Category::class, 'parent_id')->with('subCategories');
     }
 
     public function parentCategory()
     {
-        return $this->belongsTo(Category::class, 'category_id');
+        return $this->belongsTo(Category::class, 'parent_id');
     }
 }
