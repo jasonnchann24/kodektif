@@ -19,5 +19,20 @@ export const mutations = {
 export const actions = {
   SUCCESSFUL_LOGIN({ commit }) {
     commit('SET_USER_LOGGED_IN')
+  },
+  async nuxtServerInit({ commit }, { req }) {
+    let res = null
+    if (req.headers.cookie) {
+      try {
+        res = await this.$axios.$get('/user')
+        await this.$auth.setUser(res.data)
+      } catch (err) {
+        console.log(err)
+      }
+    }
+
+    if (res) {
+      commit('SET_USER_LOGGED_IN')
+    }
   }
 }
