@@ -1,5 +1,9 @@
 <h1 align="center">KODEKTIF</h1>
 
+<p align="center">
+  <img src="/static/logo/logo_kodektif_bg.svg" width="175" align="center"/>
+</p>
+
 > **En** : Kodektif is an open - source web application about programming, with friendly community for learning, discuss, and more.
 
 > **Id** : Kodektif merupakan aplikasi berbasis sumber terbuka seputar pemograman dengan komunitas yang ramah untuk pembelajaran, diskusi, dan lain-lain. 
