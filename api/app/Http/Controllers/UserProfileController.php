@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UserProfileStoreRequest;
-use App\Http\Requests\UserProfileUpdateRequest;
+use App\Http\Requests\UserProfile\UserProfileStoreRequest;
+use App\Http\Requests\UserProfile\UserProfileUpdateRequest;
 use App\Http\Resources\User\UserProfileResource;
 use App\Models\UserProfile;
 use Illuminate\Http\Request;
@@ -20,7 +20,7 @@ class UserProfileController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\UserProfileStoreRequest $request
+     * @param  \App\Http\Requests\UserProfile\UserProfileStoreRequest $request
      * @return \Illuminate\Http\Response
      */
     public function store(UserProfileStoreRequest $request)
@@ -58,7 +58,7 @@ class UserProfileController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UserProfileUpdateRequest  $request
+     * @param  \App\Http\Requests\UserProfile\UserProfileUpdateRequest  $request
      * @param  \App\Models\UserProfile  $userProfile
      * @return \Illuminate\Http\Response
      */

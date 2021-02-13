@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SuspendController;
 use App\Http\Controllers\UserProfileController;
@@ -32,3 +33,4 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
 Route::apiResource('user-profiles', UserProfileController::class)->except(['index', 'destroy']);
 Route::apiResource('categories', CategoryController::class);
+Route::apiResource('languages', LanguageController::class);

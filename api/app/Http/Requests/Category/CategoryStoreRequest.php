@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Category;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserProfileUpdateRequest extends FormRequest
+class CategoryStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,12 +24,8 @@ class UserProfileUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'country' => 'nullable|string',
-            'about' => 'nullable|string',
-            'facebook_link' => 'nullable|string',
-            'linkedin_link' => 'nullable|string',
-            'github_link' => 'nullable|string',
-            'others_link' => 'nullable|string',
+            'name' => 'required|string',
+            'parent_id' => 'nullable|numeric'
         ];
     }
 }
