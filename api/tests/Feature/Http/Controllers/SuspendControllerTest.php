@@ -7,14 +7,15 @@ use App\Models\Role;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use Tests\TestTraits\CreateUserTrait;
 
 class SuspendControllerTest extends TestCase
 {
-    use RefreshDatabase;
+    use RefreshDatabase, CreateUserTrait;
     /** @test */
     public function non_admin_user_can_not_access_suspend_apis()
     {
-        $user = User::factory()->create();
+        $user = $this->createBasicUser();
         $this->actingAs($user);
 
         $this->json('POST', '/api/suspend-user/1')
@@ -26,13 +27,8 @@ class SuspendControllerTest extends TestCase
     /** @test */
     public function admin_user_can_suspend_user()
     {
-        $admin = User::factory()->create();
-        $targetUser = User::factory()->create();
-        $role = Role::create([
-            'name' => 'admin'
-        ]);
-
-        $admin->roles()->sync([$role->id]);
+        $admin = $this->createAdminUser();
+        $targetUser = $this->createBasicUser();
 
         $this->actingAs($admin)
             ->json('POST', '/api/suspend-user/' . $targetUser->id)
@@ -45,13 +41,8 @@ class SuspendControllerTest extends TestCase
     /** @test */
     public function admin_user_can_unsuspend_user()
     {
-        $admin = User::factory()->create();
-        $targetUser = User::factory()->create();
-        $role = Role::create([
-            'name' => 'admin'
-        ]);
-
-        $admin->roles()->sync([$role->id]);
+        $admin = $this->createAdminUser();
+        $targetUser = $this->createBasicUser();
 
         $this->actingAs($admin)
             ->json('POST', '/api/unsuspend-user/' . $targetUser->id)
