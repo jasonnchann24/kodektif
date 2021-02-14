@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Language;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserProfileUpdateRequest extends FormRequest
+class LanguageUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,12 +24,9 @@ class UserProfileUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'country' => 'nullable|string',
-            'about' => 'nullable|string',
-            'facebook_link' => 'nullable|string',
-            'linkedin_link' => 'nullable|string',
-            'github_link' => 'nullable|string',
-            'others_link' => 'nullable|string',
+            'name' => 'sometimes|string',
+            'iso_639_1' => 'sometimes|string',
+            'slug' => 'sometimes|string|unique:languages,slug',
         ];
     }
 }

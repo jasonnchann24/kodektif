@@ -7,10 +7,11 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use Tests\TestTraits\CreateUserTrait;
 
 class UserProfileControllerTest extends TestCase
 {
-    use RefreshDatabase, WithFaker;
+    use RefreshDatabase, WithFaker, CreateUserTrait;
 
     /** @test */
     public function non_authenticated_user_can_not_access_these_apis()
@@ -25,7 +26,7 @@ class UserProfileControllerTest extends TestCase
     /** @test */
     public function user_can_create_user_profile()
     {
-        $user = User::factory()->create();
+        $user = $this->createBasicUser();
         $data = $this->createUserProfile($user);
 
         $this->assertDatabaseHas('user_profiles', ['user_id' => $user->id]);
@@ -34,7 +35,7 @@ class UserProfileControllerTest extends TestCase
     /** @test */
     public function user_can_view_user_profile()
     {
-        $user = User::factory()->create();
+        $user = $this->createBasicUser();
         $data = $this->createUserProfile($user);
 
         $this->json('GET', '/api/user-profiles/' . $data['id'])
@@ -45,7 +46,7 @@ class UserProfileControllerTest extends TestCase
     /** @test */
     public function user_can_update_own_profile()
     {
-        $user = User::factory()->create();
+        $user = $this->createBasicUser();
         $profile = $this->createUserProfile($user);
         $updateData = [
             'about' => 'Updated About'
@@ -60,8 +61,8 @@ class UserProfileControllerTest extends TestCase
     /** @test */
     public function user_can_not_update_other_user_profile()
     {
-        $user1 = User::factory()->create();
-        $user2 = User::factory()->create();
+        $user1 = $this->createBasicUser();
+        $user2 = $this->createBasicUser();
         $profile2 = $this->createUserProfile($user2);
 
         $updateData = [
@@ -78,7 +79,7 @@ class UserProfileControllerTest extends TestCase
     /** @test */
     public function suspended_user_can_not_create_profile()
     {
-        $user = User::factory()->create();
+        $user = $this->createBasicUser();
         $user->is_suspended = true;
         $user->save();
 
@@ -91,7 +92,7 @@ class UserProfileControllerTest extends TestCase
     /** @test */
     public function suspended_user_can_not_update_own_profile()
     {
-        $user = User::factory()->create();
+        $user = $this->createBasicUser();
         $profile = $this->createUserProfile($user);
         $user->is_suspended = true;
         $user->save();

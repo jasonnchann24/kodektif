@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CategoryStoreRequest;
-use App\Http\Requests\CategoryUpdateRequest;
+use App\Http\Requests\Category\CategoryStoreRequest;
+use App\Http\Requests\Category\CategoryUpdateRequest;
 use App\Http\Resources\CategoryResource;
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -35,7 +35,7 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\CategoryStoreRequest  $request
+     * @param  \App\Http\Requests\Category\CategoryStoreRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(CategoryStoreRequest $request)
@@ -57,16 +57,13 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        return Response::json(
-            new CategoryResource($category),
-            200
-        );
+        return new CategoryResource($category);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\CategoryUpdateRequest  $request
+     * @param  \App\Http\Requests\Category\CategoryUpdateRequest  $request
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */

@@ -8,16 +8,17 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use Tests\TestTraits\CreateUserTrait;
 
 class CategoryControllerTest extends TestCase
 {
-    use RefreshDatabase;
+    use RefreshDatabase, CreateUserTrait;
 
     /** @test */
     public function non_admin_user_can_not_access_store_update_category_apis()
     {
 
-        $user = User::factory()->create();
+        $user = $this->createBasicUser();
         $category = Category::factory()->create();
         $this->actingAs($user);
 
@@ -52,7 +53,7 @@ class CategoryControllerTest extends TestCase
     public function admin_user_can_store_new_category()
     {
 
-        $user = $this->createAdmin();
+        $user = $this->createAdminUser();
         $payload = [
             'name' => 'test',
             'parent_id' => null
@@ -71,7 +72,7 @@ class CategoryControllerTest extends TestCase
     /** @test */
     public function admin_user_can_update_category()
     {
-        $user = $this->createAdmin();
+        $user = $this->createAdminUser();
         $category = Category::factory()->create();
         $categoryTwo = Category::factory()->create();
         $data = ['name' => 'Category Updated.', 'parent_id' => $category->id];
@@ -86,16 +87,5 @@ class CategoryControllerTest extends TestCase
                     'parent_id' => $category->id
                 ]
             );
-    }
-
-    protected function createAdmin()
-    {
-        $user = User::factory()->create();
-        $role = Role::create([
-            'name' => 'admin'
-        ]);
-        $user->roles()->sync([$role->id]);
-
-        return $user;
     }
 }
