@@ -4,7 +4,10 @@
   <img src="/static/logo/logo_kodektif_bg.svg" width="175" align="center"/>
 </p>
 
-![API-CI](https://github.com/Jchann24/kodektif/workflows/API-CI/badge.svg?branch=staging)
+<p align="center">
+  <img src="https://github.com/Jchann24/kodektif/workflows/MAIN-API-CI/badge.svg?branch=main">
+  <img src="https://github.com/Jchann24/kodektif/workflows/DEV-API-CI/badge.svg?branch=dev"> 
+</p>
 
 > **En** : Kodektif is an open - source web application about programming, with friendly community for learning, discuss, and more.
 
