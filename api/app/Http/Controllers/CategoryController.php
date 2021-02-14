@@ -57,10 +57,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        return Response::json(
-            new CategoryResource($category),
-            200
-        );
+        return new CategoryResource($category);
     }
 
     /**

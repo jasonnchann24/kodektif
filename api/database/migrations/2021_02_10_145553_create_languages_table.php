@@ -17,8 +17,9 @@ class CreateLanguagesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('iso_639_1');
-            $table->string('slug');
+            $table->string('slug')->unique();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

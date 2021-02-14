@@ -49,10 +49,7 @@ class UserProfileController extends Controller
      */
     public function show(UserProfile $userProfile)
     {
-        return Response::json(
-            new UserProfileResource($userProfile),
-            200
-        );
+        return new UserProfileResource($userProfile);
     }
 
     /**

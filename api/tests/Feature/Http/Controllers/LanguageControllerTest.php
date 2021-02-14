@@ -32,6 +32,7 @@ class LanguageControllerTest extends TestCase
     /** @test */
     public function can_list_all_languages()
     {
+        Language::factory()->count(3)->create();
         $this->json('GET', '/api/languages')
             ->assertStatus(200)
             ->assertJsonStructure(
@@ -51,14 +52,16 @@ class LanguageControllerTest extends TestCase
     /** @test */
     public function admin_can_store_language()
     {
-        $user = $this->createAdminUser();
-
-        $this->actingAs($user);
         $payload = [
             'iso_639_1' => 'en',
             'name' => 'English',
             'slug' => 'english'
         ];
+
+        $admin = $this->createAdminUser();
+
+        $this->actingAs($admin);
+
 
         $this->json('POST', '/api/languages', $payload)
             ->assertStatus(201);
