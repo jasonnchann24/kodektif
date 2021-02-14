@@ -1,9 +1,9 @@
-name: MAIN-API-CI
+name: DEV-API-CI
 on: 
   push:
-    branches: [ main ]
+    branches: [ dev ]
   pull_request:
-    branches: [ main ]
+    branches: [ dev ]
 
 jobs: 
   laravel-test:
