@@ -27,12 +27,15 @@ class LanguageControllerTest extends TestCase
 
         $this->json('PATCH', "/api/languages/{$lang->id}", [])
             ->assertStatus(403);
+
+        $this->json('DELETE', "/api/languages/{$lang->id}")
+            ->assertStatus(403);
     }
 
     /** @test */
     public function can_list_all_languages()
     {
-        Language::factory()->count(3)->create();
+        Language::factory()->create();
         $this->json('GET', '/api/languages')
             ->assertStatus(200)
             ->assertJsonStructure(
@@ -82,5 +85,23 @@ class LanguageControllerTest extends TestCase
             ->assertStatus(200);
 
         $this->assertDatabaseHas('languages', $payload);
+    }
+
+    /** @test */
+    public function admin_can_delete_language()
+    {
+        $admin = $this->createAdminUser();
+        $this->actingAs($admin);
+        $payload = [
+            'name' => 'English test',
+            'iso_639_1' => 'en test',
+            'slug' => 'english-test'
+        ];
+
+        $lang = Language::create($payload);
+        $this->json('DELETE', "/api/languages/{$lang->id}")
+            ->assertStatus(204);
+
+        $this->assertSoftDeleted($lang);
     }
 }
