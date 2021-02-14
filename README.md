@@ -4,6 +4,8 @@
   <img src="/static/logo/logo_kodektif_bg.svg" width="175" align="center"/>
 </p>
 
+![API-CI](https://github.com/Jchann24/kodektif/workflows/API-CI/badge.svg?branch=staging)
+
 > **En** : Kodektif is an open - source web application about programming, with friendly community for learning, discuss, and more.
 
 > **Id** : Kodektif merupakan aplikasi berbasis sumber terbuka seputar pemograman dengan komunitas yang ramah untuk pembelajaran, diskusi, dan lain-lain. 
@@ -24,3 +26,4 @@ WIP
 
 # Contributing
 WIP
+  
