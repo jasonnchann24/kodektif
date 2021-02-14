@@ -8,6 +8,9 @@ on:
 jobs: 
   laravel-test:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./api
     services:
       mysql:
         image: mysql:latest
