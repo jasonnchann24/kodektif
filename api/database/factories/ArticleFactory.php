@@ -26,8 +26,8 @@ class ArticleFactory extends Factory
         $title = $this->faker->sentence(2);
         $slug = Str::slug($title, '-');
 
-        $lang = Language::all()->random(1)->first();
-        if (!$lang) {
+        $langs = Language::all();
+        if ($langs->count() < 1) {
             $lang = Language::create(
                 [
                     'iso_639_1' => 'en',
@@ -35,6 +35,8 @@ class ArticleFactory extends Factory
                     'slug' => 'english'
                 ]
             );
+        } else {
+            $lang = $langs->random(1)->first();
         }
 
         return [
