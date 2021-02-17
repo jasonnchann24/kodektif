@@ -15,14 +15,15 @@ class CreateArticlesTable extends Migration
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
-            $table->foreignId('language_id')->constrained();
+            $table->foreignId('user_id')->constrained()->nullable();
+            $table->foreignId('language_id')->constrained()->nullable();
             $table->string('title', 512);
             $table->text('description');
             $table->longText('body');
             $table->string('slug', 1500);
             $table->bigInteger('likes_count');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
