@@ -13,8 +13,9 @@ class ArticleUpdateRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
+
 
     /**
      * Get the validation rules that apply to the request.
@@ -24,7 +25,20 @@ class ArticleUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'title' => 'sometimes|string|max:512',
+            'description' => 'sometimes|string|max:1500',
+            'body' => 'sometimes|string',
+            'language_id' => 'sometimes|exists:languages,id'
         ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [];
     }
 }

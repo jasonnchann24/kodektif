@@ -13,7 +13,7 @@ class ArticleStoreRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,25 @@ class ArticleStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'title' => 'required|string|max:512',
+            'description' => 'required|string|max:1500',
+            'body' => 'required|string',
+            'language_id' => 'required|exists:languages,id'
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'title.required' => 'A title is required',
+            'description.required' => 'A description is required',
+            'body.required' => 'A message is required',
+            'language_id.exists' => 'Language not exists.'
         ];
     }
 }

@@ -11,12 +11,15 @@ class Article extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'user_id',
         'language_id',
         'title',
         'description',
-        'slug',
-        'likes_count'
+        'body',
+        'slug'
+    ];
+
+    protected $with = [
+        'user'
     ];
 
     public function user()

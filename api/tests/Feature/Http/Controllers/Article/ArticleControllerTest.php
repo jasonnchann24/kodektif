@@ -3,9 +3,11 @@
 namespace Tests\Feature\Http\Controllers\Article;
 
 use App\Models\Article;
+use App\Models\Language;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Tests\TestCase;
 use Tests\TestTraits\CreateUserTrait;
 
@@ -58,19 +60,6 @@ class ArticleControllerTest extends TestCase
     }
 
     /** @test */
-    public function admin_can_delete_article()
-    {
-        $admin = $this->createAdminUser();
-        $article = $this->createArticle($admin);
-
-        $this->actingAs($admin)
-            ->json('DELETE', "/api/articles/" . $article['id'])
-            ->assertStatus(204);
-
-        $this->assertSoftDeleted('articles', ['id' => $article['id']]);
-    }
-
-    /** @test */
     public function admin_can_not_update_others_article()
     {
         $admin = $this->createAdminUser();
@@ -92,14 +81,41 @@ class ArticleControllerTest extends TestCase
     }
 
     /** @test */
-    public function all_can_show_article()
+    public function admin_can_delete_article()
+    {
+        $admin = $this->createAdminUser();
+        $article = $this->createArticle($admin);
+
+        $this->actingAs($admin)
+            ->json('DELETE', "/api/articles/" . $article['id'])
+            ->assertStatus(204);
+
+        $this->assertSoftDeleted('articles', ['id' => $article['id']]);
+    }
+
+    /** @test */
+    public function admin_can_not_delete_others_article()
+    {
+        $admin = $this->createAdminUser();
+        $adminTwo = $this->createAdminUser();
+        $article = $this->createArticle($admin);
+
+        $this->actingAs($adminTwo)
+            ->json('DELETE', "/api/articles/" . $article['id'])
+            ->assertStatus(403);
+    }
+
+
+
+    /** @test */
+    public function users_can_show_article()
     {
         $admin = $this->createAdminUser();
         $article = $this->createArticle($admin);
 
         Auth::logout();
 
-        $this->json('GET', "/api/articles/{$article['id']}/{$article['slug']}")
+        $this->json('GET', "/api/articles/" . $article['id'] . "/" . $article['slug'])
             ->assertStatus(200)
             ->assertJsonFragment(
                 [
@@ -110,7 +126,7 @@ class ArticleControllerTest extends TestCase
     }
 
     /** @test */
-    public function can_list_paginated_articles()
+    public function all_user_can_list_paginated_articles()
     {
         $admin = $this->createAdminUser();
         Article::factory()->count(40)->for($admin)->create();
@@ -131,7 +147,8 @@ class ArticleControllerTest extends TestCase
                             'author'
                         ]
                     ],
-                    'links' => []
+                    'links' => [],
+                    'meta' => []
                 ]
             );
     }
@@ -140,16 +157,19 @@ class ArticleControllerTest extends TestCase
     {
         $this->actingAs($admin);
 
+        $lang = Language::factory()->create();
+
         $payload = [
             'title' => 'Article 1',
             'description' => 'This is my article description',
             'body' => 'Hello this my body',
-            'language_id' => 1
+            'language_id' => $lang->id
         ];
 
-        $res = $this->json('POST', "/api/articles")
+        $res = $this->json('POST', "/api/articles", $payload)
             ->assertStatus(201);
 
+        $this->assertEquals(Str::slug($payload['title'], '-'), $res['slug']);
         $this->assertDatabaseHas('articles', $payload);
 
         return $res->decodeResponseJson();

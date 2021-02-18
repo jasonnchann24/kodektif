@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,18 +22,11 @@ class RoleCheck
             return response(['error' => 'Not authenticated'], 401);
         }
 
-        $roleIds = config('constants.role_ids');
-        $allowedRoleIds = [];
-        foreach ($roles as $role) {
-            if (isset($roleIds[$role])) {
-                $allowedRoleIds[] = $roleIds[$role];
-            }
-        }
-        $allowedRoleIds = array_unique($allowedRoleIds);
-
-        $userRoles = Auth::user()->roles;
+        $userId = Auth::id();
+        $user = User::find($userId);
+        $userRoles = $user->roles()->get();
         foreach ($userRoles as $userRole) {
-            if (in_array($userRole->id, $allowedRoleIds)) {
+            if (in_array($userRole->name, $roles)) {
                 return $next($request);
             }
         }

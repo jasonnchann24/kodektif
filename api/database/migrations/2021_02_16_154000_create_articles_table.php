@@ -21,7 +21,7 @@ class CreateArticlesTable extends Migration
             $table->text('description');
             $table->longText('body');
             $table->string('slug', 1500);
-            $table->bigInteger('likes_count');
+            $table->bigInteger('likes_count')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });
