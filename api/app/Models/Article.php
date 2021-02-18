@@ -36,4 +36,9 @@ class Article extends Model
     {
         return $this->belongsToMany(Category::class);
     }
+
+    public function likes()
+    {
+        return $this->hasMany(ArticleLike::class);
+    }
 }

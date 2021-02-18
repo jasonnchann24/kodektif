@@ -66,6 +66,11 @@ class User extends Authenticatable
         return $this->hasMany(Article::class);
     }
 
+    public function articleLikes()
+    {
+        return $this->hasMany(ArticleLike::class);
+    }
+
     public function is($roleName)
     {
         foreach ($this->roles()->get() as $userRole) {
