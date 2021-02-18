@@ -14,7 +14,7 @@ class ArticleControllerTest extends TestCase
     use RefreshDatabase, CreateUserTrait;
 
     /** @test */
-    public function non_admin_user_can_not_access_store_update_article_apis()
+    public function non_admin_user_can_not_access_store_update_delete_article_apis()
     {
 
         $admin = $this->createAdminUser();

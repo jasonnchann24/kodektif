@@ -28,8 +28,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('logout', [LoginController::class, 'logout']);
-    Route::post('suspend-user/{id}', [SuspendController::class, 'suspendUser']);
-    Route::post('unsuspend-user/{id}', [SuspendController::class, 'unSuspendUser']);
+
+    Route::post('suspend-user', [SuspendController::class, 'store'])->name('suspend.user');
+    Route::delete('unsuspend-user/{id}', [SuspendController::class, 'destroy'])->name('unsuspend.user');
 });
 
 Route::apiResource('user-profiles', UserProfileController::class)->except(['index', 'destroy']);
