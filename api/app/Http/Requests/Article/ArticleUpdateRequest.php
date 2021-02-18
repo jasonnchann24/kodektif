@@ -28,7 +28,8 @@ class ArticleUpdateRequest extends FormRequest
             'title' => 'sometimes|string|max:512',
             'description' => 'sometimes|string|max:1500',
             'body' => 'sometimes|string',
-            'language_id' => 'sometimes|exists:languages,id'
+            'language_id' => 'sometimes|exists:languages,id',
+            'categories' => 'sometimes|array'
         ];
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Article;
 
+use App\Http\Resources\CategoryResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ArticleResource extends JsonResource
@@ -23,6 +24,7 @@ class ArticleResource extends JsonResource
             'created_at' => $this->created_at,
             'likes_count' => 0,
             'author' => $this->user->name,
+            'categories' => CategoryResource::collection($this->categories)
         ];
     }
 }

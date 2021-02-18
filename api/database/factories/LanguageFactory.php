@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Language;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 class LanguageFactory extends Factory
 {
@@ -21,7 +22,7 @@ class LanguageFactory extends Factory
      */
     public function definition()
     {
-        $code = $this->faker->languageCode;
+        $code = $this->faker->languageCode . Str::random(2);
         $name = $code . " name";
         return [
             'name' => $name,

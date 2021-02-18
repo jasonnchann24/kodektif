@@ -19,7 +19,7 @@ class Article extends Model
     ];
 
     protected $with = [
-        'user'
+        'user', 'categories'
     ];
 
     public function user()
@@ -30,5 +30,10 @@ class Article extends Model
     public function language()
     {
         return $this->belongsTo(Language::class);
+    }
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class);
     }
 }

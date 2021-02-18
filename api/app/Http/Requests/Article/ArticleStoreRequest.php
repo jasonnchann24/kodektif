@@ -27,7 +27,8 @@ class ArticleStoreRequest extends FormRequest
             'title' => 'required|string|max:512',
             'description' => 'required|string|max:1500',
             'body' => 'required|string',
-            'language_id' => 'required|exists:languages,id'
+            'language_id' => 'required|exists:languages,id',
+            'categories' => 'required|array'
         ];
     }
 
@@ -42,6 +43,7 @@ class ArticleStoreRequest extends FormRequest
             'title.required' => 'A title is required',
             'description.required' => 'A description is required',
             'body.required' => 'A message is required',
+            'categories.required' => 'Categories required',
             'language_id.exists' => 'Language not exists.'
         ];
     }

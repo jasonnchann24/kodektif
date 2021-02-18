@@ -3,9 +3,13 @@
 namespace Tests\Feature\Http\Controllers\Article;
 
 use App\Models\Article;
+use App\Models\Category;
 use App\Models\Language;
+use Database\Seeders\CategorySeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Routing\Middleware\ThrottleRequests;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Tests\TestCase;
@@ -48,7 +52,8 @@ class ArticleControllerTest extends TestCase
         $article = $this->createArticle($admin);
 
         $updatePayload = [
-            'title' => 'Yes, updated'
+            'title' => 'Yes, updated',
+            'categories' => [1]
         ];
 
         $this->actingAs($admin)
@@ -56,7 +61,11 @@ class ArticleControllerTest extends TestCase
             ->assertStatus(200)
             ->assertJsonFragment(['title' => $updatePayload['title']]);
 
-        $this->assertDatabaseHas('articles', $updatePayload);
+        $this->assertDatabaseHas('articles', ['title' => $updatePayload['title']]);
+        $this->assertDatabaseHas('article_category', [
+            'article_id' => $article['id'],
+            'category_id' => $updatePayload['categories'][0]
+        ]);
     }
 
     /** @test */
@@ -129,7 +138,13 @@ class ArticleControllerTest extends TestCase
     public function all_user_can_list_paginated_articles()
     {
         $admin = $this->createAdminUser();
-        Article::factory()->count(40)->for($admin)->create();
+
+        $this->withoutMiddleware(
+            ThrottleRequests::class
+        );
+        for ($i = 0; $i <= 30; $i++) {
+            $this->createArticle($admin);
+        }
 
         Auth::logout();
 
@@ -144,7 +159,14 @@ class ArticleControllerTest extends TestCase
                             'description',
                             'slug',
                             'likes_count',
-                            'author'
+                            'author',
+                            'categories' => [
+                                0 => [
+                                    'id',
+                                    'name',
+                                    'parent_id'
+                                ]
+                            ]
                         ]
                     ],
                     'links' => [],
@@ -158,19 +180,34 @@ class ArticleControllerTest extends TestCase
         $this->actingAs($admin);
 
         $lang = Language::factory()->create();
+        $categories = Category::all();
+
+        if ($categories->count() < 1) {
+            $this->seed(CategorySeeder::class);
+            $categories = Category::all();
+        }
+
+        $pickedCategories = $categories->where('parent_id', '!=', null)
+            ->random(random_int(1, 2))
+            ->pluck('id')
+            ->toArray();
 
         $payload = [
             'title' => 'Article 1',
             'description' => 'This is my article description',
             'body' => 'Hello this my body',
-            'language_id' => $lang->id
+            'language_id' => $lang->id,
+            'categories' => $pickedCategories
         ];
 
         $res = $this->json('POST', "/api/articles", $payload)
             ->assertStatus(201);
 
         $this->assertEquals(Str::slug($payload['title'], '-'), $res['slug']);
-        $this->assertDatabaseHas('articles', $payload);
+        $this->assertDatabaseHas('articles', Arr::except($payload, ['categories']));
+
+        $article = Article::find($res['id']);
+        $this->assertTrue($article->categories()->exists());
 
         return $res->decodeResponseJson();
     }

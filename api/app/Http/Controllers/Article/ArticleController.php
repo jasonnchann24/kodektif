@@ -9,7 +9,9 @@ use App\Http\Resources\Article\ArticleResource;
 use App\Models\Article;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
 
 class ArticleController extends Controller
@@ -26,7 +28,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        return ArticleResource::collection(
+        return  ArticleResource::collection(
             Article::paginate(30)
         );
     }
@@ -40,9 +42,26 @@ class ArticleController extends Controller
     public function store(ArticleStoreRequest $request)
     {
         $validated = $request->validated();
+        $newArticle = Arr::except($validated, ['categories']);
+        $newCategories = $validated['categories'];
 
-        $article = $this->user->articles()
-            ->create($validated);
+        try {
+            DB::beginTransaction();
+
+            $article = $this->user->articles()
+                ->create($newArticle);
+
+            $article->categories()
+                ->sync($newCategories);
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            return Response::json([
+                'error' => $e->getMessage()
+            ], $e->status ?? 500);
+        }
 
         return Response::json($article, 201);
     }
@@ -70,8 +89,26 @@ class ArticleController extends Controller
         $validated = $request->validated();
         $this->authorize('update', $article);
 
-        $article->update($validated);
-        $article->save();
+
+
+        try {
+            DB::beginTransaction();
+
+            $article->update(Arr::except($validated, ['categories']));
+
+            $article->categories()
+                ->sync($validated['categories']);
+
+            $article->save();
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            return Response::json([
+                'error' => $e->getMessage()
+            ], $e->status ?? 500);
+        }
 
         return (new ArticleResource($article))
             ->response()
