@@ -4,6 +4,7 @@ use App\Http\Controllers\Article\ArticleController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\MeController;
 use App\Http\Controllers\SuspendController;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Resources\User\UserResource;
@@ -23,9 +24,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return new UserResource(Auth::user());
-});
+Route::middleware('auth:sanctum')->get('/user', MeController::class);
+
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('logout', [LoginController::class, 'logout']);
 
