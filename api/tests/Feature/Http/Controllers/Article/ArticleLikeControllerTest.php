@@ -89,6 +89,45 @@ class ArticleLikeControllerTest extends TestCase
         $this->assertEquals(1, $like->count());
     }
 
+    /** @test */
+    public function add_article_likes_count_when_user_liked()
+    {
+        $user = $this->createBasicUser();
+        $article = $this->getOneArticle();
+
+        $targetArticle = Article::find($article->id);
+        $previousLikesCount = $targetArticle->likes_count;
+
+        $this->likeArticle($user, $article);
+
+        $updatedArticle = Article::find($article->id);
+        $this->assertTrue(
+            $previousLikesCount + 1 == $updatedArticle->likes_count,
+            'Likes count in article not added.'
+        );
+    }
+
+    /** @test */
+    public function subtract_article_likes_count_when_user_unliked()
+    {
+        $user = $this->createBasicUser();
+        $article = $this->getOneArticle();
+
+
+        $like = $this->likeArticle($user, $article);
+        $targetArticle = Article::find($article->id);
+        $previousLikesCount = $targetArticle->likes_count;
+
+        $this->actingAs($user)
+            ->json('DELETE', '/api/article-likes/' . $like->id);
+
+        $updatedArticle = Article::find($article->id);
+        $this->assertTrue(
+            $previousLikesCount - 1 == $updatedArticle->likes_count,
+            'Likes count in article not subtracted.'
+        );
+    }
+
     protected function getOneArticle(): Article
     {
         $article = Article::all()->random(1)->first();

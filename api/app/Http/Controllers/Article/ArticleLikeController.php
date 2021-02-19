@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Article;
 
+use App\Events\ArticleLikedEvent;
+use App\Events\ArticleUnlikedEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Article\ArticleLikeStoreRequest;
+use App\Models\Article;
 use App\Models\ArticleLike;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,6 +26,11 @@ class ArticleLikeController extends Controller
 
         $like = ArticleLike::firstOrCreate($validated);
 
+        if ($like->wasRecentlyCreated) {
+            $article = Article::find($validated['article_id']);
+            ArticleLikedEvent::dispatch($article);
+        }
+
         return Response::json($like, 201);
     }
 
@@ -34,7 +42,12 @@ class ArticleLikeController extends Controller
      */
     public function destroy(ArticleLike $articleLike)
     {
+        $articleId = $articleLike->article_id;
+        $article = Article::find($articleId);
+        ArticleUnlikedEvent::dispatch($article);
+
         $articleLike->delete();
+
         return Response::json('', 204);
     }
 }

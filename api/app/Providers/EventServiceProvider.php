@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Events\ArticleLikedEvent;
+use App\Events\ArticleUnlikedEvent;
+use App\Listeners\ArticleLikedListener;
+use App\Listeners\ArticleUnlikedListener;
 use App\Models\Article;
 use App\Observers\ArticleObserver;
 use Illuminate\Auth\Events\Registered;
@@ -20,6 +24,14 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+
+        ArticleLikedEvent::class => [
+            ArticleLikedListener::class
+        ],
+
+        ArticleUnlikedEvent::class => [
+            ArticleUnlikedListener::class
+        ]
     ];
 
     /**
