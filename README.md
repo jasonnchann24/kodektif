@@ -9,24 +9,26 @@
   <img src="https://github.com/Jchann24/kodektif/workflows/DEV-API-CI/badge.svg?branch=dev"> 
 </p>
 
-> **En** : Kodektif is an open - source web application about programming, with friendly community for learning, discuss, and more.
+> **en** : Kodektif is an open - source web application about programming, with friendly community for learning, discuss, and more.
 
-> **Id** : Kodektif merupakan aplikasi berbasis sumber terbuka seputar pemograman dengan komunitas yang ramah untuk pembelajaran, diskusi, dan lain-lain. 
+> **id** : Kodektif merupakan aplikasi berbasis sumber terbuka seputar pemograman dengan komunitas yang ramah untuk pembelajaran, diskusi, dan lain-lain. 
 
 
 ------------
 
 # About
-**En** : Kodektif mission is mainly to help beginners to learn, discuss about programming for free ( in many languages ), especially for people who are still hard in English language. This platform is developed in Indonesia. So in the meantime, this platform is meant to support English and Indonesian language.
+**en** : Kodektif mission is mainly to help beginners to learn, discuss about programming for free ( in many languages ), especially for people who are still hard in English language. This platform is developed in Indonesia. So in the meantime, this platform is meant to support English and Indonesian language.
 
 Kodektif hopes this platform can be useful for newcomers - advanced programmers.
 
 # To do
 WIP
 
-# Development
-WIP
+# Development Updates
+**en** : Kodektif is still in API development phase.
 
 # Contributing
-WIP
-  
+**en** : Kodektif won't accept any PRs until it is officially release for beta testing. Feel free to star this repository for further notices. However, kodektif is accepting any design, mock-ups UI, etc. related to front-end design. Please submit an issue to suggest any designs or ask any questions. 😁
+
+# Tech Stacks
+**en** : Kodektif API is powered by Laravel Framework. Kodektif front-end is powered by NuxtJs. RDMS using MySQL.
