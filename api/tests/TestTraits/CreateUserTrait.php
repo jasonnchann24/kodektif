@@ -17,9 +17,15 @@ trait CreateUserTrait
     public function createAdminUser(): User
     {
         $user = User::factory()->create();
-        $role = Role::create([
-            'name' => 'admin'
-        ]);
+        $role = Role::firstOrCreate(
+            [
+                'id' => 1,
+                'name' => 'admin'
+            ],
+            [
+                'name' => 'admin'
+            ]
+        );
         $user->roles()->sync([$role->id]);
 
         return $user;

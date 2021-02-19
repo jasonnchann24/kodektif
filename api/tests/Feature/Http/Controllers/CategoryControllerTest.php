@@ -87,5 +87,38 @@ class CategoryControllerTest extends TestCase
                     'parent_id' => $category->id
                 ]
             );
+
+        $this->assertDatabaseHas('categories', $data);
+    }
+
+    /** @test */
+    public function can_not_create_not_exists_parent_category()
+    {
+        $user = $this->createAdminUser();
+        $category = Category::factory()->create();
+        $categoryTwo = Category::factory()->create();
+
+        $data = ['name' => 'new not exists parent category.', 'parent_id' => 999];
+
+        $this->actingAs($user)
+            ->json('POST', '/api/categories', $data)
+            ->assertStatus(422);
+
+        $this->assertDatabaseMissing('categories', $data);
+    }
+
+    /** @test */
+    public function can_not_update_category_with_not_exists_parent_category()
+    {
+        $user = $this->createAdminUser();
+        $category = Category::factory()->create();
+
+        $data = ['parent_id' => 999];
+
+        $this->actingAs($user)
+            ->json('PATCH', '/api/categories/' . $category->id, $data)
+            ->assertStatus(422);
+
+        $this->assertDatabaseMissing('categories', $data);
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DefaultWebController;
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,9 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', DefaultWebController::class);
 
 Route::middleware(['web'])->group(function () {
     Route::get('login/{provider}', [LoginController::class, 'redirectToProvider']);

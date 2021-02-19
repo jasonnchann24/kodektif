@@ -15,4 +15,9 @@ class Language extends Model
         'iso_639_1',
         'slug'
     ];
+
+    public function articles()
+    {
+        return $this->hasMany(Article::class);
+    }
 }

@@ -13,8 +13,9 @@ class SuspendController extends Controller
         $this->middleware('only.admin');
     }
 
-    public function suspendUser($id)
+    public function store(Request $request)
     {
+        $id = $request->get('id');
         $this->handleSuspend($id, true);
         return Response::json(
             ['message' => 'Suspended'],
@@ -22,7 +23,7 @@ class SuspendController extends Controller
         );
     }
 
-    public function unSuspendUser($id)
+    public function destroy($id)
     {
         $this->handleSuspend($id, false);
         return Response::json(

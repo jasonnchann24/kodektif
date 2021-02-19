@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\Article\ArticleController;
+use App\Http\Controllers\Article\ArticleLikeController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\MeController;
 use App\Http\Controllers\SuspendController;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Resources\User\UserResource;
@@ -22,15 +25,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return new UserResource(Auth::user());
-});
+Route::middleware('auth:sanctum')->get('/user', MeController::class);
+
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('logout', [LoginController::class, 'logout']);
-    Route::post('suspend-user/{id}', [SuspendController::class, 'suspendUser']);
-    Route::post('unsuspend-user/{id}', [SuspendController::class, 'unSuspendUser']);
+
+    Route::post('suspend-user', [SuspendController::class, 'store'])->name('suspend.user');
+    Route::delete('unsuspend-user/{id}', [SuspendController::class, 'destroy'])->name('unsuspend.user');
+    Route::apiResource('article-likes', ArticleLikeController::class)->except(['index', 'update', 'show']);
 });
 
 Route::apiResource('user-profiles', UserProfileController::class)->except(['index', 'destroy']);
 Route::apiResource('categories', CategoryController::class);
 Route::apiResource('languages', LanguageController::class);
+
+Route::get('/articles/{article}/{slug}', [ArticleController::class, 'show'])->name('articles.show');
+Route::apiResource('articles', ArticleController::class)->except(['show']);
