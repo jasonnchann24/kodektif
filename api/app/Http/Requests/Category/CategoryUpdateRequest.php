@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Category;
 
+use App\Rules\CategorySavingRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CategoryUpdateRequest extends FormRequest
@@ -25,7 +26,11 @@ class CategoryUpdateRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
-            'parent_id' => 'nullable|numeric'
+            'parent_id' => [
+                'nullable',
+                'numeric',
+                new CategorySavingRule()
+            ]
         ];
     }
 }

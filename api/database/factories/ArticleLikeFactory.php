@@ -29,7 +29,9 @@ class ArticleLikeFactory extends Factory
         do {
             $randomUser = $users->random(1)->first();
             $randomArticle = $articles->random(1)->first();
-            $likes = ArticleLike::where('user_id', $randomUser->id)->where('article_id', $randomArticle->id)->get();
+            $likes = ArticleLike::where('user_id', $randomUser->id)
+                ->where('article_id', $randomArticle->id)
+                ->get();
         } while ($likes->count() > 0);
 
         $article = Article::find($randomArticle->id);

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Article\ArticleController;
+use App\Http\Controllers\Article\ArticleLikeController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\LoginController;
@@ -31,6 +32,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::post('suspend-user', [SuspendController::class, 'store'])->name('suspend.user');
     Route::delete('unsuspend-user/{id}', [SuspendController::class, 'destroy'])->name('unsuspend.user');
+    Route::apiResource('article-likes', ArticleLikeController::class)->except(['index', 'update', 'show']);
 });
 
 Route::apiResource('user-profiles', UserProfileController::class)->except(['index', 'destroy']);

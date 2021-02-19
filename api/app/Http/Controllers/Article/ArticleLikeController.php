@@ -3,53 +3,27 @@
 namespace App\Http\Controllers\Article;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Article\ArticleLikeStoreRequest;
 use App\Models\ArticleLike;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Response;
 
 class ArticleLikeController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\Article\ArticleLikeStoreRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ArticleLikeStoreRequest $request)
     {
-        //
-    }
+        $validated = $request->validated();
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\ArticleLike  $articleLike
-     * @return \Illuminate\Http\Response
-     */
-    public function show(ArticleLike $articleLike)
-    {
-        //
-    }
+        $like = ArticleLike::firstOrCreate($validated);
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\ArticleLike  $articleLike
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, ArticleLike $articleLike)
-    {
-        //
+        return Response::json($like, 201);
     }
 
     /**
@@ -60,6 +34,7 @@ class ArticleLikeController extends Controller
      */
     public function destroy(ArticleLike $articleLike)
     {
-        //
+        $articleLike->delete();
+        return Response::json('', 204);
     }
 }

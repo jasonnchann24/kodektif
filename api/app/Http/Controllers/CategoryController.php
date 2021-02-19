@@ -41,10 +41,6 @@ class CategoryController extends Controller
     public function store(CategoryStoreRequest $request)
     {
         $validated = $request->validated();
-
-        if ($validated['parent_id'] != null) {
-            Category::findOrFail($validated['parent_id']);
-        }
         $category = Category::create($validated);
         return Response::json($category, 201);
     }
@@ -70,12 +66,7 @@ class CategoryController extends Controller
     public function update(CategoryUpdateRequest $request, Category $category)
     {
         $validated = $request->validated();
-        if ($validated['parent_id']) {
-            Category::findOrFail($validated['parent_id']);
-        }
-
         $category->update($validated);
-
         return Response::json($category, 200);
     }
 

@@ -32,11 +32,11 @@ class ArticleLikeControllerTest extends TestCase
     /** @test */
     public function non_authenticated_user_can_not_access_these_apis()
     {
-        $this->json('POST', "/api/artice-likes", ['article_id' => -1])
-            ->assertStatus(403);
+        $this->json('POST', "/api/article-likes", ['article_id' => -1])
+            ->assertStatus(401);
 
         $this->json('DELETE', "/api/article-likes/-1")
-            ->assertStatus(403);
+            ->assertStatus(401);
     }
 
     /** @test */
