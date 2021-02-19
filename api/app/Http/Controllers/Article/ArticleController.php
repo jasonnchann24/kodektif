@@ -89,8 +89,6 @@ class ArticleController extends Controller
         $validated = $request->validated();
         $this->authorize('update', $article);
 
-
-
         try {
             DB::beginTransaction();
 

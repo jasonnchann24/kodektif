@@ -27,13 +27,10 @@ class UserProfileController extends Controller
     {
         $validated = $request->validated();
 
-        $userId = Auth::user()->id;
-        $validated['user_id'] = $userId;
+        $user = authUser();
 
-        $userProfile = UserProfile::firstOrCreate(
-            ['user_id' => $userId],
-            $validated
-        );
+        $userProfile = $user->profile()
+            ->create($validated);
 
         return Response::json(
             new UserProfileResource($userProfile),
