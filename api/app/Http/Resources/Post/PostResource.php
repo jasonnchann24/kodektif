@@ -25,7 +25,8 @@ class PostResource extends JsonResource
             'upvote_count' => $this->upvote_count,
             'downvote_count' => $this->downvote_count,
             'author' => $this->user->name,
-            'categories' => CategoryResource::collection($this->categories)
+            'categories' => CategoryResource::collection($this->categories),
+            'has_voted' => $this->has_voted
         ];
     }
 }

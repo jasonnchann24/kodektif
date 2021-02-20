@@ -40,19 +40,21 @@ class PostVoteControllerTest extends TestCase
     /** @test */
     public function non_authenticated_user_can_not_access_post_vote_apis()
     {
-
+        $user = $this->createBasicUser();
         $post = $this->getOnePost();
 
-        $this->postJson(route('post-votes.store'), ['post_id' => $post->id, 'upvote' => false])
-            ->assertStatus(403);
+        $this->postJson(route('post-votes.store'), [
+            'post_id' => $post->id, 'upvote' => false
+        ])->assertStatus(401);
 
         $postVote = PostVote::factory([
-            'user_id' => 1,
+            'user_id' => $user->id,
             'post_id' => $post->id
         ])->create();
 
-        $this->deleteJson(route('post-votes.destroy', ['post_vote' => $postVote->id]))
-            ->assertStatus(403);
+        $this->deleteJson(route('post-votes.destroy', [
+            'post_vote' => $postVote->id
+        ]))->assertStatus(401);
     }
 
     /** @test */
@@ -64,16 +66,19 @@ class PostVoteControllerTest extends TestCase
 
         $post = $this->getOnePost();
 
-        $this->postJson(route('post-votes.store'), ['post_id' => $post->id, 'upvote' => false])
-            ->assertStatus(403);
+        $this->postJson(route('post-votes.store'), [
+            'post_id' => $post->id,
+            'upvote' => false
+        ])->assertStatus(403);
 
         $postVote = PostVote::factory([
-            'user_id' => 1,
+            'user_id' => $user->id,
             'post_id' => $post->id
         ])->create();
 
-        $this->deleteJson(route('post-votes.destroy', ['post_vote' => $postVote->id]))
-            ->assertStatus(403);
+        $this->deleteJson(route('post-votes.destroy', [
+            'post_vote' => $postVote->id
+        ]))->assertStatus(403);
     }
 
     /** @test */
@@ -137,8 +142,9 @@ class PostVoteControllerTest extends TestCase
         $postVote = $this->votePost($user, $post, true);
 
         $this->actingAs($user)
-            ->deleteJson(route('post-votes.destroy', ['post_vote' => $postVote->id]))
-            ->assertStatus(204);
+            ->deleteJson(route('post-votes.destroy', [
+                'post_vote' => $postVote->id
+            ]))->assertStatus(204);
 
         $this->assertDatabaseMissing('post_votes', [
             'user_id' => $user->id,
@@ -180,12 +186,14 @@ class PostVoteControllerTest extends TestCase
         $postVote = $this->votePost($user, $post, true);
 
         $this->actingAs($userTwo)
-            ->patchJson(route('post-votes.update', ['post_vote' => $postVote->id]))
-            ->assertStatus(403);
+            ->patchJson(route('post-votes.update', [
+                'post_vote' => $postVote->id
+            ]), ['upvote' => false])->assertStatus(403);
 
         $this->actingAs($userTwo)
-            ->deleteJson(route('post-votes.destroy', ['post_vote' => $postVote->id]))
-            ->assertStatus(403);
+            ->deleteJson(route('post-votes.destroy', [
+                'post_vote' => $postVote->id
+            ]))->assertStatus(403);
 
         $this->assertDatabaseHas('post_votes', [
             'user_id' => $user->id,
@@ -197,11 +205,12 @@ class PostVoteControllerTest extends TestCase
     /** @test */
     public function post_upvote_count_must_be_updated()
     {
+
         $user = $this->createBasicUser();
         $post = $this->getOnePost();
         $postVote = $this->votePost($user, $post, true);
 
-        $post = $this->posts->find($post->id);
+        $post = Post::find($post->id);
         $this->assertEquals(1, $post->upvote_count, 'upvote count not updating');
     }
 
@@ -212,7 +221,7 @@ class PostVoteControllerTest extends TestCase
         $post = $this->getOnePost();
         $postVote = $this->votePost($user, $post, false);
 
-        $post = $this->posts->find($post->id);
+        $post = Post::find($post->id);
         $this->assertEquals(1, $post->downvote_count, 'downvote count not updating');
     }
 
@@ -224,8 +233,8 @@ class PostVoteControllerTest extends TestCase
         $postVote = $this->votePost($user, $post, true);
 
         $this->actingAs($user)
-            ->deleteJson(route('post-votes', ['post_vote' => $postVote->id]));
-        $post = $this->posts->find($post->id);
+            ->deleteJson(route('post-votes.destroy', ['post_vote' => $postVote->id]));
+        $post = Post::find($post->id);
 
         $this->assertEquals(0, $post->upvote_count);
     }
@@ -238,8 +247,8 @@ class PostVoteControllerTest extends TestCase
         $postVote = $this->votePost($user, $post, false);
 
         $this->actingAs($user)
-            ->deleteJson(route('post-votes', ['post_vote' => $postVote->id]));
-        $post = $this->posts->find($post->id);
+            ->deleteJson(route('post-votes.destroy', ['post_vote' => $postVote->id]));
+        $post = Post::find($post->id);
 
         $this->assertEquals(0, $post->downvote_count);
     }
@@ -251,20 +260,22 @@ class PostVoteControllerTest extends TestCase
         $post = $this->getOnePost();
 
         $this->actingAs($user)
-            ->getJson(route('posts.show', ['post' => $post->id]))
+            ->getJson(route('posts.show', ['post' => $post->id, 'slug' => $post->slug]))
             ->assertJsonFragment([
-                'vote' => null
+                'has_voted' => null
             ]);
 
+        $this->assertEquals(null, $post->has_voted);
         $postVote = $this->votePost($user, $post, true);
 
         $this->actingAs($user)
-            ->getJson(route('posts.show', ['post' => $post->id]))
+            ->getJson(route('posts.show', ['post' => $post->id, 'slug' => $post->slug]))
             ->assertJsonFragment(
                 [
-                    'vote' => [
+                    'has_voted' => [
                         'id' => $postVote->id,
                         'user_id' => $user->id,
+                        'post_id' => $post->id,
                         'upvote' => true,
                     ]
                 ]

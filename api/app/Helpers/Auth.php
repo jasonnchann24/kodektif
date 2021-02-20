@@ -18,3 +18,15 @@ function authUser()
 {
     return User::find(Auth::id());
 }
+
+/**
+ * @return bool
+ */
+function userIsSupended()
+{
+    if (!authCheck()) return true;
+
+    $result = User::find(Auth::id());
+
+    return (bool)$result->is_suspended;
+}

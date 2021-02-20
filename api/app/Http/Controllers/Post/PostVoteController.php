@@ -2,54 +2,67 @@
 
 namespace App\Http\Controllers\Post;
 
+use App\Events\PostVotedEvent;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Post\PostVote\PostVoteStoreRequest;
+use App\Http\Requests\Post\PostVote\PostVoteUpdateRequest;
+use App\Models\Post;
 use App\Models\PostVote;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
 
 class PostVoteController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function __construct()
     {
-        //
+        $this->middleware('auth:sanctum');
+        $this->middleware('not.suspended');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \App\Http\Requests\Post\PostVote\PostVoteStoreRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PostVoteStoreRequest $request)
     {
-        //
-    }
+        $validated = $request->validated();
+        $postVote = PostVote::firstOrCreate(
+            [
+                'user_id' => $validated['user_id'],
+                'post_id' => $validated['post_id']
+            ],
+            [
+                'upvote' => $validated['upvote']
+            ]
+        );
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\PostVote  $postVote
-     * @return \Illuminate\Http\Response
-     */
-    public function show(PostVote $postVote)
-    {
-        //
+        if ($postVote->wasRecentlyCreated) {
+            $post = Post::find($validated['post_id']);
+            PostVotedEvent::dispatch($post, (bool)$validated['upvote']);
+        }
+
+
+        return Response::json($postVote, 201);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\Post\PostVote\PostVoteUpdateRequest  $request
      * @param  \App\Models\PostVote  $postVote
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, PostVote $postVote)
+    public function update(PostVoteUpdateRequest $request, PostVote $postVote)
     {
-        //
+        $validated = $request->validated();
+        $this->authorize('update', $postVote);
+
+        $postVote->update($validated);
+        $postVote->save();
+
+        return Response::json($postVote, 200);
     }
 
     /**
@@ -60,6 +73,15 @@ class PostVoteController extends Controller
      */
     public function destroy(PostVote $postVote)
     {
-        //
+        $this->authorize('delete', $postVote);
+
+        $direction = $postVote->upvote ? 'up' : 'down';
+        $post = Post::find($postVote->post_id);
+        $post->{$direction . 'vote_count'} = $post->{$direction . 'vote_count'} - 1;
+        $post->save();
+
+        $postVote->delete();
+
+        return Response::json('', 204);
     }
 }

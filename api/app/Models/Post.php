@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use App\Http\Resources\Post\PostVoteResource;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 
 class Post extends Model
 {
@@ -15,11 +17,13 @@ class Post extends Model
         'title',
         'description',
         'body',
-        'slug'
+        'slug',
+        'upvote_count',
+        'downvote_count'
     ];
 
     protected $with = [
-        'user', 'language', 'categories'
+        'user', 'language', 'categories', 'postVotes'
     ];
 
     public function user()
@@ -40,5 +44,14 @@ class Post extends Model
     public function postVotes()
     {
         return $this->hasMany(PostVote::class);
+    }
+
+    public function getHasVotedAttribute()
+    {
+        $postVote = $this->postVotes()
+            ->where('user_id', Auth::id())
+            ->first();
+
+        return $postVote ? new PostVoteResource($postVote) : null;
     }
 }
