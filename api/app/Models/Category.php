@@ -34,4 +34,9 @@ class Category extends Model
     {
         return $this->belongsToMany(Article::class);
     }
+
+    public function posts()
+    {
+        return $this->belongsToMany(Post::class);
+    }
 }

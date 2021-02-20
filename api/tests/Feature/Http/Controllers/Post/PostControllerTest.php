@@ -6,6 +6,8 @@ use App\Models\Category;
 use App\Models\Language;
 use App\Models\Post;
 use App\Models\User;
+use Database\Seeders\CategorySeeder;
+use Database\Seeders\LanguageSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Auth;

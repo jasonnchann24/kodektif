@@ -2,6 +2,7 @@
 
 namespace Database\Seeders\Post;
 
+use App\Models\Category;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -28,6 +29,16 @@ class PostSeeder extends Seeder
                 ->count(random_int(1, 3))
                 ->for($member)
                 ->create();
+        }
+
+        $posts = Post::all();
+        $categories = Category::where('parent_id', '!=', null)->get();
+        foreach ($posts as $post) {
+            $randomCategories = $categories
+                ->random(random_int(1, 2))
+                ->pluck('id')
+                ->toArray();
+            $post->categories()->sync($randomCategories);
         }
     }
 }

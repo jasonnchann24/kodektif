@@ -22,4 +22,14 @@ class Post extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function language()
+    {
+        return $this->belongsTo(Language::class);
+    }
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class);
+    }
 }
