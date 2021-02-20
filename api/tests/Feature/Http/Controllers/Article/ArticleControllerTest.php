@@ -173,6 +173,7 @@ class ArticleControllerTest extends TestCase
                             'description',
                             'slug',
                             'likes_count',
+                            'created_at',
                             'author',
                             'categories' => [
                                 0 => [
