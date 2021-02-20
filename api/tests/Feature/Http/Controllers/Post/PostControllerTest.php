@@ -10,6 +10,8 @@ use Database\Seeders\CategorySeeder;
 use Database\Seeders\LanguageSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Routing\Middleware\ThrottleRequests;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
 use Tests\TestTraits\CreateUserTrait;
@@ -31,13 +33,13 @@ class PostControllerTest extends TestCase
     {
 
         $this->json('POST', route('posts.store'), [])
-            ->assertStatus(403);
+            ->assertStatus(401);
 
         $this->json('PATCH', route('posts.update', ['post' => -1]), [])
-            ->assertStatus(403);
+            ->assertStatus(401);
 
         $this->json('DELETE', route('posts.destroy', ['post' => -1]))
-            ->assertStatus(403);
+            ->assertStatus(401);
     }
 
     /** @test */
@@ -46,7 +48,10 @@ class PostControllerTest extends TestCase
         $this->json('GET', route('posts.index'))
             ->assertStatus(200);
 
-        $this->json('GET', route('posts.show', ['post' => -1]))
+        $user = $this->createBasicUser();
+        $post = Post::factory()->for($user)->create();
+
+        $this->json('GET', route('posts.show', ['post' => $post->id, 'slug' => $post->slug]))
             ->assertStatus(200);
     }
 
@@ -54,6 +59,8 @@ class PostControllerTest extends TestCase
     public function suspended_user_can_not_access_store_update_delete_posts_apis()
     {
         $user = $this->createBasicUser();
+        $post = Post::factory()->for($user)->create();
+
         $suspendedUser = $this->suspendUser($user);
 
         $this->actingAs($suspendedUser);
@@ -61,16 +68,25 @@ class PostControllerTest extends TestCase
         $this->json('POST', route('posts.store'), [])
             ->assertStatus(403);
 
-        $this->json('PATCH', route('posts.update', ['post' => -1]), [])
+        $this->json('PATCH', route('posts.update', ['post' => $post->id]), [])
             ->assertStatus(403);
 
-        $this->json('DELETE', route('posts.delete', ['post' => -1]))
+        $this->json('DELETE', route('posts.destroy', ['post' => $post->id]))
             ->assertStatus(403);
     }
 
     /** @test */
     public function public_can_list_all_posts()
     {
+        $user = $this->createBasicUser();
+        $this->withoutMiddleware(
+            ThrottleRequests::class
+        );
+        for ($i = 0; $i <= 30; $i++) {
+            $this->createPost($user);
+        }
+
+
         $this->json('GET', route('posts.index'))
             ->assertStatus(200)
             ->assertJsonStructure(
@@ -81,7 +97,8 @@ class PostControllerTest extends TestCase
                             'title',
                             'description',
                             'slug',
-                            'likes_count',
+                            'upvote_count',
+                            'downvote_count',
                             'author',
                             'created_at',
                             'categories' => [
@@ -105,9 +122,7 @@ class PostControllerTest extends TestCase
         $user = $this->createBasicUser();
         $post = $this->createPost($user);
 
-        Auth::logout();
-
-        $this->json('GET', route('posts.show', ['post' => $post->id]))
+        $this->json('GET', route('posts.show', ['post' => $post->id, 'slug' => $post->slug]))
             ->assertStatus(200)
             ->assertJsonFragment([
                 'title' => $post->title,
@@ -127,6 +142,8 @@ class PostControllerTest extends TestCase
     /** @test */
     public function user_can_update_own_post()
     {
+        $this->withoutExceptionHandling();
+
         $user = $this->createBasicUser();
 
         $this->actingAs($user);
@@ -214,7 +231,11 @@ class PostControllerTest extends TestCase
             ->json('POST', route('posts.store'), $payload)
             ->assertStatus(201);
 
-        $this->assertDatabaseHas('posts', $payload);
+        $payload['user_id'] = $user->id;
+        $this->assertDatabaseHas(
+            'posts',
+            Arr::except($payload, ['categories'])
+        );
 
         $postCreated = Post::findOrFail($res['id']);
         return $postCreated;

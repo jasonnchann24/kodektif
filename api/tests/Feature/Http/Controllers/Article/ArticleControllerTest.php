@@ -128,7 +128,6 @@ class ArticleControllerTest extends TestCase
 
         Auth::logout();
 
-
         $this->json(
             'GET',
             route(

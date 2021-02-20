@@ -29,7 +29,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', MeController::class);
 
 Route::middleware(['auth:sanctum'])->group(function () {
-    Route::post('logout', [LoginController::class, 'logout']);
+    Route::post('logout', [LoginController::class, 'logout'])->name('auth.logout');
 
     Route::post('suspend-user', [SuspendController::class, 'store'])->name('suspend-user.store');
     Route::delete('unsuspend-user/{id}', [SuspendController::class, 'destroy'])->name('suspend-user.destroy');
@@ -39,7 +39,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
 Route::apiResource('user-profiles', UserProfileController::class)->except(['index', 'destroy']);
 Route::apiResource('categories', CategoryController::class);
 Route::apiResource('languages', LanguageController::class);
-Route::apiResource('posts', PostController::class);
 
+Route::get('/posts/{post}/{slug}', [PostController::class, 'show'])->name('posts.show');
+Route::apiResource('posts', PostController::class)->except('show');
 Route::get('/articles/{article}/{slug}', [ArticleController::class, 'show'])->name('articles.show');
 Route::apiResource('articles', ArticleController::class)->except(['show']);
