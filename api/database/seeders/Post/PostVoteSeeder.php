@@ -2,6 +2,9 @@
 
 namespace Database\Seeders\Post;
 
+use App\Models\Post;
+use App\Models\PostVote;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class PostVoteSeeder extends Seeder
@@ -13,6 +16,24 @@ class PostVoteSeeder extends Seeder
      */
     public function run()
     {
-        //
+        $users = User::all();
+        $posts = Post::all();
+
+        foreach ($users as $user) {
+            $randomPosts = $posts->random(random_int(1, 5));
+
+            foreach ($randomPosts as $randomPost) {
+                $voteCount = PostVote::where('user_id', $user->id)
+                    ->where('post_id', $randomPost->id)
+                    ->count();
+
+                if ($voteCount < 1) {
+                    PostVote::factory([
+                        'user_id' => $user->id,
+                        'post_id' => $randomPost->id
+                    ])->create();
+                }
+            }
+        }
     }
 }

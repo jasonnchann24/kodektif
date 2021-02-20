@@ -36,4 +36,9 @@ class Post extends Model
     {
         return $this->belongsToMany(Category::class);
     }
+
+    public function postVotes()
+    {
+        return $this->hasMany(PostVote::class);
+    }
 }

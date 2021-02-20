@@ -21,8 +21,12 @@ class PostVoteFactory extends Factory
      */
     public function definition()
     {
+        $randomVote = (bool)random_int(0, 1);
+
         return [
-            //
+            'user_id' => 0,
+            'post_id' => 0,
+            'upvote' => $randomVote
         ];
     }
 }

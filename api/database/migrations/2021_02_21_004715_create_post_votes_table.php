@@ -15,6 +15,9 @@ class CreatePostVotesTable extends Migration
     {
         Schema::create('post_votes', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('post_id')->constrained();
+            $table->boolean('upvote');
             $table->timestamps();
         });
     }

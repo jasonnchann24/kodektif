@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Database\Seeders\Article\ArticleLikeSeeder;
 use Database\Seeders\Article\ArticleSeeder;
 use Database\Seeders\Post\PostSeeder;
+use Database\Seeders\Post\PostVoteSeeder;
 use Database\Seeders\User\RoleSeeder;
 use Database\Seeders\User\UserProfileSeeder;
 use Illuminate\Database\Seeder;
@@ -24,9 +25,12 @@ class DatabaseSeeder extends Seeder
                 RoleSeeder::class,
                 CategorySeeder::class,
                 LanguageSeeder::class,
+
                 ArticleSeeder::class,
                 ArticleLikeSeeder::class,
-                PostSeeder::class
+
+                PostSeeder::class,
+                PostVoteSeeder::class
             ]);
         }
     }

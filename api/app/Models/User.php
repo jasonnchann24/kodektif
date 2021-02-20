@@ -76,6 +76,11 @@ class User extends Authenticatable
         return $this->hasMany(Post::class);
     }
 
+    public function postVotes()
+    {
+        return $this->hasMany(PostVote::class);
+    }
+
     public function is($roleName)
     {
         foreach ($this->roles()->get() as $userRole) {
