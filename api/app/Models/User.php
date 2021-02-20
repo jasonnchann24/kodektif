@@ -71,6 +71,11 @@ class User extends Authenticatable
         return $this->hasMany(ArticleLike::class);
     }
 
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
+
     public function is($roleName)
     {
         foreach ($this->roles()->get() as $userRole) {
