@@ -18,9 +18,9 @@ class SuspendControllerTest extends TestCase
         $user = $this->createBasicUser();
         $this->actingAs($user);
 
-        $this->json('POST', '/api/suspend-user')
+        $this->json('POST', route('suspend-user.store'))
             ->assertStatus(403);
-        $this->json('DELETE', '/api/unsuspend-user/1')
+        $this->json('DELETE', route('suspend-user.destroy', ['id' => -1]))
             ->assertStatus(403);
     }
 
@@ -31,7 +31,7 @@ class SuspendControllerTest extends TestCase
         $targetUser = $this->createBasicUser();
 
         $this->actingAs($admin)
-            ->json('POST', '/api/suspend-user/', ['id' => $targetUser->id])
+            ->json('POST', route('suspend-user.store'), ['id' => $targetUser->id])
             ->assertStatus(200);
 
         $result = User::find($targetUser->id);
@@ -45,7 +45,7 @@ class SuspendControllerTest extends TestCase
         $targetUser = $this->createBasicUser();
 
         $this->actingAs($admin)
-            ->json('DELETE', '/api/unsuspend-user/' . $targetUser->id)
+            ->json('DELETE', route('suspend-user.destroy', ['id' => $targetUser->id]))
             ->assertStatus(200);
 
         $result = User::find($targetUser->id);

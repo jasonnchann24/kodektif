@@ -30,8 +30,8 @@ Route::middleware('auth:sanctum')->get('/user', MeController::class);
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('logout', [LoginController::class, 'logout']);
 
-    Route::post('suspend-user', [SuspendController::class, 'store'])->name('suspend.user');
-    Route::delete('unsuspend-user/{id}', [SuspendController::class, 'destroy'])->name('unsuspend.user');
+    Route::post('suspend-user', [SuspendController::class, 'store'])->name('suspend-user.store');
+    Route::delete('unsuspend-user/{id}', [SuspendController::class, 'destroy'])->name('suspend-user.destroy');
     Route::apiResource('article-likes', ArticleLikeController::class)->except(['index', 'update', 'show']);
 });
 
