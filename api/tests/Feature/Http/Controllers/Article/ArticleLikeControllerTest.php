@@ -128,6 +128,23 @@ class ArticleLikeControllerTest extends TestCase
         );
     }
 
+    /** @test */
+    public function suspended_user_cannot_like_or_unlike_articles()
+    {
+        $user = $this->createBasicUser();
+
+        $article = $this->getOneArticle();
+        $like = $this->likeArticle($user, $article);
+
+        $this->suspendUser($user);
+
+        $this->actingAs($user);
+        $this->json('POST', route('article-likes.store', ['article_id' => $article->id]))
+            ->assertStatus(403);
+        $this->json('DELETE', route('article-likes.destroy', ['article_like' => $like->id]))
+            ->assertStatus(403);
+    }
+
     protected function getOneArticle(): Article
     {
         $article = Article::all()->random(1)->first();

@@ -14,6 +14,14 @@ trait CreateUserTrait
         return $user;
     }
 
+    public function suspendUser(User $user): User
+    {
+        $user->is_suspended = true;
+        $user->save();
+
+        return $user;
+    }
+
     public function createAdminUser(): User
     {
         $user = User::factory()->create();

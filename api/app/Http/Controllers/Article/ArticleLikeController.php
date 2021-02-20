@@ -14,6 +14,11 @@ use Illuminate\Support\Facades\Response;
 
 class ArticleLikeController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('not.suspended');
+    }
     /**
      * Store a newly created resource in storage.
      *
