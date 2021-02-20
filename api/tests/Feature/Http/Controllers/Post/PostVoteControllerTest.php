@@ -244,6 +244,33 @@ class PostVoteControllerTest extends TestCase
         $this->assertEquals(0, $post->downvote_count);
     }
 
+    /** @test */
+    public function post_must_return_if_current_user_has_voted_or_not()
+    {
+        $user = $this->createBasicUser();
+        $post = $this->getOnePost();
+
+        $this->actingAs($user)
+            ->getJson(route('posts.show', ['post' => $post->id]))
+            ->assertJsonFragment([
+                'vote' => null
+            ]);
+
+        $postVote = $this->votePost($user, $post, true);
+
+        $this->actingAs($user)
+            ->getJson(route('posts.show', ['post' => $post->id]))
+            ->assertJsonFragment(
+                [
+                    'vote' => [
+                        'id' => $postVote->id,
+                        'user_id' => $user->id,
+                        'upvote' => true,
+                    ]
+                ]
+            );
+    }
+
     protected function getOnePost(): Post
     {
         return $this->posts->random(1)->first();
