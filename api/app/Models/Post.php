@@ -18,6 +18,10 @@ class Post extends Model
         'slug'
     ];
 
+    protected $with = [
+        'user', 'language', 'categories'
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);

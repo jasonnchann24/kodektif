@@ -19,7 +19,7 @@ class Article extends Model
     ];
 
     protected $with = [
-        'user', 'categories'
+        'user', 'categories', 'language'
     ];
 
     public function user()
