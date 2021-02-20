@@ -32,10 +32,10 @@ class ArticleLikeControllerTest extends TestCase
     /** @test */
     public function non_authenticated_user_can_not_access_these_apis()
     {
-        $this->json('POST', "/api/article-likes", ['article_id' => -1])
+        $this->json('POST', route('article-likes.store'), ['article_id' => -1])
             ->assertStatus(401);
 
-        $this->json('DELETE', "/api/article-likes/-1")
+        $this->json('DELETE', route('article-likes.destroy', ['article_like' => -1]))
             ->assertStatus(401);
     }
 
@@ -64,7 +64,7 @@ class ArticleLikeControllerTest extends TestCase
 
         $like = $this->likeArticle($user, $article);
 
-        $this->json('DELETE', "/api/article-likes/{$like->id}")
+        $this->json('DELETE', route('article-likes.destroy', ['article_like' => $like->id]))
             ->assertStatus(204);
 
         $this->assertDatabaseMissing(
@@ -119,7 +119,7 @@ class ArticleLikeControllerTest extends TestCase
         $previousLikesCount = $targetArticle->likes_count;
 
         $this->actingAs($user)
-            ->json('DELETE', '/api/article-likes/' . $like->id);
+            ->json('DELETE', route('article-likes.destroy', ['article_like' => $like->id]));
 
         $updatedArticle = Article::find($article->id);
         $this->assertTrue(
@@ -138,7 +138,7 @@ class ArticleLikeControllerTest extends TestCase
     {
         $this->actingAs($user);
 
-        $res = $this->json('POST', '/api/article-likes', ['article_id' => $article->id])
+        $res = $this->json('POST', route('article-likes.store'), ['article_id' => $article->id])
             ->assertStatus(201);
 
         $this->assertDatabaseHas('article_likes', [
