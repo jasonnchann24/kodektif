@@ -28,10 +28,21 @@ class PostVoteSeeder extends Seeder
                     ->count();
 
                 if ($voteCount < 1) {
+                    $randomVote = (bool)random_int(0, 1);
+
                     PostVote::factory([
                         'user_id' => $user->id,
-                        'post_id' => $randomPost->id
+                        'post_id' => $randomPost->id,
+                        'upvote' => $randomVote
                     ])->create();
+
+                    $post = $posts->find($randomPost->id);
+
+                    $randomVote ?
+                        $post->upvote_count = $post->upvote_count + 1 :
+                        $post->downvote_count = $post->downvote_count + 1;
+
+                    $post->save();
                 }
             }
         }
