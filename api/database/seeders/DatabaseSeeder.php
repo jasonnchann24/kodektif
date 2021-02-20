@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use Database\Seeders\Article\ArticleLikeSeeder;
+use Database\Seeders\Article\ArticleSeeder;
 use Database\Seeders\Post\PostSeeder;
 use Database\Seeders\User\RoleSeeder;
 use Database\Seeders\User\UserProfileSeeder;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\Article;
 
 use App\Models\ArticleLike;
 use Illuminate\Database\Seeder;

@@ -4,7 +4,7 @@ namespace Tests\Feature\Http\Controllers\Article;
 
 use App\Models\Article;
 use App\Models\ArticleLike;
-use Database\Seeders\ArticleSeeder;
+use Database\Seeders\Article\ArticleSeeder;
 use Database\Seeders\CategorySeeder;
 use Database\Seeders\LanguageSeeder;
 use Database\Seeders\User\RoleSeeder;
