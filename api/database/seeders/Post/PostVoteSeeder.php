@@ -1,0 +1,18 @@
+<?php
+
+namespace Database\Seeders\Post;
+
+use Illuminate\Database\Seeder;
+
+class PostVoteSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        //
+    }
+}
