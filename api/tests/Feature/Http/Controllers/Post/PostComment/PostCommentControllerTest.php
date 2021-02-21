@@ -5,8 +5,14 @@ namespace Tests\Feature\Http\Controllers\Post\PostComment;
 use App\Models\Post;
 use App\Models\Post\PostComment\PostComment;
 use App\Models\User;
+use Database\Seeders\CategorySeeder;
+use Database\Seeders\LanguageSeeder;
+use Database\Seeders\Post\PostSeeder;
+use Database\Seeders\User\RoleSeeder;
+use Database\Seeders\User\UserProfileSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Routing\Middleware\ThrottleRequests;
 use Tests\TestCase;
 use Tests\TestTraits\CreateUserTrait;
 
@@ -29,6 +35,7 @@ class PostCommentControllerTest extends TestCase
         ]);
 
         $this->posts = Post::all();
+        $this->withoutMiddleware(ThrottleRequests::class);
     }
 
     /** @test */
@@ -44,11 +51,21 @@ class PostCommentControllerTest extends TestCase
     /** @test */
     public function suspended_user_can_not_access_these_post_comment_apis()
     {
+        $user = $this->createBasicUser();
+        $post = $this->getOnePost();
+
+        $postComment = $this->createComment($user, $post);
+
+        $this->suspendUser($user);
+
+        $this->actingAs($user);
         $this->postJson(route('post-comments.store'))
             ->assertStatus(403);
 
-        $this->deleteJson(route('post-comments.destroy', ['post_comment' => -1]))
-            ->assertStatus(403);
+        $this->deleteJson(route(
+            'post-comments.destroy',
+            ['post_comment' => $postComment->id]
+        ))->assertStatus(403);
     }
 
     /** @test */
@@ -57,16 +74,6 @@ class PostCommentControllerTest extends TestCase
         $user = $this->createBasicUser();
         $post = $this->getOnePost();
         $this->createComment($user, $post);
-    }
-
-    /** @test */
-    public function user_can_not_spam_comment_more_than_1_per_3_minutes()
-    {
-        $user = $this->createBasicUser();
-        $post = $this->getOnePost();
-        $this->createComment($user, $post);
-        $this->createComment($user, $post)
-            ->assertStatus(429);
     }
 
     /** @test */
@@ -86,6 +93,23 @@ class PostCommentControllerTest extends TestCase
         $this->assertSoftDeleted('post_comments', [
             'id' => $postComment->id
         ]);
+    }
+
+    /** @test */
+    public function user_can_not_delete_others_comment()
+    {
+        $userOne = $this->createBasicUser();
+        $userTwo = $this->createBasicUser();
+        $post = $this->getOnePost();
+
+        $postComment = $this->createComment($userOne, $post);
+
+        $this->actingAs($userTwo)
+            ->deleteJson(route('post-comments.destroy', [
+                'post_comment' => $postComment->id
+            ]))->assertStatus(403);
+
+        $this->assertDatabaseHas('post_comments', ['id' => $postComment->id]);
     }
 
 

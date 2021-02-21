@@ -3,53 +3,30 @@
 namespace App\Http\Controllers\Post\PostComment;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Post\PostComment\PostCommentStoreRequest;
 use App\Models\Post\PostComment\PostComment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
 
 class PostCommentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function __construct()
     {
-        //
+        $this->middleware(['auth:sanctum', 'throttle:post-comments', 'not.suspended']);
     }
-
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\Post\PostComment\PostCommentStoreRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PostCommentStoreRequest $request)
     {
-        //
-    }
+        $validated = $request->validated();
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Post\PostComment\PostComment  $postComment
-     * @return \Illuminate\Http\Response
-     */
-    public function show(PostComment $postComment)
-    {
-        //
-    }
+        $postComment = PostComment::create($validated);
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Post\PostComment\PostComment  $postComment
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, PostComment $postComment)
-    {
-        //
+        return Response::json($postComment, 201);
     }
 
     /**
@@ -60,6 +37,8 @@ class PostCommentController extends Controller
      */
     public function destroy(PostComment $postComment)
     {
-        //
+        $this->authorize('delete', $postComment);
+        $postComment->delete();
+        return Response::json('', 204);
     }
 }

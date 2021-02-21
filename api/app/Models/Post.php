@@ -24,7 +24,7 @@ class Post extends Model
     ];
 
     protected $with = [
-        'user', 'language', 'categories', 'postVotes'
+        'user', 'language', 'categories', 'postVotes', 'postComments'
     ];
 
     public function user()
