@@ -6,6 +6,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MeController;
+use App\Http\Controllers\Post\MyPostController;
 use App\Http\Controllers\Post\PostController;
 use App\Http\Controllers\Post\PostVoteController;
 use App\Http\Controllers\SuspendController;
@@ -44,6 +45,7 @@ Route::apiResource('languages', LanguageController::class);
 Route::get('/posts/{post}/{slug}', [PostController::class, 'show'])->name('posts.show');
 Route::apiResource('posts', PostController::class)->except('show');
 Route::apiResource('post-votes', PostVoteController::class)->except(['index', 'show']);
+Route::get('/my-posts', MyPostController::class)->name('my-posts');
 
 Route::get('/articles/{article}/{slug}', [ArticleController::class, 'show'])->name('articles.show');
 Route::apiResource('articles', ArticleController::class)->except(['show']);
