@@ -31,11 +31,6 @@ class ArticleLikeController extends Controller
 
         $like = ArticleLike::firstOrCreate($validated);
 
-        if ($like->wasRecentlyCreated) {
-            $article = Article::find($validated['article_id']);
-            ArticleLikedEvent::dispatch($article);
-        }
-
         return Response::json($like, 201);
     }
 
@@ -47,10 +42,6 @@ class ArticleLikeController extends Controller
      */
     public function destroy(ArticleLike $articleLike)
     {
-        $articleId = $articleLike->article_id;
-        $article = Article::find($articleId);
-        ArticleUnlikedEvent::dispatch($article);
-
         $articleLike->delete();
 
         return Response::json('', 204);

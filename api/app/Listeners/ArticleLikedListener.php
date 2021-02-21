@@ -28,7 +28,7 @@ class ArticleLikedListener implements ShouldQueue
     {
         $article = $event->article;
 
-        $article->likes_count = $article->likes_count + 1;
+        $article->likes_count += 1;
         $article->save();
     }
 }

@@ -9,9 +9,13 @@ use App\Listeners\ArticleLikedListener;
 use App\Listeners\ArticleUnlikedListener;
 use App\Listeners\PostVotedListener;
 use App\Models\Article;
+use App\Models\ArticleLike;
 use App\Models\Post;
+use App\Models\PostVote;
+use App\Observers\ArticleLikeObserver;
 use App\Observers\ArticleObserver;
 use App\Observers\PostObeserver;
+use App\Observers\PostVoteObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -33,10 +37,6 @@ class EventServiceProvider extends ServiceProvider
             ArticleLikedListener::class
         ],
 
-        ArticleUnlikedEvent::class => [
-            ArticleUnlikedListener::class
-        ],
-
         PostVotedEvent::class => [
             PostVotedListener::class
         ]
@@ -50,6 +50,8 @@ class EventServiceProvider extends ServiceProvider
     public function boot()
     {
         Article::observe(ArticleObserver::class);
+        ArticleLike::observe(ArticleLikeObserver::class);
         Post::observe(PostObeserver::class);
+        PostVote::observe(PostVoteObserver::class);
     }
 }

@@ -38,12 +38,6 @@ class PostVoteController extends Controller
             ]
         );
 
-        if ($postVote->wasRecentlyCreated) {
-            $post = Post::find($validated['post_id']);
-            PostVotedEvent::dispatch($post, (bool)$validated['upvote']);
-        }
-
-
         return Response::json($postVote, 201);
     }
 
@@ -74,11 +68,6 @@ class PostVoteController extends Controller
     public function destroy(PostVote $postVote)
     {
         $this->authorize('delete', $postVote);
-
-        $direction = $postVote->upvote ? 'up' : 'down';
-        $post = Post::find($postVote->post_id);
-        $post->{$direction . 'vote_count'} = $post->{$direction . 'vote_count'} - 1;
-        $post->save();
 
         $postVote->delete();
 

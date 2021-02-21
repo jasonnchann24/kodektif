@@ -42,6 +42,7 @@ class ArticleLikeControllerTest extends TestCase
     /** @test */
     public function user_can_like_article()
     {
+        $this->withoutExceptionHandling();
         $user = $this->createBasicUser();
         $article = $this->getOneArticle();
 
