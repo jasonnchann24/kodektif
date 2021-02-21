@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1613932463">
-  <project timestamp="1613932463">
+<coverage generated="1613939020">
+  <project timestamp="1613939020">
+    <file name="D:\Code\ProjectCode\kodektif\api\app\Console\Commands\GenerateCoverage.php">
+      <class name="App\Console\Commands\GenerateCoverage" namespace="global">
+        <metrics complexity="4" methods="2" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="7" coveredstatements="1" elements="9" coveredelements="2"/>
+      </class>
+      <line num="29" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="44"/>
+      <line num="31" type="stmt" count="44"/>
+      <line num="39" type="method" name="handle" visibility="public" complexity="3" crap="12" count="0"/>
+      <line num="41" type="stmt" count="0"/>
+      <line num="42" type="stmt" count="0"/>
+      <line num="44" type="stmt" count="0"/>
+      <line num="45" type="stmt" count="0"/>
+      <line num="46" type="stmt" count="0"/>
+      <line num="48" type="stmt" count="0"/>
+      <metrics loc="52" ncloc="32" classes="1" methods="2" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="7" coveredstatements="1" elements="9" coveredelements="2"/>
+    </file>
     <file name="D:\Code\ProjectCode\kodektif\api\app\Console\Kernel.php">
       <class name="App\Console\Kernel" namespace="global">
         <metrics complexity="2" methods="2" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="2" elements="5" coveredelements="3"/>
@@ -1164,6 +1179,6 @@
       <line num="44" type="stmt" count="2"/>
       <metrics loc="46" ncloc="29" classes="1" methods="2" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="6" coveredstatements="5" elements="8" coveredelements="6"/>
     </file>
-    <metrics files="85" loc="3844" ncloc="2723" classes="76" methods="216" coveredmethods="127" conditionals="0" coveredconditionals="0" statements="563" coveredstatements="421" elements="779" coveredelements="548"/>
+    <metrics files="86" loc="3896" ncloc="2755" classes="77" methods="218" coveredmethods="128" conditionals="0" coveredconditionals="0" statements="570" coveredstatements="422" elements="788" coveredelements="550"/>
   </project>
 </coverage>
