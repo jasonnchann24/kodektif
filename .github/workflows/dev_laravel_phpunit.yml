@@ -1,4 +1,4 @@
-name: DEV-API-CI
+name: dev build
 on: 
   push:
     branches: [ dev ]

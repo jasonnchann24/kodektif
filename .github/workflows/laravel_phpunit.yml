@@ -1,4 +1,4 @@
-name: MAIN-API-CI
+name: main build
 on: 
   push:
     branches: [ main ]
