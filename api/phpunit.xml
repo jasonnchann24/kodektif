@@ -12,14 +12,11 @@
             <directory suffix="Test.php">./tests/Feature</directory>
         </testsuite>
     </testsuites>
-    <coverage processUncoveredFiles="true">
+    <coverage processUncoveredFiles="false">
         <include>
-            <directory suffix=".php">./app</directory>
+            <directory suffix=".php">./app/Http/Controllers/Article</directory>
         </include>
 
-        <blacklist>
-            <directory suffix=".php">./vendor</directory>
-        </blacklist>
         <report>
             <clover outputFile="clover.xml"/>
         </report>
