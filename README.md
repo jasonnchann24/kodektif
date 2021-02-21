@@ -7,6 +7,9 @@
 <p align="center">
   <img src="https://github.com/Jchann24/kodektif/workflows/MAIN-API-CI/badge.svg?branch=main">
   <img src="https://github.com/Jchann24/kodektif/workflows/DEV-API-CI/badge.svg?branch=dev"> 
+  <a href="https://codecov.io/gh/Jchann24/kodektif">
+    <img src="https://codecov.io/gh/Jchann24/kodektif/branch/dev/graph/badge.svg?token=66JPCYDYCC"/>
+  </a>
 </p>
 
 > **en** : Kodektif is an open - source web application about programming, with friendly community for learning, discuss, and more.
