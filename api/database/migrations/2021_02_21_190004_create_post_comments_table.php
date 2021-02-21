@@ -15,7 +15,15 @@ class CreatePostCommentsTable extends Migration
     {
         Schema::create('post_comments', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('post_id')->constrained('posts');
+            $table->longText('body');
+            $table->json('mentions');
+            $table->bigInteger('upvote_count')->default(0);
+            $table->bigInteger('downvote_count')->default(0);
             $table->timestamps();
+
+            $table->softDeletes();
         });
     }
 

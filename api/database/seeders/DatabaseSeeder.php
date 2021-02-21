@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Database\Seeders\Article\ArticleLikeSeeder;
 use Database\Seeders\Article\ArticleSeeder;
+use Database\Seeders\Post\PostComment\PostCommentSeeder;
 use Database\Seeders\Post\PostSeeder;
 use Database\Seeders\Post\PostVoteSeeder;
 use Database\Seeders\User\RoleSeeder;
@@ -30,7 +31,8 @@ class DatabaseSeeder extends Seeder
                 ArticleLikeSeeder::class,
 
                 PostSeeder::class,
-                PostVoteSeeder::class
+                PostVoteSeeder::class,
+                PostCommentSeeder::class
             ]);
         }
     }

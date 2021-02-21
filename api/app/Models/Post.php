@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Http\Resources\Post\PostVoteResource;
+use App\Models\Post\PostComment\PostComment;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -44,6 +45,11 @@ class Post extends Model
     public function postVotes()
     {
         return $this->hasMany(PostVote::class);
+    }
+
+    public function postComments()
+    {
+        return $this->hasMany(PostComment::class);
     }
 
     public function getHasVotedAttribute()
