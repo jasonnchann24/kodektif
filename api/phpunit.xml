@@ -16,6 +16,13 @@
         <include>
             <directory suffix=".php">./app</directory>
         </include>
+
+        <blacklist>
+            <directory suffix=".php">./vendor</directory>
+        </blacklist>
+        <report>
+            <clover outputFile="clover.xml"/>
+        </report>
     </coverage>
     <php>
         <server name="APP_ENV" value="testing"/>
