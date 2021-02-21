@@ -13,6 +13,7 @@ use Database\Seeders\User\UserProfileSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Routing\Middleware\ThrottleRequests;
+use Illuminate\Support\Arr;
 use Tests\TestCase;
 use Tests\TestTraits\CreateUserTrait;
 
@@ -127,7 +128,7 @@ class PostCommentControllerTest extends TestCase
         $payload = [
             'post_id' => $post->id,
             'body' => 'Hello, this is my comment.',
-            'mentions' => "[1, 2]"
+            'mentions' => json_encode([1, 2])
         ];
         $response = $this->postJson(route('post-comments.store'), $payload)
             ->assertStatus(201)
@@ -139,7 +140,7 @@ class PostCommentControllerTest extends TestCase
             );
 
         $payload['user_id'] = $user->id;
-        $this->assertDatabaseHas('post_comments', $payload);
+        $this->assertDatabaseHas('post_comments', Arr::except($payload, ['mentions']));
 
         $postComment = PostComment::findOrFail($response['id']);
         return $postComment;
