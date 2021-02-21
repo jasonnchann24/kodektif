@@ -45,12 +45,12 @@ jobs:
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
         run: |
           php artisan migrate
-          vendor/phpunit/phpunit/phpunit --coverage-clover coverage.xml
+          phpdbg -qrr vendor/phpunit/phpunit/phpunit
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          file: ./coverage.xml
+          file: ./clover.xml
           flags: tests
           name: codecov-umbrella
           fail_ci_if_error: true
