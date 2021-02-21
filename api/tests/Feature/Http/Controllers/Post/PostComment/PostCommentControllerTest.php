@@ -127,7 +127,7 @@ class PostCommentControllerTest extends TestCase
         $payload = [
             'post_id' => $post->id,
             'body' => 'Hello, this is my comment.',
-            'mentions' => json_encode([1, 2])
+            'mentions' => "[1, 2]"
         ];
         $response = $this->postJson(route('post-comments.store'), $payload)
             ->assertStatus(201)
