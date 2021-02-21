@@ -50,7 +50,7 @@ jobs:
         uses: codecov/codecov-action@v1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          file: ./clover.xml
+          file: clover.xml
           flags: tests
           name: codecov-umbrella
           fail_ci_if_error: true
