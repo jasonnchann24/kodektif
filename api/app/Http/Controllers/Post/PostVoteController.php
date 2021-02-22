@@ -15,6 +15,7 @@ class PostVoteController extends Controller
     {
         $this->middleware('auth:sanctum');
         $this->middleware('not.suspended');
+        $this->middleware('throttle:tight-throttle');
     }
 
     /**

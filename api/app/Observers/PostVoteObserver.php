@@ -28,7 +28,16 @@ class PostVoteObserver
      */
     public function updated(PostVote $postVote)
     {
-        //
+        $direction = $postVote->upvote;
+        $post = Post::find($postVote->post_id);
+        if ($direction) {
+            $post->upvote_count += 1;
+            $post->downvote_count -= 1;
+        } else {
+            $post->downvote_count += 1;
+            $post->upvote_count -= 1;
+        }
+        $post->save();
     }
 
     /**

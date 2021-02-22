@@ -8,6 +8,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MeController;
 use App\Http\Controllers\Post\MyPostController;
 use App\Http\Controllers\Post\PostComment\PostCommentController;
+use App\Http\Controllers\Post\PostComment\PostCommentVoteController;
 use App\Http\Controllers\Post\PostController;
 use App\Http\Controllers\Post\PostVoteController;
 use App\Http\Controllers\SuspendController;
@@ -47,7 +48,8 @@ Route::get('/posts/{post}/{slug}', [PostController::class, 'show'])->name('posts
 Route::apiResource('posts', PostController::class)->except('show');
 Route::apiResource('post-votes', PostVoteController::class)->except(['index', 'show']);
 Route::get('/my-posts', MyPostController::class)->name('my-posts');
-Route::apiResource('post-comments', PostCommentController::class)->except(['update', 'index', 'show']);
+Route::apiResource('post-comments', PostCommentController::class)->except(['update', 'index']);
+Route::apiResource('post-comment-votes', PostCommentVoteController::class)->except(['index', 'show']);
 
 
 Route::get('/articles/{article}/{slug}', [ArticleController::class, 'show'])->name('articles.show');

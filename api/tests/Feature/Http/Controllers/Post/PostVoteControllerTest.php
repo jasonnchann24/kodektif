@@ -13,6 +13,7 @@ use Database\Seeders\User\RoleSeeder;
 use Database\Seeders\User\UserProfileSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Routing\Middleware\ThrottleRequests;
 use Tests\TestCase;
 use Tests\TestTraits\CreateUserTrait;
 
@@ -35,6 +36,7 @@ class PostVoteControllerTest extends TestCase
         ]);
 
         $this->posts = Post::all();
+        $this->withoutMiddleware(ThrottleRequests::class);
     }
 
     /** @test */
@@ -223,6 +225,23 @@ class PostVoteControllerTest extends TestCase
 
         $post = Post::find($post->id);
         $this->assertEquals(1, $post->downvote_count, 'downvote count not updating');
+    }
+
+    /** @test */
+    public function post_vote_count_must_be_adjusted_when_update()
+    {
+        $user = $this->createBasicUser();
+        $post = $this->getOnePost();
+        $postVote = $this->votePost($user, $post, false);
+
+        $this->actingAs($user)
+            ->patchJson(route('post-votes.update', ['post_vote' => $postVote->id]), [
+                'upvote' => true
+            ]);
+
+        $post = Post::find($post->id);
+        $this->assertEquals(0, $post->downvote_count);
+        $this->assertEquals(1, $post->upvote_count);
     }
 
     /** @test */
