@@ -2,10 +2,12 @@
 
 namespace App\Models\Post\PostComment;
 
+use App\Http\Resources\Post\PostComment\PostCommentVoteResource;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 
 class PostComment extends Model
 {
@@ -20,6 +22,10 @@ class PostComment extends Model
         'downvote_count'
     ];
 
+    protected $with = [
+        'user', 'postCommentVotes'
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -28,5 +34,21 @@ class PostComment extends Model
     public function post()
     {
         return $this->belongsTo(Post::class);
+    }
+
+    public function postCommentVotes()
+    {
+        return $this->hasMany(PostCommentVote::class);
+    }
+
+    public function getHasVotedAttribute()
+    {
+        $postCommentVote = $this->postCommentVotes()
+            ->where('user_id', Auth::id())
+            ->first();
+
+        return $postCommentVote
+            ? new PostCommentVoteResource($postCommentVote)
+            : null;
     }
 }

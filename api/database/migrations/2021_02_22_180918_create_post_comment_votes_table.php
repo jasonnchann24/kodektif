@@ -15,6 +15,9 @@ class CreatePostCommentVotesTable extends Migration
     {
         Schema::create('post_comment_votes', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('post_comment_id')->constrained('post_comments');
+            $table->boolean('upvote');
             $table->timestamps();
         });
     }

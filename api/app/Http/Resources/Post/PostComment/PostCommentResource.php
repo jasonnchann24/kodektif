@@ -25,7 +25,8 @@ class PostCommentResource extends JsonResource
             'mentions' => $this->mentions,
             'upvote_count' => $this->upvote_count,
             'downvote_count' => $this->downvote_count,
-            'created_at' => $this->created_at
+            'created_at' => $this->created_at,
+            'has_voted' => $this->has_voted
         ];
     }
 }
