@@ -3,8 +3,8 @@
 namespace App\Observers;
 
 use App\Events\PostVotedEvent;
-use App\Models\Post;
-use App\Models\PostVote;
+use App\Models\Post\Post;
+use App\Models\Post\PostVote;
 
 class PostVoteObserver
 {

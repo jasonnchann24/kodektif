@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\Post\Post;
 use App\Models\Post\PostComment\PostComment;
+use App\Models\Post\PostVote;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;

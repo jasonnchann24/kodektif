@@ -1,8 +1,8 @@
 <?php
 
-namespace Database\Factories;
+namespace Database\Factories\Post;
 
-use App\Models\PostVote;
+use App\Models\Post\PostVote;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class PostVoteFactory extends Factory

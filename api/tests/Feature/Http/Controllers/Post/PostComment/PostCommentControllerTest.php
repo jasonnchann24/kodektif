@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Http\Controllers\Post\PostComment;
 
-use App\Models\Post;
+use App\Models\Post\Post;
 use App\Models\Post\PostComment\PostComment;
 use App\Models\User;
 use Database\Seeders\CategorySeeder;

@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\Models\PostVote;
+use App\Models\Post\PostVote;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 

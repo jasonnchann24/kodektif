@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers\Post;
 
-use App\Events\PostVotedEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Post\PostVote\PostVoteStoreRequest;
 use App\Http\Requests\Post\PostVote\PostVoteUpdateRequest;
-use App\Models\Post;
-use App\Models\PostVote;
+use App\Models\Post\PostVote;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 

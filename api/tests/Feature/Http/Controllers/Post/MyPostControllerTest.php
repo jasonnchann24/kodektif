@@ -4,7 +4,7 @@ namespace Tests\Feature\Http\Controllers\Post;
 
 use App\Models\Category;
 use App\Models\Language;
-use App\Models\Post;
+use App\Models\Post\Post;
 use App\Models\User;
 use Database\Seeders\CategorySeeder;
 use Database\Seeders\LanguageSeeder;
@@ -36,6 +36,7 @@ class MyPostControllerTest extends TestCase
     /** @test */
     public function user_can_list_their_own_posts()
     {
+        $this->withoutExceptionHandling();
         $user = $this->createBasicUser();
 
         $this->actingAs($user);

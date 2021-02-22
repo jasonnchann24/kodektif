@@ -2,7 +2,7 @@
 
 namespace App\Observers;
 
-use App\Models\Post;
+use App\Models\Post\Post;
 use Illuminate\Support\Str;
 
 class PostObeserver

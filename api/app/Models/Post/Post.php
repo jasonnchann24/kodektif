@@ -1,9 +1,12 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Post;
 
 use App\Http\Resources\Post\PostVoteResource;
+use App\Models\Category;
+use App\Models\Language;
 use App\Models\Post\PostComment\PostComment;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
