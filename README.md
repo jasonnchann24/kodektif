@@ -5,7 +5,9 @@
 </p>
 
 <p align="center">
-  <img src="https://github.com/Jchann24/kodektif/workflows/MAIN-API-CI/badge.svg?branch=main">
+  <a href="https://github.com/Jchann24/kodektif/actions/workflows/laravel_phpunit.yml">
+    <img src="https://github.com/Jchann24/kodektif/actions/workflows/laravel_phpunit.yml/badge.svg?branch=main">
+  </a>
   <a href="https://github.com/Jchann24/kodektif/actions/workflows/dev_laravel_phpunit.yml">
     <img src="https://github.com/Jchann24/kodektif/actions/workflows/dev_laravel_phpunit.yml/badge.svg?branch=dev">
   </a>
