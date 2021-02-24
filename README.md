@@ -14,6 +14,18 @@
   <a href="https://codecov.io/gh/Jchann24/kodektif">
     <img src="https://codecov.io/gh/Jchann24/kodektif/branch/dev/graph/badge.svg?token=66JPCYDYCC"/>
   </a>
+  <a href="https://opensource.org/licenses/BSD-3-Clause">
+    <img src="https://img.shields.io/badge/License-BSD%203--Clause-blue.svg"/>
+  </a>
+</p>
+
+<p align="center">
+  <a href="https://laravel.com">
+    <img src="https://img.shields.io/badge/api%20framework-laravel-red?logo=laravel" />
+  </a>
+  <a href="https://nuxtjs.org">
+    <img src="https://img.shields.io/badge/frontend%20framework-nuxtjs-success?logo=nuxt.js" />
+  </a>
 </p>
 
 > **en** : Kodektif is an open - source web application about programming, with friendly community for learning, discuss, and more.
