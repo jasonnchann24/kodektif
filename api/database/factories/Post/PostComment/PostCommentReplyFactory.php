@@ -22,7 +22,10 @@ class PostCommentReplyFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'user_id' => 0,
+            'post_comment_id' => 0,
+            'body' => $this->faker->randomHtml(),
+            'mentions' => '[json_array_user_id]',
         ];
     }
 }

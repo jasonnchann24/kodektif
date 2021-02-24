@@ -41,6 +41,11 @@ class PostComment extends Model
         return $this->hasMany(PostCommentVote::class);
     }
 
+    public function postCommentReplies()
+    {
+        return $this->hasMany(PostCommentReply::class);
+    }
+
     public function getHasVotedAttribute()
     {
         $postCommentVote = $this->postCommentVotes()
