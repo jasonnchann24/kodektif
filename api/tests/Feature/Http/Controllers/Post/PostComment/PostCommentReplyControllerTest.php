@@ -14,6 +14,7 @@ use Database\Seeders\User\UserProfileSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Routing\Middleware\ThrottleRequests;
+use Illuminate\Support\Arr;
 use Tests\TestCase;
 use Tests\TestTraits\CreateUserTrait;
 
@@ -84,7 +85,7 @@ class PostCommentReplyControllerTest extends TestCase
 
         $this->createOneReply($user, $payload);
         $payload['user_id'] = $user->id;
-        $this->assertDatabaseHas('post_comment_replies', $payload);
+        $this->assertDatabaseHas('post_comment_replies', Arr::except($payload, ['mentions']));
     }
 
     /** @test */
