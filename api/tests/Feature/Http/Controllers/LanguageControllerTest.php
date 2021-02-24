@@ -22,13 +22,13 @@ class LanguageControllerTest extends TestCase
 
         $this->actingAs($user);
 
-        $this->json('POST', '/api/languages', [])
+        $this->json('POST', route('languages.store'), [])
             ->assertStatus(403);
 
-        $this->json('PATCH', "/api/languages/{$lang->id}", [])
+        $this->json('PATCH', route('languages.update', ['language' => $lang->id]), [])
             ->assertStatus(403);
 
-        $this->json('DELETE', "/api/languages/{$lang->id}")
+        $this->json('DELETE', route('languages.destroy', ['language' => $lang->id]))
             ->assertStatus(403);
     }
 
@@ -36,7 +36,7 @@ class LanguageControllerTest extends TestCase
     public function can_list_all_languages()
     {
         Language::factory()->create();
-        $this->json('GET', '/api/languages')
+        $this->json('GET', route('languages.index'))
             ->assertStatus(200)
             ->assertJsonStructure(
                 [
@@ -66,7 +66,7 @@ class LanguageControllerTest extends TestCase
         $this->actingAs($admin);
 
 
-        $this->json('POST', '/api/languages', $payload)
+        $this->json('POST', route('languages.store'), $payload)
             ->assertStatus(201);
 
         $this->assertDatabaseHas('languages', $payload);
@@ -81,7 +81,7 @@ class LanguageControllerTest extends TestCase
         $lang = Language::factory()->create();
         $payload = ['name' => 'updated language.'];
 
-        $this->json('PATCH', "/api/languages/{$lang->id}", $payload)
+        $this->json('PATCH', route('languages.update', ['language' => $lang->id]), $payload)
             ->assertStatus(200);
 
         $this->assertDatabaseHas('languages', $payload);
@@ -99,7 +99,7 @@ class LanguageControllerTest extends TestCase
         ];
 
         $lang = Language::create($payload);
-        $this->json('DELETE', "/api/languages/{$lang->id}")
+        $this->json('DELETE', route('languages.destroy', ['language' => $lang->id]))
             ->assertStatus(204);
 
         $this->assertSoftDeleted($lang);

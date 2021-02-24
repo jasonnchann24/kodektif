@@ -17,7 +17,7 @@ class EnsureUserNotSuspended
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::check() && Auth::user()->is_suspended == 0) {
+        if (!userIsSupended()) {
             return $next($request);
         }
         return response(

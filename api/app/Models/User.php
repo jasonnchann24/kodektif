@@ -2,6 +2,10 @@
 
 namespace App\Models;
 
+use App\Models\Post\Post;
+use App\Models\Post\PostComment\PostComment;
+use App\Models\Post\PostComment\PostCommentReply;
+use App\Models\Post\PostVote;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -69,6 +73,26 @@ class User extends Authenticatable
     public function articleLikes()
     {
         return $this->hasMany(ArticleLike::class);
+    }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
+
+    public function postVotes()
+    {
+        return $this->hasMany(PostVote::class);
+    }
+
+    public function postComments()
+    {
+        return $this->hasMany(PostComment::class);
+    }
+
+    public function postCommentReplies()
+    {
+        return $this->hasMany(PostCommentReply::class);
     }
 
     public function is($roleName)

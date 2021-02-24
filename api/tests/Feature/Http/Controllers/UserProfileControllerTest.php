@@ -16,10 +16,10 @@ class UserProfileControllerTest extends TestCase
     /** @test */
     public function non_authenticated_user_can_not_access_these_apis()
     {
-        $store = $this->json('POST', '/api/user-profiles');
+        $store = $this->json('POST', route('user-profiles.store'));
         $store->assertStatus(401);
 
-        $put = $this->json('PATCH', '/api/user-profiles/-1');
+        $put = $this->json('PATCH', route('user-profiles.update', ['user_profile' => -1]));
         $put->assertStatus(401);
     }
 
@@ -38,7 +38,7 @@ class UserProfileControllerTest extends TestCase
         $user = $this->createBasicUser();
         $data = $this->createUserProfile($user);
 
-        $this->json('GET', '/api/user-profiles/' . $data['id'])
+        $this->json('GET', route('user-profiles.show', ['user_profile' => $data['id']]))
             ->assertStatus(200)
             ->assertJsonFragment(['user_id' => $user->id]);
     }
@@ -52,7 +52,7 @@ class UserProfileControllerTest extends TestCase
             'about' => 'Updated About'
         ];
         $this->actingAs($user)
-            ->json('PATCH', '/api/user-profiles/' . $profile['id'], $updateData)
+            ->json('PATCH', route('user-profiles.update', ['user_profile' => $profile['id']]), $updateData)
             ->assertStatus(200)
             ->assertJsonFragment(['about' => $updateData['about']]);
 
@@ -70,7 +70,7 @@ class UserProfileControllerTest extends TestCase
         ];
 
         $this->actingAs($user1)
-            ->json('PATCH', '/api/user-profiles/' . $profile2['id'], $updateData)
+            ->json('PATCH', route('user-profiles.update', ['user_profile' => $profile2['id']]), $updateData)
             ->assertStatus(403);
 
         $this->assertDatabaseMissing('user_profiles', $updateData);
@@ -85,7 +85,7 @@ class UserProfileControllerTest extends TestCase
 
         $this->actingAs($user);
 
-        $this->json('POST', '/api/user-profiles')
+        $this->json('POST', route('user-profiles.store'))
             ->assertStatus(403);
     }
 
@@ -100,7 +100,7 @@ class UserProfileControllerTest extends TestCase
         $this->actingAs($user);
         $this->json(
             'PATCH',
-            '/api/user-profiles/' . $profile['id'],
+            route('user-profiles.update', ['user_profile' => $profile['id']]),
             ['about' => 'still can update']
         )
             ->assertStatus(403);
@@ -118,7 +118,7 @@ class UserProfileControllerTest extends TestCase
         ];
 
         $res = $this->actingAs($user)
-            ->json('POST', '/api/user-profiles', $data)
+            ->json('POST', route('user-profiles.store'), $data)
             ->assertStatus(201);
 
         return $res->decodeResponseJson();

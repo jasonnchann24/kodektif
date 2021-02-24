@@ -23,24 +23,9 @@ class ArticleLikeFactory extends Factory
      */
     public function definition()
     {
-        $users = User::all();
-        $articles = Article::all();
-
-        do {
-            $randomUser = $users->random(1)->first();
-            $randomArticle = $articles->random(1)->first();
-            $likes = ArticleLike::where('user_id', $randomUser->id)
-                ->where('article_id', $randomArticle->id)
-                ->get();
-        } while ($likes->count() > 0);
-
-        $article = Article::find($randomArticle->id);
-        $article->likes_count = $article->likes_count + 1;
-        $article->save();
-
         return [
-            'user_id' => $randomUser->id,
-            'article_id' => $randomArticle->id
+            'user_id' => 0,
+            'article_id' => 0
         ];
     }
 }

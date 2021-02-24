@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\Article;
 
 use App\Models\Article;
 use App\Models\Category;
@@ -35,7 +35,9 @@ class ArticleSeeder extends Seeder
         $articles = Article::all();
         $categories = Category::where('parent_id', '!=', null)->get();
         foreach ($articles as $article) {
-            $randomCategories = $categories->random(random_int(1, 2))->pluck('id')->toArray();
+            $randomCategories = $categories->random(random_int(1, 2))
+                ->pluck('id')
+                ->toArray();
             $article->categories()->sync($randomCategories);
         }
     }

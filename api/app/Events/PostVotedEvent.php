@@ -7,24 +7,25 @@ use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class ArticleUnlikedEvent
+class PostVotedEvent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $article;
+    public $post;
+    public $upVote;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($article)
+    public function __construct($post, $upVote)
     {
-        $this->article = $article;
+        $this->post = $post;
+        $this->upVote = $upVote;
     }
 
     /**
@@ -34,6 +35,6 @@ class ArticleUnlikedEvent
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('article-unliked.' . $this->article->id);
+        return new PrivateChannel('post-voted.' . $this->post->id);
     }
 }

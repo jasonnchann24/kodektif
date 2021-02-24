@@ -1,4 +1,4 @@
-name: DEV-API-CI
+name: dev build
 on: 
   push:
     branches: [ dev ]
@@ -26,6 +26,8 @@ jobs:
           --health-retries=3
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 2
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
@@ -45,4 +47,11 @@ jobs:
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
         run: |
           php artisan migrate
-          vendor/phpunit/phpunit/phpunit
+          phpdbg -qrr vendor/phpunit/phpunit/phpunit
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: ./api/clover.xml
+          flags: api
+          name: codecov-kodektif

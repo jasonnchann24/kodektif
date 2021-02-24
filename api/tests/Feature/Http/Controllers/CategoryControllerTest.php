@@ -22,9 +22,9 @@ class CategoryControllerTest extends TestCase
         $category = Category::factory()->create();
         $this->actingAs($user);
 
-        $this->json('POST', '/api/categories')
+        $this->json('POST', route('categories.store'))
             ->assertStatus(403);
-        $this->json('PATCH', '/api/categories/' . $category->id)
+        $this->json('PATCH', route('categories.update', ['category' => $category->id]))
             ->assertStatus(403);
     }
 
@@ -33,7 +33,7 @@ class CategoryControllerTest extends TestCase
     {
         Category::factory()->count(2)->create();
 
-        $this->json('GET', '/api/categories')
+        $this->json('GET', route('categories.index'))
             ->assertStatus(200)
             ->assertJsonStructure(
                 [
@@ -60,7 +60,7 @@ class CategoryControllerTest extends TestCase
         ];
 
         $this->actingAs($user)
-            ->json('POST', '/api/categories', $payload)
+            ->json('POST', route('categories.store'), $payload)
             ->assertStatus(201);
 
         $this->assertDatabaseHas('categories', [
@@ -79,7 +79,7 @@ class CategoryControllerTest extends TestCase
 
 
         $this->actingAs($user)
-            ->json('PATCH', '/api/categories/' . $categoryTwo->id, $data)
+            ->json('PATCH', route('categories.update', ['category' => $categoryTwo->id]), $data)
             ->assertStatus(200)
             ->assertJson(
                 [
@@ -101,7 +101,7 @@ class CategoryControllerTest extends TestCase
         $data = ['name' => 'new not exists parent category.', 'parent_id' => 999];
 
         $this->actingAs($user)
-            ->json('POST', '/api/categories', $data)
+            ->json('POST', route('categories.store'), $data)
             ->assertStatus(422);
 
         $this->assertDatabaseMissing('categories', $data);
@@ -116,7 +116,7 @@ class CategoryControllerTest extends TestCase
         $data = ['parent_id' => 999];
 
         $this->actingAs($user)
-            ->json('PATCH', '/api/categories/' . $category->id, $data)
+            ->json('PATCH', route('categories.update', ['category' => $category->id]), $data)
             ->assertStatus(422);
 
         $this->assertDatabaseMissing('categories', $data);

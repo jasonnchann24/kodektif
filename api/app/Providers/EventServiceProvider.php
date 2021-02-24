@@ -4,10 +4,22 @@ namespace App\Providers;
 
 use App\Events\ArticleLikedEvent;
 use App\Events\ArticleUnlikedEvent;
+use App\Events\PostCommentVotedEvent;
+use App\Events\PostVotedEvent;
 use App\Listeners\ArticleLikedListener;
 use App\Listeners\ArticleUnlikedListener;
+use App\Listeners\PostCommentVotedListener;
+use App\Listeners\PostVotedListener;
 use App\Models\Article;
+use App\Models\ArticleLike;
+use App\Models\Post\Post;
+use App\Models\Post\PostComment\PostCommentVote;
+use App\Models\Post\PostVote;
+use App\Observers\ArticleLikeObserver;
 use App\Observers\ArticleObserver;
+use App\Observers\PostCommentVoteObserver;
+use App\Observers\PostObeserver;
+use App\Observers\PostVoteObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -29,8 +41,12 @@ class EventServiceProvider extends ServiceProvider
             ArticleLikedListener::class
         ],
 
-        ArticleUnlikedEvent::class => [
-            ArticleUnlikedListener::class
+        PostVotedEvent::class => [
+            PostVotedListener::class
+        ],
+
+        PostCommentVotedEvent::class => [
+            PostCommentVotedListener::class
         ]
     ];
 
@@ -42,5 +58,9 @@ class EventServiceProvider extends ServiceProvider
     public function boot()
     {
         Article::observe(ArticleObserver::class);
+        ArticleLike::observe(ArticleLikeObserver::class);
+        Post::observe(PostObeserver::class);
+        PostVote::observe(PostVoteObserver::class);
+        PostCommentVote::observe(PostCommentVoteObserver::class);
     }
 }

@@ -27,14 +27,14 @@ class ArticleControllerTest extends TestCase
         $user = $this->createBasicUser();
         $this->actingAs($user);
 
-        $this->json('POST', '/api/articles')
+        $this->json('POST', route('articles.store'))
             ->assertStatus(403);
 
         $article = Article::factory()
             ->for($admin)
             ->create();
 
-        $this->json('PATCH', "/api/articles/{$article->id}")
+        $this->json('PATCH', route('articles.update', ['article' => $article->id]))
             ->assertStatus(403);
     }
 
@@ -57,7 +57,11 @@ class ArticleControllerTest extends TestCase
         ];
 
         $this->actingAs($admin)
-            ->json('PATCH', "/api/articles/" . $article['id'], $updatePayload)
+            ->json(
+                'PATCH',
+                route('articles.update', ['article' => $article['id']]),
+                $updatePayload
+            )
             ->assertStatus(200)
             ->assertJsonFragment(['title' => $updatePayload['title']]);
 
@@ -81,7 +85,7 @@ class ArticleControllerTest extends TestCase
         $this->actingAs($admin)
             ->json(
                 'PATCH',
-                "/api/articles/" . $article->id,
+                route('articles.update', ['article' => $article->id]),
                 $payload
             )
             ->assertStatus(403);
@@ -96,7 +100,7 @@ class ArticleControllerTest extends TestCase
         $article = $this->createArticle($admin);
 
         $this->actingAs($admin)
-            ->json('DELETE', "/api/articles/" . $article['id'])
+            ->json('DELETE', route('articles.destroy', ['article' => $article['id']]))
             ->assertStatus(204);
 
         $this->assertSoftDeleted('articles', ['id' => $article['id']]);
@@ -110,7 +114,7 @@ class ArticleControllerTest extends TestCase
         $article = $this->createArticle($admin);
 
         $this->actingAs($adminTwo)
-            ->json('DELETE', "/api/articles/" . $article['id'])
+            ->json('DELETE', route('articles.destroy', ['article' => $article['id']]))
             ->assertStatus(403);
     }
 
@@ -124,7 +128,16 @@ class ArticleControllerTest extends TestCase
 
         Auth::logout();
 
-        $this->json('GET', "/api/articles/" . $article['id'] . "/" . $article['slug'])
+        $this->json(
+            'GET',
+            route(
+                'articles.show',
+                [
+                    'article' => $article['id'],
+                    'slug' => $article['slug']
+                ]
+            )
+        )
             ->assertStatus(200)
             ->assertJsonFragment(
                 [
@@ -148,7 +161,7 @@ class ArticleControllerTest extends TestCase
 
         Auth::logout();
 
-        $this->json('GET', "/api/articles")
+        $this->json('GET', route('articles.index'))
             ->assertStatus(200)
             ->assertJsonStructure(
                 [
@@ -159,6 +172,7 @@ class ArticleControllerTest extends TestCase
                             'description',
                             'slug',
                             'likes_count',
+                            'created_at',
                             'author',
                             'categories' => [
                                 0 => [
@@ -200,7 +214,7 @@ class ArticleControllerTest extends TestCase
             'categories' => $pickedCategories
         ];
 
-        $res = $this->json('POST', "/api/articles", $payload)
+        $res = $this->json('POST', route('articles.store'), $payload)
             ->assertStatus(201);
 
         $this->assertEquals(Str::slug($payload['title'], '-'), $res['slug']);
