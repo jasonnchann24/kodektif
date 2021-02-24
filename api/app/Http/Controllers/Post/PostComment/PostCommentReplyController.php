@@ -3,53 +3,35 @@
 namespace App\Http\Controllers\Post\PostComment;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Post\PostCommentReply\PostCommentReplyStoreRequest;
 use App\Models\Post\PostComment\PostCommentReply;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
 
 class PostCommentReplyController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function __construct()
     {
-        //
+        $this->middleware(
+            [
+                'auth:sanctum',
+                'not.suspended',
+                'throttle:tight-throttle'
+            ]
+        );
     }
-
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\Post\PostCommentReply\PostCommentReplyStoreRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PostCommentReplyStoreRequest $request)
     {
-        //
-    }
+        $validated = $request->validated();
+        $reply = PostCommentReply::create($validated);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Post\PostComment\PostCommentReply  $postCommentReply
-     * @return \Illuminate\Http\Response
-     */
-    public function show(PostCommentReply $postCommentReply)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Post\PostComment\PostCommentReply  $postCommentReply
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, PostCommentReply $postCommentReply)
-    {
-        //
+        return Response::json($reply, 201);
     }
 
     /**
@@ -60,6 +42,9 @@ class PostCommentReplyController extends Controller
      */
     public function destroy(PostCommentReply $postCommentReply)
     {
-        //
+        $this->authorize('delete', $postCommentReply);
+        $postCommentReply->delete();
+
+        return Response::json('', 204);
     }
 }

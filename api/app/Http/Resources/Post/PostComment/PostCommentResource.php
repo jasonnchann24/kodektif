@@ -26,7 +26,10 @@ class PostCommentResource extends JsonResource
             'upvote_count' => $this->upvote_count,
             'downvote_count' => $this->downvote_count,
             'created_at' => $this->created_at,
-            'has_voted' => $this->has_voted
+            'has_voted' => $this->has_voted,
+            'replies' => PostCommentReplyResource::collection(
+                $this->postCommentReplies()->paginate(30)
+            )
         ];
     }
 }

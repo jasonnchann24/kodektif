@@ -23,7 +23,7 @@ class PostComment extends Model
     ];
 
     protected $with = [
-        'user', 'postCommentVotes'
+        'user', 'postCommentVotes', 'postCommentReplies'
     ];
 
     public function user()
