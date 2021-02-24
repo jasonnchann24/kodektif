@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Database\Seeders\Article\ArticleLikeSeeder;
 use Database\Seeders\Article\ArticleSeeder;
+use Database\Seeders\Post\PostComment\PostCommentReplySeeder;
 use Database\Seeders\Post\PostComment\PostCommentSeeder;
 use Database\Seeders\Post\PostComment\PostCommentVoteSeeder;
 use Database\Seeders\Post\PostSeeder;
@@ -36,7 +37,8 @@ class DatabaseSeeder extends Seeder
                 PostSeeder::class,
                 PostVoteSeeder::class,
                 PostCommentSeeder::class,
-                PostCommentVoteSeeder::class
+                PostCommentVoteSeeder::class,
+                PostCommentReplySeeder::class
             ]);
             $end = microtime(true);
             $time = number_format(($end - $start) * 1000, 2);
