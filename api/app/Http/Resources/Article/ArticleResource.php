@@ -23,9 +23,10 @@ class ArticleResource extends JsonResource
             'body' => $this->body,
             'slug' => $this->slug,
             'created_at' => $this->created_at,
-            'likes_count' => 0,
+            'likes_count' => $this->likes_count,
             'author' => $this->user->name,
-            'categories' => CategoryResource::collection($this->categories)
+            'categories' => CategoryResource::collection($this->categories),
+            'has_liked' => $this->has_liked,
         ];
     }
 }
