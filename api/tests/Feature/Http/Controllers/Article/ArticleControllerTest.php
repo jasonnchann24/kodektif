@@ -148,6 +148,34 @@ class ArticleControllerTest extends TestCase
     }
 
     /** @test */
+    public function article_resource_must_return_if_current_user_has_liked_or_not()
+    {
+        $admin = $this->createAdminUser();
+        $article = $this->createArticle($admin);
+        $user = $this->createBasicUser();
+
+        $this->actingAs($user);
+        $this->getJson(
+            route('articles.show', [
+                'article' => $article['id'],
+                'slug' => $article['slug']
+            ])
+        )->assertJsonFragment([
+            'has_liked' => false
+        ]);
+
+        $this->json('POST', route('article-likes.store'), ['article_id' => $article['id']]);
+
+        $this->getJson(
+            route('articles.show', [
+                'article' => $article['id'],
+                'slug' => $article['slug']
+            ])
+        )->assertJsonFragment([
+            'has_liked' => true
+        ]);
+    }
+    /** @test */
     public function all_user_can_list_paginated_articles()
     {
         $admin = $this->createAdminUser();

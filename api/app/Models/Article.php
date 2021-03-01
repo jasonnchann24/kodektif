@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 
 class Article extends Model
 {
@@ -19,7 +20,7 @@ class Article extends Model
     ];
 
     protected $with = [
-        'user', 'categories', 'language'
+        'user', 'categories', 'language', 'likes'
     ];
 
     public function user()
@@ -40,5 +41,14 @@ class Article extends Model
     public function likes()
     {
         return $this->hasMany(ArticleLike::class);
+    }
+
+    public function getHasLikedAttribute()
+    {
+        $articleLike = $this->likes()
+            ->where('user_id', Auth::id())
+            ->first();
+
+        return $articleLike ? true : false;
     }
 }
