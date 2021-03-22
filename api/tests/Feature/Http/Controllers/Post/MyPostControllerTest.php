@@ -101,7 +101,7 @@ class MyPostControllerTest extends TestCase
             Arr::except($payload, ['categories'])
         );
 
-        $postCreated = Post::findOrFail($res['id']);
+        $postCreated = Post::findOrFail($res['data']['id']);
         return $postCreated;
     }
 }

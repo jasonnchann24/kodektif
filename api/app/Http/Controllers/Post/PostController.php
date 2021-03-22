@@ -63,7 +63,7 @@ class PostController extends Controller
             ], $e->status ?? 500);
         }
 
-        return Response::json($post, 201);
+        return (new PostResource($post))->response()->setStatusCode(201);
     }
 
     /**
@@ -107,7 +107,7 @@ class PostController extends Controller
             ], $e->status ?? 500);
         }
 
-        return Response::json($post, 200);
+        return new PostResource($post);
     }
 
     /**
