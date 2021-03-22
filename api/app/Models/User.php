@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Discussion\Discussion;
+use App\Models\Discussion\DiscussionVote;
 use App\Models\Post\Post;
 use App\Models\Post\PostComment\PostComment;
 use App\Models\Post\PostComment\PostCommentReply;
@@ -93,6 +95,16 @@ class User extends Authenticatable
     public function postCommentReplies()
     {
         return $this->hasMany(PostCommentReply::class);
+    }
+
+    public function discussions()
+    {
+        return $this->hasMany(Discussion::class);
+    }
+
+    public function discussionVotes()
+    {
+        return $this->hasMany(DiscussionVote::class);
     }
 
     public function is($roleName)

@@ -15,7 +15,16 @@ class CreateDiscussionsTable extends Migration
     {
         Schema::create('discussions', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('language_id')->constrained()->nullable();
+            $table->string('title', 512);
+            $table->longText('body');
+            $table->string('slug', 1500);
+            $table->bigInteger('upvote_count')->default(0);
+            $table->bigInteger('downvote_count')->default(0);
+
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
