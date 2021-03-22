@@ -5,13 +5,13 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/Jchann24/kodektif/actions/workflows/laravel_phpunit.yml">
+  <a href="https://github.com/jasonnchann24/kodektif/actions/workflows/laravel_phpunit.yml">
     <img src="https://github.com/Jchann24/kodektif/actions/workflows/laravel_phpunit.yml/badge.svg?branch=main">
   </a>
-  <a href="https://github.com/Jchann24/kodektif/actions/workflows/dev_laravel_phpunit.yml">
+  <a href="https://github.com/jasonnchann24/kodektif/actions/workflows/dev_laravel_phpunit.yml">
     <img src="https://github.com/Jchann24/kodektif/actions/workflows/dev_laravel_phpunit.yml/badge.svg?branch=dev">
   </a>
-  <a href="https://codecov.io/gh/Jchann24/kodektif">
+  <a href="https://codecov.io/gh/jasonnchann24/kodektif">
     <img src="https://codecov.io/gh/Jchann24/kodektif/branch/dev/graph/badge.svg?token=66JPCYDYCC"/>
   </a>
   <a href="https://opensource.org/licenses/BSD-3-Clause">
