@@ -12,11 +12,13 @@ use App\Listeners\PostCommentVotedListener;
 use App\Listeners\PostVotedListener;
 use App\Models\Article;
 use App\Models\ArticleLike;
+use App\Models\Discussion\Discussion;
 use App\Models\Post\Post;
 use App\Models\Post\PostComment\PostCommentVote;
 use App\Models\Post\PostVote;
 use App\Observers\ArticleLikeObserver;
 use App\Observers\ArticleObserver;
+use App\Observers\DiscussionObserver;
 use App\Observers\PostCommentVoteObserver;
 use App\Observers\PostObeserver;
 use App\Observers\PostVoteObserver;
@@ -62,5 +64,6 @@ class EventServiceProvider extends ServiceProvider
         Post::observe(PostObeserver::class);
         PostVote::observe(PostVoteObserver::class);
         PostCommentVote::observe(PostCommentVoteObserver::class);
+        Discussion::observe(DiscussionObserver::class);
     }
 }

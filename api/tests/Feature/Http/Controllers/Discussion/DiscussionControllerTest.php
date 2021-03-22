@@ -127,7 +127,6 @@ class DiscussionControllerTest extends TestCase
             ->assertStatus(200)
             ->assertJsonFragment([
                 'title' => $discussion->title,
-                'description' => $discussion->description
             ]);
     }
 
@@ -199,6 +198,7 @@ class DiscussionControllerTest extends TestCase
 
         $this->actingAs($userTwo);
 
+
         $this->json('PATCH', route('discussions.update', [
             'discussion' => $postedByUserOne->id
         ]))->assertStatus(403);
@@ -240,7 +240,7 @@ class DiscussionControllerTest extends TestCase
             Arr::except($payload, ['categories'])
         );
 
-        $discussionCreated = Discussion::findOrFail($res['id']);
+        $discussionCreated = Discussion::findOrFail($res['data']['id']);
         return $discussionCreated;
     }
 }

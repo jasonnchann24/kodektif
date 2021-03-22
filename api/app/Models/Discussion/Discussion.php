@@ -2,12 +2,14 @@
 
 namespace App\Models\Discussion;
 
+use App\Http\Resources\Discussion\DiscussionVoteResource;
 use App\Models\Category;
 use App\Models\Language;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 
 class Discussion extends Model
 {
@@ -40,5 +42,14 @@ class Discussion extends Model
     public function discussionVotes()
     {
         return $this->hasMany(DiscussionVote::class);
+    }
+
+    public function getHasVotedAttribute()
+    {
+        $discussionVote = $this->discussionVotes()
+            ->where('user_id', Auth::id())
+            ->first();
+
+        return $discussionVote ? new DiscussionVoteResource($discussionVote) : null;
     }
 }
