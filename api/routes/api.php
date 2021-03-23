@@ -3,6 +3,11 @@
 use App\Http\Controllers\Article\ArticleController;
 use App\Http\Controllers\Article\ArticleLikeController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\Discussion\DiscussionComment\DiscussionCommentController;
+use App\Http\Controllers\Discussion\DiscussionComment\DiscussionCommentReplyController;
+use App\Http\Controllers\Discussion\DiscussionComment\DiscussionCommentVoteController;
+use App\Http\Controllers\Discussion\DiscussionController;
+use App\Http\Controllers\Discussion\DiscussionVoteController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MeController;
@@ -52,6 +57,14 @@ Route::get('/my-posts', MyPostController::class)->name('my-posts');
 Route::apiResource('post-comments', PostCommentController::class)->except(['update', 'index']);
 Route::apiResource('post-comment-votes', PostCommentVoteController::class)->except(['index', 'show']);
 Route::apiResource('post-comment-replies', PostCommentReplyController::class)->except(['index', 'update', 'show']);
+
+Route::get('/discussions/{discussion}/{slug}', [DiscussionController::class, 'show'])->name('discussions.show');
+Route::apiResource('discussions', DiscussionController::class)->except('show');
+Route::apiResource('discussion-votes', DiscussionVoteController::class)->except(['index', 'show']);
+Route::apiResource('discussion-comments', DiscussionCommentController::class)->except(['update', 'index']);
+Route::apiResource('discussion-comment-votes', DiscussionCommentVoteController::class)->except(['index', 'show']);
+Route::apiResource('discussion-comment-replies', DiscussionCommentReplyController::class)->except(['index', 'update', 'show']);
+
 
 Route::get('/articles/{article}/{slug}', [ArticleController::class, 'show'])->name('articles.show');
 Route::apiResource('articles', ArticleController::class)->except(['show']);

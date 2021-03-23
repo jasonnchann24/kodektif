@@ -13,7 +13,9 @@ class PostCommentVoteController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth:sanctum', 'throttle:tight-throttle', 'not.suspended']);
+        $this->middleware([
+            'auth:sanctum', 'throttle:tight-throttle', 'not.suspended'
+        ]);
     }
     /**
      * Store a newly created resource in storage.

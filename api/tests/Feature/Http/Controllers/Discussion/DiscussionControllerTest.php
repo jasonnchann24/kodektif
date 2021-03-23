@@ -1,22 +1,20 @@
 <?php
 
-namespace Tests\Feature\Http\Controllers\Post;
+namespace Tests\Feature\Http\Controllers\Discussion;
 
 use App\Models\Category;
+use App\Models\Discussion\Discussion;
 use App\Models\Language;
-use App\Models\Post\Post;
 use App\Models\User;
 use Database\Seeders\CategorySeeder;
 use Database\Seeders\LanguageSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Routing\Middleware\ThrottleRequests;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
 use Tests\TestTraits\CreateUserTrait;
 
-class PostControllerTest extends TestCase
+class DiscussionControllerTest extends TestCase
 {
     use RefreshDatabase, CreateUserTrait;
 
@@ -29,65 +27,67 @@ class PostControllerTest extends TestCase
     }
 
     /** @test */
-    public function non_authenticated_user_can_not_access_these_post_apis()
+    public function non_authenticated_user_can_not_access_these_discussion_apis()
     {
 
-        $this->json('POST', route('posts.store'), [])
+        $this->json('POST', route('discussions.store'), [])
             ->assertStatus(401);
 
-        $this->json('PATCH', route('posts.update', ['post' => -1]), [])
+        $this->json('PATCH', route('discussions.update', ['discussion' => -1]), [])
             ->assertStatus(401);
 
-        $this->json('DELETE', route('posts.destroy', ['post' => -1]))
+        $this->json('DELETE', route('discussions.destroy', ['discussion' => -1]))
             ->assertStatus(401);
     }
 
     /** @test */
-    public function public_can_access_these_post_apis()
+    public function public_can_access_these_discussion_apis()
     {
-        $this->json('GET', route('posts.index'))
+        $this->json('GET', route('discussions.index'))
             ->assertStatus(200);
 
         $user = $this->createBasicUser();
-        $post = Post::factory()->for($user)->create();
+        $discussion = Discussion::factory()->for($user)->create();
 
-        $this->json('GET', route('posts.show', ['post' => $post->id, 'slug' => $post->slug]))
-            ->assertStatus(200);
+        $this->json('GET', route('discussions.show', [
+            'discussion' => $discussion->id,
+            'slug' => $discussion->slug
+        ]))->assertStatus(200);
     }
 
     /** @test */
-    public function suspended_user_can_not_access_store_update_delete_posts_apis()
+    public function suspended_user_can_not_access_store_update_delete_discussion_apis()
     {
         $user = $this->createBasicUser();
-        $post = Post::factory()->for($user)->create();
+        $discussion = Discussion::factory()->for($user)->create();
 
         $suspendedUser = $this->suspendUser($user);
 
         $this->actingAs($suspendedUser);
 
-        $this->json('POST', route('posts.store'), [])
+        $this->json('POST', route('discussions.store'), [])
             ->assertStatus(403);
 
-        $this->json('PATCH', route('posts.update', ['post' => $post->id]), [])
+        $this->json('PATCH', route('discussions.update', ['discussion' => $discussion->id]), [])
             ->assertStatus(403);
 
-        $this->json('DELETE', route('posts.destroy', ['post' => $post->id]))
+        $this->json('DELETE', route('discussions.destroy', ['discussion' => $discussion->id]))
             ->assertStatus(403);
     }
 
     /** @test */
-    public function public_can_list_all_posts()
+    public function public_can_list_all_discussion()
     {
         $user = $this->createBasicUser();
         $this->withoutMiddleware(
             ThrottleRequests::class
         );
         for ($i = 0; $i <= 30; $i++) {
-            $this->createPost($user);
+            $this->createDiscussion($user);
         }
 
 
-        $this->json('GET', route('posts.index'))
+        $this->json('GET', route('discussions.index'))
             ->assertStatus(200)
             ->assertJsonStructure(
                 [
@@ -95,7 +95,6 @@ class PostControllerTest extends TestCase
                         0 => [
                             'id',
                             'title',
-                            'description',
                             'slug',
                             'upvote_count',
                             'downvote_count',
@@ -117,30 +116,31 @@ class PostControllerTest extends TestCase
     }
 
     /** @test */
-    public function public_can_show_specific_post()
+    public function public_can_show_specific_discussion()
     {
         $user = $this->createBasicUser();
-        $post = $this->createPost($user);
+        $discussion = $this->createDiscussion($user);
 
-        $this->json('GET', route('posts.show', ['post' => $post->id, 'slug' => $post->slug]))
+        $this->json('GET', route('discussions.show', [
+            'discussion' => $discussion->id, 'slug' => $discussion->slug
+        ]))
             ->assertStatus(200)
             ->assertJsonFragment([
-                'title' => $post->title,
-                'description' => $post->description
+                'title' => $discussion->title,
             ]);
     }
 
     /** @test */
-    public function user_can_create_new_posts()
+    public function user_can_create_new_discussions()
     {
         $user = $this->createBasicUser();
         $this->actingAs($user);
 
-        $this->createPost($user);
+        $this->createDiscussion($user);
     }
 
     /** @test */
-    public function user_can_update_own_post()
+    public function user_can_update_own_discussion()
     {
         $this->withoutExceptionHandling();
 
@@ -148,48 +148,49 @@ class PostControllerTest extends TestCase
 
         $this->actingAs($user);
 
-        $post = $this->createPost($user);
+        $discussion = $this->createDiscussion($user);
 
         $payload = [
-            'title' => 'updated post',
+            'title' => 'updated discussion',
             'categories' => [1]
         ];
 
-        $this->json('PATCH', route('posts.update', ['post' => $post->id]), $payload)
+        $this->json('PATCH', route('discussions.update', ['discussion' => $discussion->id]), $payload)
             ->assertStatus(200)
             ->assertJsonFragment(['title' => $payload['title']]);
 
-        $this->assertDatabaseHas('posts', [
+        $this->assertDatabaseHas('discussions', [
             'title' => $payload['title']
         ]);
 
-        $this->assertDatabaseHas('category_post', [
+        $this->assertDatabaseHas('category_discussion', [
             'category_id' => $payload['categories'],
-            'post_id' => $post->id
+            'discussion_id' => $discussion->id
         ]);
     }
 
     /** @test */
-    public function user_can_delete_own_post()
+    public function user_can_delete_own_discussion()
     {
         $user = $this->createBasicUser();
-        $post = $this->createPost($user);
+        $discussion = $this->createDiscussion($user);
 
-        $this->json('DELETE', route('posts.destroy', ['post' => $post->id]))
-            ->assertStatus(204);
+        $this->json('DELETE', route('discussions.destroy', [
+            'discussion' => $discussion->id
+        ]))->assertStatus(204);
 
-        $this->assertSoftDeleted('posts', [
-            'id' => $post->id
+        $this->assertSoftDeleted('discussions', [
+            'id' => $discussion->id
         ]);
     }
 
     /** @test */
-    public function user_can_not_update_or_delete_others_post()
+    public function user_can_not_update_or_delete_others_discussion()
     {
         $userOne = $this->createBasicUser();
         $userTwo = $this->createBasicUser();
 
-        $postedByUserOne = $this->createPost($userOne);
+        $postedByUserOne = $this->createDiscussion($userOne);
 
         $payload = [
             'title' => 'Oops'
@@ -197,19 +198,22 @@ class PostControllerTest extends TestCase
 
         $this->actingAs($userTwo);
 
-        $this->json('PATCH', route('posts.update', ['post' => $postedByUserOne->id]))
-            ->assertStatus(403);
-        $this->assertDatabaseMissing('posts', $payload);
 
-        $this->json('DELETE', route('posts.destroy', ['post' => $postedByUserOne->id]))
-            ->assertStatus(403);
-        $this->assertDatabaseHas('posts', [
+        $this->json('PATCH', route('discussions.update', [
+            'discussion' => $postedByUserOne->id
+        ]))->assertStatus(403);
+        $this->assertDatabaseMissing('discussions', $payload);
+
+        $this->json('DELETE', route('discussions.destroy', [
+            'discussion' => $postedByUserOne->id
+        ]))->assertStatus(403);
+
+        $this->assertDatabaseHas('discussions', [
             'title' => $postedByUserOne->title,
-            'description' => $postedByUserOne->description
         ]);
     }
 
-    protected function createPost(User $user): Post
+    protected function createDiscussion(User $user): Discussion
     {
         $categories = Category::all();
         $language = Language::all()->random(1)->first();
@@ -220,24 +224,23 @@ class PostControllerTest extends TestCase
             ->toArray();
 
         $payload = [
-            'title' => 'Post title',
-            'description' => 'Post Description',
+            'title' => 'Discussion title',
             'body' => '<h1>Hello</h1>',
             'language_id' => $language->id,
             'categories' => $pickedCategories
         ];
 
         $res = $this->actingAs($user)
-            ->json('POST', route('posts.store'), $payload)
+            ->json('POST', route('discussions.store'), $payload)
             ->assertStatus(201);
 
         $payload['user_id'] = $user->id;
         $this->assertDatabaseHas(
-            'posts',
+            'discussions',
             Arr::except($payload, ['categories'])
         );
 
-        $postCreated = Post::findOrFail($res['data']['id']);
-        return $postCreated;
+        $discussionCreated = Discussion::findOrFail($res['data']['id']);
+        return $discussionCreated;
     }
 }

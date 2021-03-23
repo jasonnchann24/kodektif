@@ -3,11 +3,17 @@
 namespace App\Providers;
 
 use App\Models\Article;
+use App\Models\Discussion\Discussion;
+use App\Models\Discussion\DiscussionComment\DiscussionComment;
+use App\Models\Discussion\DiscussionComment\DiscussionCommentVote;
 use App\Models\Post;
 use App\Models\Post\PostComment\PostComment;
 use App\Models\Post\PostComment\PostCommentVote;
 use App\Models\UserProfile;
 use App\Policies\ArticlePolicy;
+use App\Policies\DiscussionCommentPolicy;
+use App\Policies\DiscussionCommentVotePolicy;
+use App\Policies\DiscussionPolicy;
 use App\Policies\PostCommentPolicy;
 use App\Policies\PostCommentVotePolicy;
 use App\Policies\PostPolicy;
@@ -25,9 +31,14 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         UserProfile::class => UserProfilePolicy::class,
         Article::class => ArticlePolicy::class,
+
         Post::class => PostPolicy::class,
         PostComment::class => PostCommentPolicy::class,
-        PostCommentVote::class => PostCommentVotePolicy::class
+        PostCommentVote::class => PostCommentVotePolicy::class,
+
+        Discussion::class => DiscussionPolicy::class,
+        DiscussionComment::class => DiscussionCommentPolicy::class,
+        DiscussionCommentVote::class => DiscussionCommentVotePolicy::class,
     ];
 
     /**

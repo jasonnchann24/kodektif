@@ -1,21 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\Post;
+namespace App\Http\Controllers\Discussion;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Post\PostStoreRequest;
-use App\Http\Requests\Post\PostUpdateRequest;
-use App\Http\Resources\Post\PostResource;
-use App\Models\Post\Post;
+use App\Http\Requests\Discussion\DiscussionStoreRequest;
+use App\Http\Requests\Discussion\DiscussionUpdateRequest;
+use App\Http\Resources\Discussion\DiscussionResource;
+use App\Models\Discussion\Discussion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
 
-class PostController extends Controller
+class DiscussionController extends Controller
 {
-
-    private $user;
 
     public function __construct()
     {
@@ -28,6 +26,7 @@ class PostController extends Controller
 
         $this->user = authUser();
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -35,26 +34,26 @@ class PostController extends Controller
      */
     public function index()
     {
-        return PostResource::collection(Post::latest()->paginate(30));
+        return DiscussionResource::collection(Discussion::latest()->paginate(30));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\Post\PostStoreRequest  $request
+     * @param  \App\Http\Requests\Discussion\DiscussionStoreRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PostStoreRequest $request)
+    public function store(DiscussionStoreRequest $request)
     {
         $validated = $request->validated();
-        $newPost = Arr::except($validated, ['categories']);
+        $newDiscussion = Arr::except($validated, ['categories']);
         $newCategories = $validated['categories'];
 
         try {
             DB::beginTransaction();
 
-            $post = $this->user->posts()->create($newPost);
-            $post->categories()->sync($newCategories);
+            $discussion = $this->user->discussions()->create($newDiscussion);
+            $discussion->categories()->sync($newCategories);
 
             DB::commit();
         } catch (\Exception $e) {
@@ -63,42 +62,43 @@ class PostController extends Controller
             ], $e->status ?? 500);
         }
 
-        return (new PostResource($post))->response()->setStatusCode(201);
+        return (new DiscussionResource($discussion))
+            ->response()->setStatusCode(201);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Post  $post
+     * @param  \App\Models\Discussion\Discussion  $discussion
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show(Discussion $discussion)
     {
-        return new PostResource($post);
+        return new DiscussionResource($discussion);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\Post\PostUpdateRequest  $request
-     * @param  \App\Models\Post  $post
+     * @param  \App\Http\Requests\Discussion\DiscussionUpdateRequest $request
+     * @param  \App\Models\Discussion\Discussion  $discussion
      * @return \Illuminate\Http\Response
      */
-    public function update(PostUpdateRequest $request, Post $post)
+    public function update(DiscussionUpdateRequest $request, Discussion $discussion)
     {
         $validated = $request->validated();
-        $this->authorize('update', $post);
+        $this->authorize('update', $discussion);
 
-        $updatedPost = Arr::except($validated, ['categories']);
+        $updatedDiscussion = Arr::except($validated, ['categories']);
         $newCategories = $validated['categories'];
 
         try {
             DB::beginTransaction();
 
-            $post->update($updatedPost);
-            $post->categories()->sync($newCategories);
+            $discussion->update($updatedDiscussion);
+            $discussion->categories()->sync($newCategories);
 
-            $post->save();
+            $discussion->save();
 
             DB::commit();
         } catch (\Exception $e) {
@@ -107,20 +107,20 @@ class PostController extends Controller
             ], $e->status ?? 500);
         }
 
-        return new PostResource($post);
+        return (new DiscussionResource($discussion))->response()->setStatusCode(200);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Post  $post
+     * @param  \App\Models\Discussion\Discussion  $discussion
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function destroy(Discussion $discussion)
     {
-        $this->authorize('delete', $post);
+        $this->authorize('delete', $discussion);
 
-        $post->delete();
+        $discussion->delete();
         return Response::json('', 204);
     }
 }

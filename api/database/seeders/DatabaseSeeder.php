@@ -4,6 +4,12 @@ namespace Database\Seeders;
 
 use Database\Seeders\Article\ArticleLikeSeeder;
 use Database\Seeders\Article\ArticleSeeder;
+use Database\Seeders\Discussion\DiscussionComment\DiscussionCommentReplySeeder;
+use Database\Seeders\Discussion\DiscussionComment\DiscussionCommentSeeder;
+use Database\Seeders\Discussion\DiscussionComment\DiscussionCommentVoteSeeder;
+use Database\Seeders\Discussion\DiscussionSeeder;
+use Database\Seeders\Discussion\DiscussionVoteSeeder;
+use Database\Seeders\Discussion\FollowDiscussionSeeder;
 use Database\Seeders\Post\PostComment\PostCommentReplySeeder;
 use Database\Seeders\Post\PostComment\PostCommentSeeder;
 use Database\Seeders\Post\PostComment\PostCommentVoteSeeder;
@@ -38,8 +44,16 @@ class DatabaseSeeder extends Seeder
                 PostVoteSeeder::class,
                 PostCommentSeeder::class,
                 PostCommentVoteSeeder::class,
-                PostCommentReplySeeder::class
+                PostCommentReplySeeder::class,
+
+                DiscussionSeeder::class,
+                DiscussionVoteSeeder::class,
+                DiscussionCommentSeeder::class,
+                DiscussionCommentVoteSeeder::class,
+                DiscussionCommentReplySeeder::class,
+                FollowDiscussionSeeder::class
             ]);
+
             $end = microtime(true);
             $time = number_format(($end - $start) * 1000, 2);
             $info = 'Seeded database in ' . $time . ' ms';
