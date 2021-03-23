@@ -36,7 +36,6 @@ class MyPostControllerTest extends TestCase
     /** @test */
     public function user_can_list_their_own_posts()
     {
-        $this->withoutExceptionHandling();
         $user = $this->createBasicUser();
 
         $this->actingAs($user);

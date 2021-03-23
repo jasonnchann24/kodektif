@@ -24,6 +24,10 @@ class Discussion extends Model
         'downvote_count'
     ];
 
+    protected $with = [
+        'user', 'language', 'categories', 'discussionVotes'
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);
