@@ -115,6 +115,20 @@ class DiscussionCommentControllerTest extends TestCase
         ]);
     }
 
+    /** @test */
+    public function after_comment_must_follow_the_discussion()
+    {
+        $user = $this->createBasicUser();
+        $discussion = $this->getOneDiscussion();
+
+        $this->createComment($user, $discussion);
+
+        $this->assertDatabaseHas('follow_discussions', [
+            'user_id' => $user->id,
+            'discussion_id' => $discussion->id
+        ]);
+    }
+
     protected function getOneDiscussion(): Discussion
     {
         $discussion = $this->discussions->random(1)->first();

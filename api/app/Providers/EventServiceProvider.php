@@ -17,6 +17,7 @@ use App\Listeners\PostVotedListener;
 use App\Models\Article;
 use App\Models\ArticleLike;
 use App\Models\Discussion\Discussion;
+use App\Models\Discussion\DiscussionComment\DiscussionComment;
 use App\Models\Discussion\DiscussionComment\DiscussionCommentVote;
 use App\Models\Discussion\DiscussionVote;
 use App\Models\Post\Post;
@@ -24,6 +25,7 @@ use App\Models\Post\PostComment\PostCommentVote;
 use App\Models\Post\PostVote;
 use App\Observers\ArticleLikeObserver;
 use App\Observers\ArticleObserver;
+use App\Observers\DiscussionCommentObserver;
 use App\Observers\DiscussionCommentVoteObserver;
 use App\Observers\DiscussionObserver;
 use App\Observers\DiscussionVoteObserver;
@@ -83,5 +85,6 @@ class EventServiceProvider extends ServiceProvider
         Discussion::observe(DiscussionObserver::class);
         DiscussionVote::observe(DiscussionVoteObserver::class);
         DiscussionCommentVote::observe(DiscussionCommentVoteObserver::class);
+        DiscussionComment::observe(DiscussionCommentObserver::class);
     }
 }

@@ -54,6 +54,11 @@ class Discussion extends Model
         return $this->hasMany(DiscussionComment::class);
     }
 
+    public function followDiscussions()
+    {
+        return $this->hasMany(FollowDiscussion::class);
+    }
+
     public function getHasVotedAttribute()
     {
         $discussionVote = $this->discussionVotes()
