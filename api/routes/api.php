@@ -4,6 +4,7 @@ use App\Http\Controllers\Article\ArticleController;
 use App\Http\Controllers\Article\ArticleLikeController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Discussion\DiscussionComment\DiscussionCommentController;
+use App\Http\Controllers\Discussion\DiscussionComment\DiscussionCommentReplyController;
 use App\Http\Controllers\Discussion\DiscussionComment\DiscussionCommentVoteController;
 use App\Http\Controllers\Discussion\DiscussionController;
 use App\Http\Controllers\Discussion\DiscussionVoteController;
@@ -62,6 +63,7 @@ Route::apiResource('discussions', DiscussionController::class)->except('show');
 Route::apiResource('discussion-votes', DiscussionVoteController::class)->except(['index', 'show']);
 Route::apiResource('discussion-comments', DiscussionCommentController::class)->except(['update', 'index']);
 Route::apiResource('discussion-comment-votes', DiscussionCommentVoteController::class)->except(['index', 'show']);
+Route::apiResource('discussion-comment-replies', DiscussionCommentReplyController::class)->except(['index', 'update', 'show']);
 
 
 Route::get('/articles/{article}/{slug}', [ArticleController::class, 'show'])->name('articles.show');
