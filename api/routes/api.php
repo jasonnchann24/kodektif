@@ -3,6 +3,7 @@
 use App\Http\Controllers\Article\ArticleController;
 use App\Http\Controllers\Article\ArticleLikeController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\Discussion\DiscussionComment\DiscussionCommentController;
 use App\Http\Controllers\Discussion\DiscussionController;
 use App\Http\Controllers\Discussion\DiscussionVoteController;
 use App\Http\Controllers\LanguageController;
@@ -58,6 +59,7 @@ Route::apiResource('post-comment-replies', PostCommentReplyController::class)->e
 Route::get('/discussions/{discussion}/{slug}', [DiscussionController::class, 'show'])->name('discussions.show');
 Route::apiResource('discussions', DiscussionController::class)->except('show');
 Route::apiResource('discussion-votes', DiscussionVoteController::class)->except(['index', 'show']);
+Route::apiResource('discussion-comments', DiscussionCommentController::class)->except(['update', 'index']);
 
 Route::get('/articles/{article}/{slug}', [ArticleController::class, 'show'])->name('articles.show');
 Route::apiResource('articles', ArticleController::class)->except(['show']);
