@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use App\Models\Discussion\Discussion;
+use App\Models\Discussion\DiscussionComment\DiscussionComment;
+use App\Models\Discussion\DiscussionComment\DiscussionCommentReply;
 use App\Models\Discussion\DiscussionVote;
 use App\Models\Post\Post;
 use App\Models\Post\PostComment\PostComment;
@@ -106,6 +108,17 @@ class User extends Authenticatable
     {
         return $this->hasMany(DiscussionVote::class);
     }
+
+    public function discussionComments()
+    {
+        return $this->hasMany(DiscussionComment::class);
+    }
+
+    public function discussionCommentReplies()
+    {
+        return $this->hasMany(DiscussionCommentReply::class);
+    }
+
 
     public function is($roleName)
     {

@@ -4,6 +4,7 @@ namespace App\Models\Discussion;
 
 use App\Http\Resources\Discussion\DiscussionVoteResource;
 use App\Models\Category;
+use App\Models\Discussion\DiscussionComment\DiscussionComment;
 use App\Models\Language;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -46,6 +47,11 @@ class Discussion extends Model
     public function discussionVotes()
     {
         return $this->hasMany(DiscussionVote::class);
+    }
+
+    public function discussionComments()
+    {
+        return $this->hasMany(DiscussionComment::class);
     }
 
     public function getHasVotedAttribute()
