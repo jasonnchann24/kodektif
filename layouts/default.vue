@@ -1,9 +1,9 @@
 <template>
   <div>
     <CoreNavbar />
-    <div class="p-4 mb-5 overflow-hidden">
+    <main id="top-main">
       <nuxt />
-    </div>
+    </main>
     <CoreFooter />
   </div>
 </template>
@@ -19,5 +19,10 @@ body {
   width: 100%;
   min-height: 100%;
   font-family: 'Montserrat', sans-serif;
+}
+
+#top-main {
+  min-height: 60vh;
+  width: 100vw;
 }
 </style>

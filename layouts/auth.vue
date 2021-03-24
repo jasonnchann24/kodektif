@@ -12,6 +12,7 @@ html {
   min-height: 100vh;
 }
 body {
+  overflow-x: hidden;
   width: 100vw;
   min-height: 100vh;
   font-family: 'Montserrat', sans-serif;

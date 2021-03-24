@@ -1,17 +1,17 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light bg-secondary px-2 shadow">
-    <div class="container-fluid">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-transparent">
+    <div class="container px-4">
       <nuxtLink :to="localePath('/')" class="navbar-brand" tag="a">
         <img
           src="/logo/logo_kodektif_bg.svg"
-          width="30"
+          width="50"
           class="d-inline-block align-text-top"
           alt=""
           srcset=""
         />
       </nuxtLink>
       <button
-        class="navbar-toggler"
+        class="navbar-toggler border-0"
         type="button"
         data-bs-toggle="collapse"
         data-bs-target="#navbarNavDropdown"
@@ -29,29 +29,36 @@
           <CoreLangChange />
         </ul>
         <ul class="navbar-nav">
+          <li class="nav-item">
+            <a href="" class="nav-link">Articles</a>
+          </li>
+          <li class="nav-item">
+            <a href="" class="nav-link">Discussions</a>
+          </li>
+          <li class="nav-item">
+            <a href="" class="nav-link">Courses</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav">
           <li v-if="!isAuthenticated" class="nav-item">
-            <nuxtLink
-              :to="localePath('/auth/login')"
-              class="nav-link text-dark"
-              tag="a"
-            >
+            <nuxtLink :to="localePath('/auth/login')" class="nav-link" tag="a">
               {{ $t('navbar.login') }}
             </nuxtLink>
           </li>
           <li v-else class="nav-item">
             <nuxtLink
               :to="localePath('/user/profile')"
-              class="nav-link text-dark"
+              class="nav-link"
               tag="a"
             >
-              <span class="text-uppercase px-2">
+              <span class="text-uppercase pe-2">
                 {{ $t('navbar.profile') }}
               </span>
               <img
                 :src="loggedInUser.provider.avatar"
                 alt=""
-                width="50"
-                height="50"
+                width="35"
+                height="35"
                 class="rounded"
               />
             </nuxtLink>
@@ -74,4 +81,16 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped>
+.navbar {
+  height: 4rem;
+}
+
+@media screen and (max-width: 992px) {
+  .navbar-collapse {
+    background-color: #474b60;
+    padding: 0 20px 0 20px;
+    border-radius: 5px;
+  }
+}
+</style>
