@@ -2,7 +2,13 @@
   <nav class="navbar navbar-expand-lg navbar-light bg-secondary px-2 shadow">
     <div class="container-fluid">
       <nuxtLink :to="localePath('/')" class="navbar-brand" tag="a">
-        Kodektif
+        <img
+          src="/logo/logo_kodektif_bg.svg"
+          width="30"
+          class="d-inline-block align-text-top"
+          alt=""
+          srcset=""
+        />
       </nuxtLink>
       <button
         class="navbar-toggler"

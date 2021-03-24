@@ -1,6 +1,10 @@
 import i18n from './config/i18n'
 
 export default {
+  publicRuntimeConfig: {
+    BASE_URL: process.env.BASE_URL,
+    BACKEND_URL: process.env.BACKEND_URL
+  },
   /*
    ** Headers of the page
    */
@@ -25,7 +29,7 @@ export default {
       {
         rel: 'stylesheet',
         type: 'text/css',
-        href: 'https://cdn.lineicons.com/2.0/LineIcons.css'
+        href: 'https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css'
       }
     ]
   },
@@ -69,12 +73,7 @@ export default {
   /*
    ** Nuxt.js modules
    */
-  modules: [
-    '@nuxtjs/axios',
-    '@nuxtjs/auth-next',
-    '@nuxtjs/dotenv',
-    '@nuxtjs/style-resources'
-  ],
+  modules: ['@nuxtjs/axios', '@nuxtjs/auth-next', '@nuxtjs/style-resources'],
 
   styleResources: {
     scss: '@/assets/scss/_variables.scss'
