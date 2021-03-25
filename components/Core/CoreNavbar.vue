@@ -1,11 +1,13 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-transparent">
+  <nav
+    class="navbar navbar-expand-lg navbar-dark bg-transparent border-bottom border-warning border-1"
+  >
     <div class="container px-4">
       <nuxtLink :to="localePath('/')" class="navbar-brand" tag="a">
         <img
           src="/logo/logo_kodektif_bg.svg"
-          width="50"
-          class="d-inline-block align-text-top"
+          width="40"
+          class="d-inline-block align-text-center"
           alt=""
           srcset=""
         />
@@ -23,14 +25,17 @@
       </button>
       <div
         id="navbarNavDropdown"
-        class="collapse navbar-collapse justify-content-between"
+        class="collapse navbar-collapse justify-content-between "
       >
-        <ul class="navbar-nav">
-          <CoreLangChange />
-        </ul>
+        <ul class="navbar-nav"></ul>
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a href="" class="nav-link">Articles</a>
+            <nuxtLink
+              :to="localePath('/articles')"
+              class="nav-link"
+              active-class="active"
+              >Articles</nuxtLink
+            >
           </li>
           <li class="nav-item">
             <a href="" class="nav-link">Discussions</a>
@@ -39,9 +44,15 @@
             <a href="" class="nav-link">Courses</a>
           </li>
         </ul>
-        <ul class="navbar-nav">
+        <ul class="navbar-nav align-items-center">
+          <CoreLangChange />
           <li v-if="!isAuthenticated" class="nav-item">
-            <nuxtLink :to="localePath('/auth/login')" class="nav-link" tag="a">
+            <nuxtLink
+              :to="localePath('/auth/login')"
+              class="nav-link"
+              tag="a"
+              active-class="active"
+            >
               {{ $t('navbar.login') }}
             </nuxtLink>
           </li>
@@ -50,10 +61,11 @@
               :to="localePath('/user/profile')"
               class="nav-link"
               tag="a"
+              active-class="active"
             >
-              <span class="text-uppercase pe-2">
+              <!-- <span class="text-uppercase pe-2">
                 {{ $t('navbar.profile') }}
-              </span>
+              </span> -->
               <img
                 :src="loggedInUser.provider.avatar"
                 alt=""

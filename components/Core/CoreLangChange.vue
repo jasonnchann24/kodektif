@@ -8,7 +8,8 @@
       data-bs-toggle="dropdown"
       aria-expanded="false"
     >
-      <img class="mr-1" :src="getFlag($i18n.locale)" alt="" />
+      <!-- <img class="mr-1" :src="getFlag($i18n.locale)" alt="" width="25" /> -->
+      {{ $i18n.locale }}
     </a>
     <ul class="dropdown-menu overflow-hidden" aria-labelledby="dropDownLang">
       <li v-for="locale in $i18n.locales" :key="locale.code">

@@ -2,7 +2,7 @@
   <div>
     <CoreNavbar />
     <main id="top-main">
-      <nuxt />
+      <nuxt class="py-4" />
     </main>
     <CoreFooter />
   </div>

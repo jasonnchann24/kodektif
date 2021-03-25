@@ -63,7 +63,7 @@ export default {
           },
           {
             code: 'id',
-            name: 'Bahasa Indonesia'
+            name: 'Bhs. Indonesia'
           }
         ],
         vueI18n: i18n
@@ -125,23 +125,21 @@ export default {
    ** Build configuration
    */
   build: {
-    /*
-     ** You can extend webpack config here
-     */
-    extend(config, { isDev, isClient }) {
-      config.module.rules.push({
-        test: /\.worker\.js$/,
-        use: { loader: 'worker-loader' }
-      })
+    extractCSS: true
+    // extend(config, { isDev, isClient }) {
+    //   config.module.rules.push({
+    //     test: /\.worker\.js$/,
+    //     use: { loader: 'worker-loader' }
+    //   })
 
-      if (isDev && isClient) {
-        config.module.rules.push({
-          enforce: 'pre',
-          test: /\.(js|vue)$/,
-          loader: 'eslint-loader',
-          exclude: /(node_modules)/
-        })
-      }
-    }
+    //   if (isDev && isClient) {
+    //     config.module.rules.push({
+    //       enforce: 'pre',
+    //       test: /\.(js|vue)$/,
+    //       loader: 'eslint-loader',
+    //       exclude: /(node_modules)/
+    //     })
+    //   }
+    // }
   }
 }
