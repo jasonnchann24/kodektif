@@ -1,5 +1,5 @@
 <template>
-  <li class="nav-item dropdown">
+  <li class="nav-item dropdown align-self-lg-center">
     <a
       id="dropDownLang"
       class="nav-link dropdown-toggle"

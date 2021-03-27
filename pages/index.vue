@@ -1,13 +1,20 @@
 <template>
   <div class="p-0">
     <header>
-      <div class="container">
+      <div class="container-fluid">
         <div class="row mt-4 mx-0 header-hero w-100">
-          <div
-            class="col-12 my-auto d-flex flex-column justify-content-center px-0"
-          >
-            <h1>{{ $t('landing.welcome-title') }}</h1>
-            <h4>{{ $t('landing.welcome-subtitle') }}</h4>
+          <div class="col-12 px-0">
+            <div class="hero-container text-start text-md-end">
+              <div
+                class="hero-img d-flex justify-content-center d-md-block justify-content-md-end"
+              >
+                <SvgImageDeveloper />
+              </div>
+              <div class="centered-text text-start">
+                <h1>{{ $t('landing.welcome-title') }}</h1>
+                <h4>{{ $t('landing.welcome-subtitle') }}</h4>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -78,17 +85,22 @@ export default {
 </script>
 <style scoped>
 .header-hero {
-  background: url('~assets/svgs/developer.svg') no-repeat;
-  background-size: 700px 700px;
-  background-position: right center;
-  object-fit: cover;
-  height: 60vh;
+  margin: 5%;
 }
 
-@media screen and (max-width: 768px) {
-  .header-hero {
-    background-position: center center;
-  }
+.hero-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-img {
+  margin-right: 0%;
+}
+
+.centered-text {
+  position: absolute;
+  top: 35%;
+  left: 10%;
 }
 
 .hover-card-scale {

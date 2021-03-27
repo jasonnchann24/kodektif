@@ -25,7 +25,7 @@
       </button>
       <div
         id="navbarNavDropdown"
-        class="collapse navbar-collapse justify-content-between "
+        class="collapse navbar-collapse justify-content-between align-items-center"
       >
         <ul class="navbar-nav"></ul>
         <ul class="navbar-nav">
@@ -44,7 +44,7 @@
             <a href="" class="nav-link">Courses</a>
           </li>
         </ul>
-        <ul class="navbar-nav align-items-center">
+        <ul class="navbar-nav ">
           <CoreLangChange />
           <li v-if="!isAuthenticated" class="nav-item">
             <nuxtLink
