@@ -1,14 +1,11 @@
 <template>
   <div>
-    Admin
+    dashboard
   </div>
 </template>
 
 <script>
-export default {
-  name: 'Dashboard',
-  middleware: 'onlyAdmin'
-}
+export default {}
 </script>
 
 <style></style>
