@@ -6,18 +6,18 @@
           <h1>Articles</h1>
         </div>
       </div>
-      <div class="row">
-        <div class="col-12 col-md-8">
+      <div class="row mt-3 justify-content-center">
+        <div class="col-12 col-md-8 order-2 order-lg-1 mt-3 mt-lg-0">
           <div class="row g-3">
             <template v-if="!$fetchState.pending">
               <div
                 v-for="(item, index) in ARTICLES.data"
                 :key="index"
-                class="col-6"
+                class="col-12 col-lg-6"
               >
                 <div class="card" style="height: 11rem">
                   <div class="card-body text-dark">
-                    <h5>{{ item.title }}</h5>
+                    <h5 class="text-truncate">{{ item.title }}</h5>
                     <p style="height: 3rem">
                       {{ item.description }}
                     </p>
@@ -26,21 +26,25 @@
                 </div>
               </div>
             </template>
-            <template v-else>
-              <p class="h5">Loading ...</p>
-            </template>
           </div>
         </div>
 
-        <div class="col-12 col-md-4 d-none d-md-block d-flex flex-column">
+        <div
+          class="col-12 col-lg-4 order-1 order-lg-2 d-flex flex-column align-items-center"
+        >
           <img
             src="~/assets/svgs/articles.svg"
             alt="article image"
             class="w-100"
           />
           <div class="w-50 border-bottom border-danger mx-auto mt-2"></div>
-          <div class="mt-3">
-            <BasePagination module="articles" getter="ARTICLES" />
+          <div v-if="ARTICLES.meta" class="mt-3">
+            <BasePagination
+              module="articles"
+              getter="ARTICLES"
+              action="GET_ARTICLES"
+              :total-pages="ARTICLES.meta.last_page"
+            />
           </div>
         </div>
       </div>
@@ -53,7 +57,14 @@ import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'ArticlesIndex',
   async fetch() {
-    await this.GET_ARTICLES({ page: this.$route.query.page ?? 1 })
+    this.$store.dispatch('UPDATE_LOADING', true)
+    try {
+      await this.GET_ARTICLES({ page: this.$route.query.page ?? 1 })
+    } catch (err) {
+      this.$toast.error('Error! ' + err.response.statusText)
+    } finally {
+      this.$store.dispatch('UPDATE_LOADING', false)
+    }
   },
   computed: {
     ...mapGetters({

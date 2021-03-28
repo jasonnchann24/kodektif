@@ -21,11 +21,14 @@
     "@nuxtjs/style-resources": "^1.0.0",
     "@popperjs/core": "^2.6.0",
     "bootstrap": "^5.0.0-beta1",
+    "epic-spinners": "^1.1.0",
     "node-sass": "^5.0.0",
     "npm": "^7.6.0",
     "nuxt": "^2.14.12",
     "nuxt-i18n": "^6.20.0",
-    "sass-loader": "^10.1.1"
+    "sass-loader": "^10.1.1",
+    "vue-select": "^3.11.2",
+    "vue-toastification": "^1.7.11"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^2.0.0",

@@ -8,7 +8,9 @@
         class="col d-flex flex-column align-items-center justify-content-center"
       >
         <div class="my-4">
-          <BaseLogo width="150" />
+          <nuxt-link to="/">
+            <BaseLogo width="150" />
+          </nuxt-link>
         </div>
         <h1 class="h3">LOGIN</h1>
         <button

@@ -11,7 +11,10 @@
       <!-- <img class="mr-1" :src="getFlag($i18n.locale)" alt="" width="25" /> -->
       {{ $i18n.locale }}
     </a>
-    <ul class="dropdown-menu overflow-hidden" aria-labelledby="dropDownLang">
+    <ul
+      class="dropdown-menu overflow-hidden p-1"
+      aria-labelledby="dropDownLang"
+    >
       <li v-for="locale in $i18n.locales" :key="locale.code">
         <nuxt-link
           class="dropdown-item"
@@ -41,3 +44,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.dropdown-item {
+  font-size: 0.75rem;
+}
+</style>

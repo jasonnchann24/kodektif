@@ -93,8 +93,14 @@ export default {
   overflow: hidden;
 }
 
+@media screen and (max-width: 692px) {
+  .her-img {
+    margin-right: 0;
+  }
+}
+
 .hero-img {
-  margin-right: 0%;
+  margin-right: 5%;
 }
 
 .centered-text {

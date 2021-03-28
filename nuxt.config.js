@@ -45,7 +45,11 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['@/plugins/bootstrap.js'],
+  plugins: [
+    '@/plugins/bootstrap.js',
+    '@/plugins/vSelect.js',
+    { src: '@/plugins/loadingOverlay.js', mode: 'client' }
+  ],
   /*
    ** Nuxt.js dev-modules
    */
@@ -73,7 +77,16 @@ export default {
   /*
    ** Nuxt.js modules
    */
-  modules: ['@nuxtjs/axios', '@nuxtjs/auth-next', '@nuxtjs/style-resources'],
+  modules: [
+    '@nuxtjs/axios',
+    '@nuxtjs/auth-next',
+    '@nuxtjs/style-resources',
+    'vue-toastification/nuxt'
+  ],
+
+  toast: {
+    cssFile: '@/assets/css/toastification.css'
+  },
 
   styleResources: {
     scss: '@/assets/scss/_variables.scss'

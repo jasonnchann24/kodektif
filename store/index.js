@@ -1,8 +1,13 @@
-export const state = () => ({})
+export const state = () => ({
+  loading: false
+})
 
 export const getters = {
   isAuthenticated(state) {
     return state.auth.loggedIn
+  },
+  isLoading(state) {
+    return state.loading
   },
 
   loggedInUser(state) {
@@ -13,6 +18,9 @@ export const getters = {
 export const mutations = {
   SET_USER_LOGGED_IN(state) {
     state.auth.loggedIn = true
+  },
+  SET_LOADING(state, bool) {
+    state.loading = bool
   }
 }
 
@@ -34,5 +42,8 @@ export const actions = {
     if (res) {
       commit('SET_USER_LOGGED_IN')
     }
+  },
+  UPDATE_LOADING({ commit }, bool) {
+    commit('SET_LOADING', bool)
   }
 }

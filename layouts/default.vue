@@ -1,5 +1,8 @@
 <template>
   <div>
+    <transition name="slowFade" mode="out-in">
+      <CoreLoadingOverlay v-if="isLoading" />
+    </transition>
     <CoreNavbar />
     <main id="top-main">
       <nuxt class="py-4" />
@@ -8,6 +11,16 @@
   </div>
 </template>
 
+<script>
+export default {
+  name: 'DefaultLayout',
+  computed: {
+    isLoading() {
+      return this.$store.getters.isLoading
+    }
+  }
+}
+</script>
 <style>
 html {
   margin: 0;
@@ -24,5 +37,14 @@ body {
 #top-main {
   min-height: 60vh;
   width: 100vw;
+}
+
+.slowFade-enter-active,
+.slowFade-leave-active {
+  transition: opacity 0.5s;
+}
+.slowFade-enter,
+.slowFade-leave-to {
+  opacity: 0;
 }
 </style>

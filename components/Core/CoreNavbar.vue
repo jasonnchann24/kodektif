@@ -13,6 +13,7 @@
         />
       </nuxtLink>
       <button
+        id="navbarToggle"
         class="navbar-toggler border-0"
         type="button"
         data-bs-toggle="collapse"
@@ -20,12 +21,14 @@
         aria-controls="navbarNavDropdown"
         aria-expanded="false"
         aria-label="Toggle navigation"
+        @click="collapse = !collapse"
       >
-        <span class="navbar-toggler-icon"></span>
+        <i class="ri-menu-5-line ri-lg"></i>
       </button>
       <div
         id="navbarNavDropdown"
-        class="collapse navbar-collapse justify-content-between align-items-center"
+        class="collapse navbar-collapse justify-content-between align-items-center mt-3 mt-lg-0"
+        style="z-index: 10"
       >
         <ul class="navbar-nav"></ul>
         <ul class="navbar-nav">
@@ -84,11 +87,23 @@
 <script>
 import { mapGetters } from 'vuex'
 export default {
+  name: 'CoreNavbar',
+  data() {
+    return {
+      collapse: false
+    }
+  },
   computed: {
     ...mapGetters({
       isAuthenticated: 'isAuthenticated',
       loggedInUser: 'loggedInUser'
     })
+  },
+  watch: {
+    collapse() {
+      const el = document.getElementById('navbarToggle').classList
+      this.collapse ? el.add('rotate') : el.remove('rotate')
+    }
   }
 }
 </script>
@@ -104,5 +119,40 @@ export default {
     padding: 0 20px 0 20px;
     border-radius: 5px;
   }
+}
+
+.navbar-dark .navbar-nav .nav-link:hover {
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.navbar-toggler:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.rotate {
+  transform: rotate(-90deg);
+  transition: all 0.7s ease;
+}
+
+.navbar-toggler {
+  transition: all 0.5s ease;
+}
+
+.dropdown .dropdown-menu {
+  height: 0px;
+  display: block;
+  overflow: hidden;
+  opacity: 0;
+  -webkit-transition: all 3s ease;
+  -moz-transition: all 3s ease;
+  -ms-transition: all 3s ease;
+  -o-transition: all 3s ease;
+  transition: all 3s ease;
+}
+
+.dropdown.open .dropdown-menu {
+  height: 200px;
+  opacity: 1;
 }
 </style>
