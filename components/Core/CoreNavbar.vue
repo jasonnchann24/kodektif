@@ -46,6 +46,14 @@
           <li class="nav-item">
             <a href="" class="nav-link">Courses</a>
           </li>
+          <li v-if="isAdmin" class="nav-item">
+            <nuxtLink
+              :to="localePath('/dashboard')"
+              class="nav-link"
+              active-class="active"
+              >Dashboard</nuxtLink
+            >
+          </li>
         </ul>
         <ul class="navbar-nav ">
           <CoreLangChange />
@@ -96,7 +104,8 @@ export default {
   computed: {
     ...mapGetters({
       isAuthenticated: 'isAuthenticated',
-      loggedInUser: 'loggedInUser'
+      loggedInUser: 'loggedInUser',
+      isAdmin: 'isAdmin'
     })
   },
   watch: {

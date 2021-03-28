@@ -12,6 +12,19 @@ export const getters = {
 
   loggedInUser(state) {
     return state.auth.user
+  },
+
+  isAdmin(state) {
+    const userRoles = state.auth.user.roles
+    let admin = false
+    userRoles.forEach((role) => {
+      if (role.name === 'admin') {
+        admin = true
+        return
+      }
+    })
+
+    return admin
   }
 }
 
