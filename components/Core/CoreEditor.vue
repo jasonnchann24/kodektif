@@ -132,6 +132,8 @@
 
 <script>
 import { Editor, EditorContent, EditorFloatingMenu } from 'tiptap'
+import Image from '@/plugins/tipTapImage'
+
 import {
   CodeBlockHighlight,
   Blockquote,
@@ -156,6 +158,14 @@ import {
 import javascript from 'highlight.js/lib/languages/javascript'
 import css from 'highlight.js/lib/languages/css'
 
+async function upload(file) {
+  let formData = new FormData()
+  formData.append('file', file)
+  const headers = { 'Content-Type': 'multipart/form-data' }
+  const response = await axios.post('/upload', formData, { headers: headers })
+  return response.data.src
+}
+
 export default {
   name: 'TipTapEditor',
   components: {
@@ -167,6 +177,7 @@ export default {
       editor:
         new Editor({
           extensions: [
+            new Image(null, null, upload),
             new CodeBlockHighlight({
               languages: {
                 javascript,
