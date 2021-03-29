@@ -72,7 +72,8 @@ export default {
         ],
         vueI18n: i18n
       }
-    ]
+    ],
+    '@nuxtjs/moment'
   ],
   /*
    ** Nuxt.js modules
