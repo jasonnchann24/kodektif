@@ -71,12 +71,21 @@ export default {
       ARTICLES: 'articles/ARTICLES'
     })
   },
-  mounted() {
-    this.GET_ARTICLES({})
+  async mounted() {
+    this.UPDATE_LOADING(true)
+
+    try {
+      await this.GET_ARTICLES({})
+    } catch (err) {
+      this.$toast.error('Something went wrong')
+    } finally {
+      this.UPDATE_LOADING(false)
+    }
   },
   methods: {
     ...mapActions({
-      GET_ARTICLES: 'articles/GET_ARTICLES'
+      GET_ARTICLES: 'articles/GET_ARTICLES',
+      UPDATE_LOADING: 'UPDATE_LOADING'
     })
   }
 }

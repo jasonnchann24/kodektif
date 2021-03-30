@@ -1,8 +1,12 @@
 <template>
-  <div>
-    <client-only>
-      <CoreEditor />
-    </client-only>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <client-only>
+          <CoreEditor />
+        </client-only>
+      </div>
+    </div>
   </div>
 </template>
 

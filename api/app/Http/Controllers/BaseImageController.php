@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\BaseImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 
 class BaseImageController extends Controller
 {
@@ -21,13 +22,22 @@ class BaseImageController extends Controller
         ]);
 
         $image = $request->file('image');
+
+        $width = 300; // max width
+        $height = 300; // max height
+        $img = Image::make($image);
+        $img->height() > $img->width() ? $width = null : $height = null;
+        $img->resize($width, $height, function ($constraint) {
+            $constraint->aspectRatio();
+        });
+
         $filename = time() . "_" . preg_replace('/\s+/', '_', strtolower($image->getClientOriginalName()));
-        $image->storeAs('public/images/', $filename, 'local');
+        $img->save(storage_path() . "/app/public/images/" . $filename, 100);
 
         BaseImage::create([
             'filename' => $filename
         ]);
 
-        return Storage::url('public/images/' . $filename);
+        return config('app.url') . Storage::url('images/' . $filename);
     }
 }

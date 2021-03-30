@@ -1,5 +1,6 @@
 <template>
   <div class="editor">
+    <UploadModal ref="uploadModal" @onConfirm="addCommand" />
     <EditorFloatingMenu v-slot="{ commands, isActive, menu }" :editor="editor">
       <div
         class="editor__floating-menu"
@@ -124,6 +125,13 @@
         <button class="btn btn-link text-white" @click="commands.redo">
           <i class="ri-arrow-go-forward-line"></i>
         </button>
+
+        <button
+          class="btn btn-link text-white"
+          @click="openModal(commands.image)"
+        >
+          <i class="ri-image-add-line"></i>
+        </button>
       </div>
     </EditorFloatingMenu>
     <EditorContent class="editor__content mt-4" :editor="editor" />
@@ -132,7 +140,7 @@
 
 <script>
 import { Editor, EditorContent, EditorFloatingMenu } from 'tiptap'
-import Image from '@/plugins/tipTapImage'
+// import Image from '@/plugins/tipTapImage'
 
 import {
   CodeBlockHighlight,
@@ -152,21 +160,12 @@ import {
   Link,
   Strike,
   Underline,
-  History
+  History,
+  Image
 } from 'tiptap-extensions'
 
 import javascript from 'highlight.js/lib/languages/javascript'
 import css from 'highlight.js/lib/languages/css'
-
-async function upload(file) {
-  let formData = new FormData()
-  formData.append('file', file)
-  const headers = { 'Content-Type': 'multipart/form-data' }
-  const response = await this.$axios.$post('/base-', formData, {
-    headers: headers
-  })
-  return response.data.src
-}
 
 export default {
   name: 'TipTapEditor',
@@ -179,7 +178,7 @@ export default {
       editor:
         new Editor({
           extensions: [
-            new Image(null, null, upload),
+            new Image(),
             new CodeBlockHighlight({
               languages: {
                 javascript,
@@ -204,12 +203,36 @@ export default {
             new Underline(),
             new History()
           ],
-          content: '<p>test</p>'
-        }) ?? null
+          content: '<p>test</p>',
+          onUpdate: ({ getHTML }) => {
+            // get new content on update
+            this.htmlContent = getHTML()
+          }
+        }) ?? null,
+      htmlContent: null
     }
   },
   beforeDestroy() {
     this.editor.destroy()
+  },
+  methods: {
+    async upload(file) {
+      let formData = new FormData()
+      formData.append('image', file)
+      const headers = { 'Content-Type': 'multipart/form-data' }
+      const response = await this.$axios.$post('/base-images', formData, {
+        headers: headers
+      })
+      return response
+    },
+    openModal(command) {
+      this.$refs.uploadModal.showModal(command)
+    },
+    addCommand(data) {
+      if (data.command !== null) {
+        data.command(data.data)
+      }
+    }
   }
 }
 </script>
@@ -232,9 +255,19 @@ export default {
   }
 }
 
+button.is-active {
+  background-color: rgba(184, 184, 184, 0.714);
+}
+
 .ProseMirror {
   padding: 25px;
   background: #343747;
+}
+
+code {
+  background-color: rgba(201, 201, 201, 0.734);
+  padding: 8px;
+  border-radius: 5px;
 }
 
 pre {

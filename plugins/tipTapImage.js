@@ -31,6 +31,9 @@ export default class Image extends Node {
         },
         title: {
           default: null
+        },
+        width: {
+          default: '100%'
         }
       },
       group: 'inline',
@@ -79,40 +82,6 @@ export default class Image extends Node {
     return [
       new Plugin({
         props: {
-          handlePaste(view, event) {
-            const items = (
-              event.clipboardData || event.originalEvent.clipboardData
-            ).items
-            for (const item of items) {
-              if (item.type.indexOf('image') === 0) {
-                event.preventDefault()
-                const { schema } = view.state
-
-                const image = item.getAsFile()
-
-                if (upload) {
-                  upload(image).then((src) => {
-                    const node = schema.nodes.image.create({
-                      src: src
-                    })
-                    const transaction = view.state.tr.replaceSelectionWith(node)
-                    view.dispatch(transaction)
-                  })
-                } else {
-                  const reader = new FileReader()
-                  reader.onload = (readerEvent) => {
-                    const node = schema.nodes.image.create({
-                      src: readerEvent.target.result
-                    })
-                    const transaction = view.state.tr.replaceSelectionWith(node)
-                    view.dispatch(transaction)
-                  }
-                  reader.readAsDataURL(image)
-                }
-              }
-            }
-            return false
-          },
           handleDOMEvents: {
             drop(view, event) {
               const hasFiles =

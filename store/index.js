@@ -15,7 +15,11 @@ export const getters = {
   },
 
   isAdmin(state) {
-    const userRoles = state.auth.user.roles
+    const userRoles = state.auth.user?.roles
+    if (!userRoles) {
+      return false
+    }
+
     let admin = false
     userRoles.forEach((role) => {
       if (role.name === 'admin') {
