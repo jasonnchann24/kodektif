@@ -162,7 +162,9 @@ async function upload(file) {
   let formData = new FormData()
   formData.append('file', file)
   const headers = { 'Content-Type': 'multipart/form-data' }
-  const response = await axios.post('/upload', formData, { headers: headers })
+  const response = await this.$axios.$post('/base-', formData, {
+    headers: headers
+  })
   return response.data.src
 }
 

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Article\ArticleController;
 use App\Http\Controllers\Article\ArticleLikeController;
+use App\Http\Controllers\BaseImageController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Discussion\DiscussionComment\DiscussionCommentController;
 use App\Http\Controllers\Discussion\DiscussionComment\DiscussionCommentReplyController;
@@ -40,6 +41,8 @@ Route::middleware('auth:sanctum')->get('/user', MeController::class);
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('logout', [LoginController::class, 'logout'])->name('auth.logout');
+
+    Route::post('/base-images', BaseImageController::class);
 
     Route::post('suspend-user', [SuspendController::class, 'store'])->name('suspend-user.store');
     Route::delete('unsuspend-user/{id}', [SuspendController::class, 'destroy'])->name('suspend-user.destroy');
