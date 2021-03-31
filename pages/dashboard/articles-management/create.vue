@@ -5,10 +5,7 @@
         <h1>Create New Article</h1>
       </div>
     </div>
-    <form
-      v-if="CATEGORIES.data && LANGUAGES.data"
-      @submit.prevent="submitArticle"
-    >
+    <div v-if="CATEGORIES.data && LANGUAGES.data">
       <div class="row">
         <div class="col-12 col-lg-6">
           <label for="articleTitle" class="form-label">Title</label>
@@ -81,12 +78,16 @@
       </div>
       <div class="row mt-4">
         <div class="col">
-          <button class="btn btn-success text-white float-end" type="submit">
+          <button
+            class="btn btn-success text-white float-end"
+            type="button"
+            @click="submitArticle"
+          >
             Submit Article
           </button>
         </div>
       </div>
-    </form>
+    </div>
   </div>
 </template>
 
@@ -99,13 +100,13 @@ export default {
       dropzoneOptions: {
         url: 'uploadedWithArticleForm',
         thumbnailWidth: 300,
-        maxFilesize: 0.5,
+        maxFilesize: 1,
         maxFiles: 1,
         manuallyAddFile: true,
         autoProcessQueue: false,
         addRemoveLinks: true,
         dictDefaultMessage:
-          '<i class="ri-upload-cloud-2-line ri-lg me-2"></i> Drop 1 image here to upload'
+          '<i class="ri-upload-cloud-2-line ri-lg me-2"></i> Drop 1 image here to upload<br /><span class="text-danger">Max file size 1MB</span>'
       },
       form: {
         title: '',
@@ -113,7 +114,8 @@ export default {
         language_id: null,
         categories: [],
         body: ''
-      }
+      },
+      image: null
     }
   },
   computed: {
@@ -133,10 +135,15 @@ export default {
     ...mapActions({
       GET_LANGUAGES: 'languages/GET_LANGUAGES',
       GET_CATEGORIES: 'categories/GET_CATEGORIES',
-      UPDATE_LOADING: 'UPDATE_LOADING'
+      UPDATE_LOADING: 'UPDATE_LOADING',
+      CREATE_ARTICLE: 'articles/CREATE_ARTICLE'
     }),
     fileAdded(file) {
-      console.log(file)
+      if (file.size > 1000000) {
+        this.$toast.error('File size is larger than 1MB')
+        this.$refs.myVueDropzone.removeFile(file)
+      }
+      this.image = file
       //this.form.append(file[this.counter], file)
     },
     fileExceeded(file) {
@@ -146,8 +153,30 @@ export default {
     updateBody(value) {
       this.form.body = value
     },
-    submitArticle() {
-      this.$toast('hh')
+    async submitArticle() {
+      const formData = new FormData()
+
+      for (const [key, value] of Object.entries(this.form)) {
+        if (key == 'categories') {
+          this.form.categories.forEach((x) => {
+            formData.append('categories[]', x)
+          })
+        } else {
+          formData.append(`${key}`, value)
+        }
+      }
+
+      formData.append('image', this.image)
+
+      this.UPDATE_LOADING(true)
+      try {
+        await this.CREATE_ARTICLE(formData)
+        this.$toast.success('Success upload article')
+      } catch (err) {
+        this.$toast.error(err.response.statusText)
+      } finally {
+        this.UPDATE_LOADING(false)
+      }
     }
   }
 }

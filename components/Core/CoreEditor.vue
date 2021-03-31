@@ -240,6 +240,9 @@ export default {
 <style lang="scss">
 .editor {
   position: relative;
+  &__content img {
+    width: 100%;
+  }
   &__floating-menu {
     position: absolute;
     z-index: 1;

@@ -34,8 +34,9 @@ class BaseImageController extends Controller
         $filename = time() . "_" . preg_replace('/\s+/', '_', strtolower($image->getClientOriginalName()));
         $img->save(storage_path() . "/app/public/images/" . $filename, 100);
 
+        $target = 'images/' . $filename;
         BaseImage::create([
-            'filename' => $filename
+            'filename' => $target
         ]);
 
         return config('app.url') . Storage::url('images/' . $filename);

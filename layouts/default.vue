@@ -45,7 +45,7 @@ textarea {
 
 .slowFade-enter-active,
 .slowFade-leave-active {
-  transition: opacity 0.5s;
+  transition: opacity 0.4s ease-in-out;
 }
 .slowFade-enter,
 .slowFade-leave-to {
