@@ -4,6 +4,7 @@ namespace App\Http\Resources\Article;
 
 use App\Http\Resources\CategoryResource;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Storage;
 
 class ArticleResource extends JsonResource
 {
@@ -27,6 +28,7 @@ class ArticleResource extends JsonResource
             'author' => $this->user->name,
             'categories' => CategoryResource::collection($this->categories),
             'has_liked' => $this->has_liked,
+            'article_image' => $this->articleImage ? Storage::url($this->articleImage->filename) : null
         ];
     }
 }

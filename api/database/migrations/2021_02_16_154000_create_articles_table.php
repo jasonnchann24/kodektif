@@ -15,8 +15,9 @@ class CreateArticlesTable extends Migration
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->nullable();
-            $table->foreignId('language_id')->constrained()->nullable();
+            $table->foreignId('user_id')->nullable()->constrained();
+            $table->foreignId('language_id')->nullable()->constrained();
+            $table->foreignId('article_image_id')->nullable()->constrained();
             $table->string('title', 512);
             $table->text('description');
             $table->longText('body');

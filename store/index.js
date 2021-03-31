@@ -60,7 +60,7 @@ export const actions = {
       commit('SET_USER_LOGGED_IN')
     }
   },
-  UPDATE_LOADING({ commit }, bool) {
+  UPDATE_LOADING({ commit }, bool = true) {
     commit('SET_LOADING', bool)
   }
 }

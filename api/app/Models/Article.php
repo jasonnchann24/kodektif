@@ -22,7 +22,7 @@ class Article extends Model
     ];
 
     protected $with = [
-        'user', 'categories', 'language', 'likes'
+        'user', 'categories', 'language', 'likes', 'articleImage'
     ];
 
     public function user()

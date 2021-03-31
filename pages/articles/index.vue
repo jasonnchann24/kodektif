@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="articlesTop">
     <div class="container">
       <div class="row">
         <div class="col">
@@ -15,13 +15,31 @@
                 :key="index"
                 class="col-12 col-lg-6"
               >
-                <div class="card" style="height: 11rem">
+                <div class="card shadow-lg">
+                  <img
+                    v-if="item.article_image"
+                    class="card-img-top"
+                    :src="`${$config.BACKEND_URL}${item.article_image}`"
+                    :alt="`main image for ${item.title}`"
+                    srcset=""
+                  />
+                  <img
+                    v-else
+                    class="card-img-top"
+                    src="undraw/to_the_moon.png"
+                    alt="image not found"
+                  />
                   <div class="card-body text-dark">
                     <h5 class="text-truncate">{{ item.title }}</h5>
                     <p style="height: 3rem">
                       {{ item.description }}
                     </p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+
+                    <NuxtLink
+                      :to="`/articles/${item.id}/${item.slug}`"
+                      class="btn btn-primary"
+                      >Read more ...</NuxtLink
+                    >
                   </div>
                 </div>
               </div>
@@ -38,7 +56,19 @@
             class="w-100"
           />
           <div class="w-50 border-bottom border-danger mx-auto mt-2"></div>
-          <div v-if="ARTICLES.meta" class="mt-3">
+          <div v-if="ARTICLES.meta" class="mt-3 d-none d-lg-block">
+            <BasePagination
+              module="articles"
+              getter="ARTICLES"
+              action="GET_ARTICLES"
+              :total-pages="ARTICLES.meta.last_page"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div v-if="ARTICLES.meta" class="mt-3 d-block d-lg-none">
             <BasePagination
               module="articles"
               getter="ARTICLES"
@@ -61,6 +91,7 @@ export default {
     try {
       await this.GET_ARTICLES({ page: this.$route.query.page ?? 1 })
     } catch (err) {
+      console.log(err)
       this.$toast.error('Error! ' + err.response.statusText)
     } finally {
       this.$store.dispatch('UPDATE_LOADING', false)
@@ -86,5 +117,15 @@ p {
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+.card {
+  height: 400px;
+  border: none;
+}
+
+.card-img-top {
+  height: 225px;
+  object-fit: cover;
+  object-position: center;
 }
 </style>

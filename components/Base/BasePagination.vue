@@ -57,6 +57,10 @@ export default {
     totalPages: {
       type: Number,
       default: 0
+    },
+    topPage: {
+      type: String,
+      default: 'top-main'
     }
   },
   data() {
@@ -102,6 +106,7 @@ export default {
         await this.$store.dispatch(`${this.module}/${this.action}`, {
           page: this.currentPage
         })
+        this.$scrollTo(`#${this.topPage}`)
       } catch (err) {
         this.$toast.error(
           `Sorry.. Something went wrong! ${err.response.statusText}`

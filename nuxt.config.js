@@ -84,7 +84,8 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/auth-next',
     '@nuxtjs/style-resources',
-    'vue-toastification/nuxt'
+    'vue-toastification/nuxt',
+    'vue-scrollto/nuxt'
   ],
 
   toast: {
