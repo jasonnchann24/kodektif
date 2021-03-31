@@ -33,6 +33,10 @@ body {
   min-height: 100%;
   font-family: 'Montserrat', sans-serif;
 }
+input,
+textarea {
+  color: black !important;
+}
 
 #top-main {
   min-height: 60vh;

@@ -134,7 +134,7 @@
         </button>
       </div>
     </EditorFloatingMenu>
-    <EditorContent class="editor__content mt-4" :editor="editor" />
+    <EditorContent class="editor__content" :editor="editor" />
   </div>
 </template>
 
@@ -203,10 +203,10 @@ export default {
             new Underline(),
             new History()
           ],
-          content: '<p>test</p>',
+          content: '<p>Body Content</p>',
           onUpdate: ({ getHTML }) => {
-            // get new content on update
             this.htmlContent = getHTML()
+            this.$emit('update', this.htmlContent)
           }
         }) ?? null,
       htmlContent: null
@@ -265,9 +265,7 @@ button.is-active {
 }
 
 code {
-  background-color: rgba(201, 201, 201, 0.734);
-  padding: 8px;
-  border-radius: 5px;
+  background-color: rgba(76, 76, 76, 0.843);
 }
 
 pre {

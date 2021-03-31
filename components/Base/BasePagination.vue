@@ -17,7 +17,10 @@
           class="style-chooser "
           :options="pageIteration"
           append-to-body
-        ></v-select>
+          ><span slot="no-options" class="text-danger">
+            Sorry, no matching options
+          </span></v-select
+        >
       </li>
       <li class="page-item">
         <a
@@ -137,13 +140,21 @@ export default {
   border: none;
   color: #474b60;
   text-transform: lowercase;
-  font-variant: small-caps;
-  width: 7rem;
-  padding-bottom: 2px;
+  width: 100%;
 }
 
 .style-chooser .vs__clear,
 .style-chooser .vs__open-indicator {
   fill: #474b60;
+}
+
+.vs__selected {
+  padding: 7px;
+  border-radius: 5px;
+  background: #a0a0a05e;
+}
+
+.vs__deselect {
+  fill: #fff;
 }
 </style>
