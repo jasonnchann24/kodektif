@@ -58,5 +58,9 @@ export const actions = {
   async UNLIKE_ARTICLE({ commit }, article_like_id) {
     await this.$axios.$delete(`article-likes/${article_like_id}`)
     commit('UNLIKED_ARTICLE')
+  },
+  async DELETE_ARTICLE({ commit }, article_id) {
+    await this.$axios.$delete('articles/' + article_id)
+    commit('REFRESH_ARTICLE')
   }
 }

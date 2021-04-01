@@ -140,6 +140,7 @@ p {
 }
 
 .card-img-top {
+  width: 100%;
   height: 235px;
   object-fit: cover;
   object-position: center;

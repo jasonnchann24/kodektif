@@ -48,7 +48,10 @@
                     >
                       Update
                     </NuxtLink>
-                    <button class="btn btn-danger text-white">
+                    <button
+                      class="btn btn-danger text-white"
+                      @click="deleteArticle(article.id)"
+                    >
                       Delete
                     </button>
                   </div>
@@ -96,8 +99,23 @@ export default {
   methods: {
     ...mapActions({
       GET_ARTICLES: 'articles/GET_ARTICLES',
-      UPDATE_LOADING: 'UPDATE_LOADING'
-    })
+      UPDATE_LOADING: 'UPDATE_LOADING',
+      DELETE_ARTICLE: 'articles/DELETE_ARTICLE'
+    }),
+    async deleteArticle(id) {
+      if (confirm('Are you sure you want to delete?')) {
+        this.UPDATE_LOADING()
+        try {
+          await this.DELETE_ARTICLE(id)
+          await this.GET_ARTICLES({})
+          this.$toast.success('Article Deleted')
+        } catch (err) {
+          this.$toast.error(`${err.response.statusText}`)
+        } finally {
+          this.UPDATE_LOADING(false)
+        }
+      }
+    }
   }
 }
 </script>
