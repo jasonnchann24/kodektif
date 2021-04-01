@@ -84,7 +84,7 @@ export default {
       return this.ARTICLE.data
     },
     allSet() {
-      if (Object.keys(this.ARTICLE).length > 0) {
+      if (Object.keys(this.ARTICLE).length > 0 && this.ARTICLE.data) {
         return this.ARTICLE.data.id == this.$route.params.id
       } else {
         return false

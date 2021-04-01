@@ -34,6 +34,12 @@
                   <div
                     class="col d-flex align-items-center justify-content-evenly"
                   >
+                    <NuxtLink
+                      :to="`/articles/${article.id}/${article.slug}`"
+                      class="btn btn-info text-white"
+                    >
+                      View
+                    </NuxtLink>
                     <button class="btn btn-success text-white">
                       Update
                     </button>

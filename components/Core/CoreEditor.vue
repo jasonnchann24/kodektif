@@ -241,7 +241,7 @@ export default {
 .editor {
   position: relative;
   &__content img {
-    width: 100%;
+    max-width: 100%;
   }
   &__floating-menu {
     position: absolute;

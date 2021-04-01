@@ -172,6 +172,8 @@ export default {
       try {
         await this.CREATE_ARTICLE(formData)
         this.$toast.success('Success upload article')
+        await this.$delay(2000)
+        this.$router.push('/dashboard/articles-management')
       } catch (err) {
         this.$toast.error(err.response.statusText)
       } finally {

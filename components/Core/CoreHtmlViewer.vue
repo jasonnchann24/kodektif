@@ -96,7 +96,7 @@ export default {
   position: relative;
   width: 95%;
   &__content img {
-    width: 100%;
+    max-width: 100%;
   }
   &__floating-menu {
     position: absolute;
