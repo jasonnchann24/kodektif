@@ -173,6 +173,12 @@ export default {
     EditorContent,
     EditorFloatingMenu
   },
+  props: {
+    initContent: {
+      type: String,
+      default: ''
+    }
+  },
   data() {
     return {
       editor:
@@ -210,6 +216,11 @@ export default {
           }
         }) ?? null,
       htmlContent: null
+    }
+  },
+  mounted() {
+    if (this.initContent != '') {
+      this.editor.setContent(this.initContent)
     }
   },
   beforeDestroy() {

@@ -108,6 +108,11 @@ class ArticleController extends Controller
             $article->categories()
                 ->sync($validated['categories']);
 
+            if ($request->hasFile('image')) {
+                $articleImage = $this->saveImage($request);
+                $article->articleImage()->associate($articleImage);
+            }
+
             $article->save();
 
             DB::commit();

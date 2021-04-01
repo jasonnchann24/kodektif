@@ -41,6 +41,10 @@ export const actions = {
     const res = await this.$axios.$post(`articles`, formData)
     commit('SET_ARTICLE', res)
   },
+  async UPDATE_ARTICLE({ commit }, { id, formData }) {
+    const res = await this.$axios.$post(`articles/${id}?_method=PUT`, formData)
+    commit('SET_ARTICLE', res)
+  },
   async GET_ARTICLE({ commit }, { id, slug }) {
     const res = await this.$axios.$get(`articles/${id}/${slug}`)
     commit('SET_ARTICLE', res)

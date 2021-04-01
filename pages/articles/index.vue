@@ -31,8 +31,20 @@
                   />
                   <div class="card-body text-dark">
                     <h5 class="text-truncate">{{ item.title }}</h5>
-                    <p class="mb-0" style="height: 3rem">
+                    <p class="my-2" style="height: 3rem">
                       {{ item.description }}
+                    </p>
+                    <p class="mb-0">
+                      <strong>Language</strong>: {{ item.language.name }}
+                    </p>
+                    <p class="mb-0">
+                      <strong>Categories</strong>:
+                      <span
+                        v-for="cat in item.categories"
+                        :key="`${item.id}${cat.id}`"
+                      >
+                        {{ cat.label }} |</span
+                      >
                     </p>
                     <p class="mb-2">
                       <i class="ri-thumb-up-fill me-3"></i
@@ -123,12 +135,12 @@ p {
   text-overflow: ellipsis;
 }
 .card {
-  height: 425px;
+  height: 485px;
   border: none;
 }
 
 .card-img-top {
-  height: 225px;
+  height: 235px;
   object-fit: cover;
   object-position: center;
 }

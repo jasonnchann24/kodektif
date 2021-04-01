@@ -40,9 +40,14 @@
                     >
                       View
                     </NuxtLink>
-                    <button class="btn btn-success text-white">
+                    <NuxtLink
+                      :to="
+                        `/dashboard/articles-management/${article.id}/${article.slug}/edit`
+                      "
+                      class="btn btn-success text-white"
+                    >
                       Update
-                    </button>
+                    </NuxtLink>
                     <button class="btn btn-danger text-white">
                       Delete
                     </button>
