@@ -78,10 +78,15 @@ export default {
     }
   },
   mounted() {
-    this.editor.setContent(this.bodyContent)
+    this.refreshContent()
   },
   beforeDestroy() {
     this.editor.destroy()
+  },
+  methods: {
+    refreshContent() {
+      this.editor.setContent(this.bodyContent)
+    }
   }
 }
 </script>
@@ -89,6 +94,7 @@ export default {
 <style lang="scss">
 .editor {
   position: relative;
+  width: 95%;
   &__content img {
     width: 100%;
   }

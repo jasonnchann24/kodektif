@@ -32,6 +32,7 @@ export default {
   auth: 'guest',
   methods: {
     login(provider) {
+      this.$toast.info('Please wait ...')
       window.location.href = this.$config.BACKEND_URL + `/login/${provider}`
     }
   }

@@ -31,8 +31,12 @@
                   />
                   <div class="card-body text-dark">
                     <h5 class="text-truncate">{{ item.title }}</h5>
-                    <p style="height: 3rem">
+                    <p class="mb-0" style="height: 3rem">
                       {{ item.description }}
+                    </p>
+                    <p class="mb-2">
+                      <i class="ri-thumb-up-fill me-3"></i
+                      ><span>{{ item.likes_count }}</span>
                     </p>
 
                     <NuxtLink
@@ -119,7 +123,7 @@ p {
   text-overflow: ellipsis;
 }
 .card {
-  height: 400px;
+  height: 425px;
   border: none;
 }
 

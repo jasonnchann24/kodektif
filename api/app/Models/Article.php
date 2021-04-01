@@ -56,6 +56,6 @@ class Article extends Model
             ->where('user_id', Auth::id())
             ->first();
 
-        return $articleLike ? true : false;
+        return $articleLike ? $articleLike : false;
     }
 }
