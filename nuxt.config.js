@@ -86,8 +86,18 @@ export default {
     '@nuxtjs/auth-next',
     '@nuxtjs/style-resources',
     'vue-toastification/nuxt',
-    'vue-scrollto/nuxt'
+    'vue-scrollto/nuxt',
+    '@nuxt/content'
   ],
+
+  content: {
+    dir: 'courses',
+    markdown: {
+      prism: {
+        theme: 'prism-themes/themes/prism-dracula.css'
+      }
+    }
+  },
 
   toast: {
     cssFile: '@/assets/css/toastification.css'

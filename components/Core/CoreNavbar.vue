@@ -44,7 +44,12 @@
             <a href="" class="nav-link">Discussions</a>
           </li>
           <li class="nav-item">
-            <a href="" class="nav-link">Courses</a>
+            <nuxtLink
+              :to="localePath('/courses')"
+              class="nav-link"
+              active-class="active"
+              >Courses</nuxtLink
+            >
           </li>
           <li v-if="isAdmin" class="nav-item">
             <nuxtLink

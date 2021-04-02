@@ -52,7 +52,7 @@ export const actions = {
         res = await this.$axios.$get('/user')
         await this.$auth.setUser(res.data)
       } catch (err) {
-        console.log(err)
+        console.log('Not logged-in')
       }
     }
 

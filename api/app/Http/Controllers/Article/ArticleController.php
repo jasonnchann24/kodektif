@@ -147,8 +147,8 @@ class ArticleController extends Controller
     {
         $image = $request->file('image');
 
-        $width = 300; // max width
-        $height = 300; // max height
+        $width = 600; // max width
+        $height = 600; // max height
         $img = Image::make($image);
         $img->height() > $img->width() ? $width = null : $height = null;
         $img->resize($width, $height, function ($constraint) {
