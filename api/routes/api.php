@@ -4,6 +4,7 @@ use App\Http\Controllers\Article\ArticleController;
 use App\Http\Controllers\Article\ArticleLikeController;
 use App\Http\Controllers\BaseImageController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\Course\CourseController;
 use App\Http\Controllers\Discussion\DiscussionComment\DiscussionCommentController;
 use App\Http\Controllers\Discussion\DiscussionComment\DiscussionCommentReplyController;
 use App\Http\Controllers\Discussion\DiscussionComment\DiscussionCommentVoteController;
@@ -47,7 +48,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('suspend-user', [SuspendController::class, 'store'])->name('suspend-user.store');
     Route::delete('unsuspend-user/{id}', [SuspendController::class, 'destroy'])->name('suspend-user.destroy');
     Route::apiResource('article-likes', ArticleLikeController::class)->except(['index', 'update', 'show']);
+    Route::apiResource('courses', CourseController::class)->except(['index', 'show']);
 });
+
+Route::apiResource('courses', CourseController::class)->except(['store', 'update', 'destroy']);
 
 Route::apiResource('user-profiles', UserProfileController::class)->except(['index', 'destroy']);
 Route::apiResource('categories', CategoryController::class);

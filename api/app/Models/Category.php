@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Course\Course;
 use App\Models\Discussion\Discussion;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -44,5 +45,10 @@ class Category extends Model
     public function discussions()
     {
         return $this->belongsToMany(Discussion::class);
+    }
+
+    public function courses()
+    {
+        return $this->belongsToMany(Course::class);
     }
 }

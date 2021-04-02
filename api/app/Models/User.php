@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Course\Course;
 use App\Models\Discussion\Discussion;
 use App\Models\Discussion\DiscussionComment\DiscussionComment;
 use App\Models\Discussion\DiscussionComment\DiscussionCommentReply;
@@ -123,6 +124,11 @@ class User extends Authenticatable
     public function followDiscussions()
     {
         return $this->hasMany(FollowDiscussion::class);
+    }
+
+    public function courses()
+    {
+        return $this->hasMany(Course::class);
     }
 
 
