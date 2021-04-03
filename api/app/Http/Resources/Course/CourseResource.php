@@ -23,7 +23,7 @@ class CourseResource extends JsonResource
             'user' => $this->user,
             'chapter_count' => $this->chapter_count,
             'slug' => $this->slug,
-            // 'chapters' 
+            'chapters' => ChapterResource::collection($this->chapters()->orderBy('order', 'asc')->get()),
             'categories' => CategoryResource::collection($this->categories),
         ];
     }

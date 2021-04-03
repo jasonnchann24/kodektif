@@ -4,6 +4,7 @@ use App\Http\Controllers\Article\ArticleController;
 use App\Http\Controllers\Article\ArticleLikeController;
 use App\Http\Controllers\BaseImageController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\Course\ChapterController;
 use App\Http\Controllers\Course\CourseController;
 use App\Http\Controllers\Discussion\DiscussionComment\DiscussionCommentController;
 use App\Http\Controllers\Discussion\DiscussionComment\DiscussionCommentReplyController;
@@ -49,6 +50,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::delete('unsuspend-user/{id}', [SuspendController::class, 'destroy'])->name('suspend-user.destroy');
     Route::apiResource('article-likes', ArticleLikeController::class)->except(['index', 'update', 'show']);
     Route::apiResource('courses', CourseController::class)->except(['index', 'show']);
+    Route::apiResource('chapters', ChapterController::class)->except(['index', 'show']);
 });
 
 Route::apiResource('courses', CourseController::class)->except(['store', 'update', 'destroy']);

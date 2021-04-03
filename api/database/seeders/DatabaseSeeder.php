@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Database\Seeders\Article\ArticleLikeSeeder;
 use Database\Seeders\Article\ArticleSeeder;
+use Database\Seeders\Course\ChapterSeeder;
 use Database\Seeders\Course\CourseSeeder;
 use Database\Seeders\Discussion\DiscussionComment\DiscussionCommentReplySeeder;
 use Database\Seeders\Discussion\DiscussionComment\DiscussionCommentSeeder;
@@ -54,7 +55,8 @@ class DatabaseSeeder extends Seeder
                 DiscussionCommentReplySeeder::class,
                 FollowDiscussionSeeder::class,
 
-                CourseSeeder::class
+                CourseSeeder::class,
+                ChapterSeeder::class
             ]);
 
             $end = microtime(true);

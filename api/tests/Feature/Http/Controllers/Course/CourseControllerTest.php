@@ -28,7 +28,6 @@ class CourseControllerTest extends TestCase
     /** @test */
     public function non_admin_user_can_not_access_store_update_delete_course_apis()
     {
-        $this->withoutExceptionHandling();
         $admin = $this->createAdminUser();
         $user = $this->createBasicUser();
         $this->actingAs($user);
@@ -105,7 +104,8 @@ class CourseControllerTest extends TestCase
                         'user_id',
                         'chapter_count',
                         'slug',
-                        'categories' => []
+                        'categories' => [],
+                        'chapters' => []
                     ]
                 ]
             ]);
@@ -114,7 +114,7 @@ class CourseControllerTest extends TestCase
     private function createCourse(User $admin): Course
     {
 
-        $this->actingas($admin);
+        $this->actingAs($admin);
 
         $categories = Category::all();
         $pickedCategories = $categories->where('parent_id', '!=', null)

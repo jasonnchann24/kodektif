@@ -20,7 +20,7 @@ class Course extends Model
         'chapter_count'
     ];
 
-    protected $with = ['user', 'categories'];
+    protected $with = ['user', 'categories', 'chapters'];
 
     public function user()
     {
@@ -30,5 +30,10 @@ class Course extends Model
     public function categories()
     {
         return $this->belongsToMany(Category::class);
+    }
+
+    public function chapters()
+    {
+        return $this->hasMany(Chapter::class);
     }
 }
