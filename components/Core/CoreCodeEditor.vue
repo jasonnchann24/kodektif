@@ -22,7 +22,23 @@ export default {
   components: {
     PrismEditor
   },
-  data: () => ({ code: 'console.log("Hello World")\n\n\n\n\n\n\n\n' }),
+  props: {
+    initialCode: {
+      type: String,
+      default: 'function(){\n\n\n\n}'
+    }
+  },
+  data: () => ({ code: '' }),
+  watch: {
+    code() {
+      this.$emit('update', this.code)
+    }
+  },
+  mounted() {
+    if (this.initialCode) {
+      this.code = this.initialCode
+    }
+  },
   methods: {
     highlighter(code) {
       return highlight(code, languages.js) //returns html
@@ -40,6 +56,9 @@ export default {
   font-size: 14px;
   line-height: 1.5;
   padding: 5px;
+
+  caret-color: white;
+  max-width: 95%;
 }
 
 .prism-editor__textarea:focus {
