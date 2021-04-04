@@ -21,9 +21,13 @@
     <li class="nav-item">
       <a class="nav-link" href="#">User Management</a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">Course Management</a>
-    </li>
+    <nuxt-link
+      to="/dashboard/courses-management"
+      class="nav-link"
+      aria-current="page"
+      exact-active-class="active"
+      >Courses Management</nuxt-link
+    >
   </ul>
 </template>
 

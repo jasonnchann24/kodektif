@@ -4,6 +4,7 @@ use App\Http\Controllers\Article\ArticleController;
 use App\Http\Controllers\Article\ArticleLikeController;
 use App\Http\Controllers\BaseImageController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\Course\ChapterAnswerController;
 use App\Http\Controllers\Course\ChapterController;
 use App\Http\Controllers\Course\CourseController;
 use App\Http\Controllers\Discussion\DiscussionComment\DiscussionCommentController;
@@ -51,6 +52,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('article-likes', ArticleLikeController::class)->except(['index', 'update', 'show']);
     Route::apiResource('courses', CourseController::class)->except(['index', 'show']);
     Route::apiResource('chapters', ChapterController::class)->except(['index', 'show']);
+    Route::apiResource('chapter-answers', ChapterAnswerController::class)->except(['index', 'destroy']);
 });
 
 Route::apiResource('courses', CourseController::class)->except(['store', 'update', 'destroy']);

@@ -25,6 +25,9 @@ class ChapterSeeder extends Seeder
                     'order' => ++$max
                 ])->for($course)
                     ->create();
+
+                $course->chapter_count += 1;
+                $course->save();
             }
         }
     }

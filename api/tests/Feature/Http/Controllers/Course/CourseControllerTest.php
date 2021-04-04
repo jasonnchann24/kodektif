@@ -17,7 +17,6 @@ class CourseControllerTest extends TestCase
 {
     use RefreshDatabase, CreateUserTrait;
 
-
     public function setUp(): void
     {
         parent::setUp();
@@ -113,7 +112,6 @@ class CourseControllerTest extends TestCase
 
     private function createCourse(User $admin): Course
     {
-
         $this->actingAs($admin);
 
         $categories = Category::all();

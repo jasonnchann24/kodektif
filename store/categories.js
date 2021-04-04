@@ -15,7 +15,10 @@ export const mutations = {
 }
 
 export const actions = {
-  async GET_CATEGORIES({ commit }) {
+  async GET_CATEGORIES({ commit, state }) {
+    if (state.categories.data) {
+      return
+    }
     const res = await this.$axios.$get(`categories`)
     commit('SET_CATEGORIES', res)
   }

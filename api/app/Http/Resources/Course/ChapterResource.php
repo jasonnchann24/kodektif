@@ -19,7 +19,8 @@ class ChapterResource extends JsonResource
             'course_id' => $this->course_id,
             'title' => $this->title,
             'order' => $this->order,
-            'slug' => $this->slug
+            'slug' => $this->slug,
+            'user_chapter_done' => $this->userChapterDone
         ];
     }
 }

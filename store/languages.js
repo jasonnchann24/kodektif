@@ -15,7 +15,10 @@ export const mutations = {
 }
 
 export const actions = {
-  async GET_LANGUAGES({ commit }) {
+  async GET_LANGUAGES({ commit, state }) {
+    if (state.languages.data) {
+      return
+    }
     const res = await this.$axios.$get(`languages`)
     commit('SET_LANGUAGES', res)
   }

@@ -25,6 +25,7 @@ class CourseResource extends JsonResource
             'slug' => $this->slug,
             'chapters' => ChapterResource::collection($this->chapters()->orderBy('order', 'asc')->get()),
             'categories' => CategoryResource::collection($this->categories),
+            'has_done' => $this->hasDone,
         ];
     }
 }

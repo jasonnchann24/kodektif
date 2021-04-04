@@ -5,5 +5,17 @@ export default (context, inject) => {
     await delayPromise(x)
   }
 
+  const slugify = (x) => {
+    return x
+      .toString()
+      .toLowerCase()
+      .replace(/\s+/g, '-') // Replace spaces with -
+      .replace(/[^\w-]+/g, '') // Remove all non-word chars
+      .replace(/--+/g, '-') // Replace multiple - with single -
+      .replace(/^-+/, '') // Trim - from start of text
+      .replace(/-+$/, '')
+  }
+
   inject('delay', delay)
+  inject('slugify', slugify)
 }

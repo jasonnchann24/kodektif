@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 
 class Course extends Model
 {
@@ -35,5 +36,16 @@ class Course extends Model
     public function chapters()
     {
         return $this->hasMany(Chapter::class);
+    }
+
+    public function doneUsers()
+    {
+        return $this->belongsToMany(User::class);
+    }
+
+    public function getHasDoneAttribute()
+    {
+        $done =  $this->doneUsers()->where('user_id', Auth::id())->first();
+        return $done ? true : false;
     }
 }
