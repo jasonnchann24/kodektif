@@ -11,6 +11,35 @@
           </client-only>
         </div>
       </div>
+      <div v-if="COURSE" class="row mt-5">
+        <div
+          class="col-11 mx-auto d-flex align-items-center justify-content-between"
+        >
+          <div v-if="getPrevChapter()">
+            <NuxtLink
+              :to="
+                `/courses/${COURSE.id}/${COURSE.slug}/${getPrevChapter().slug}`
+              "
+              type="button"
+              class="btn btn-primary text-decoration-none text-white d-flex align-items-center"
+            >
+              <i class="ri-arrow-left-s-line me-1"></i>
+              <div>Previous chapter: {{ getPrevChapter().title }}</div>
+            </NuxtLink>
+          </div>
+          <div v-else></div>
+          <NuxtLink
+            :to="
+              `/courses/${COURSE.id}/${COURSE.slug}/${getNextChapter().slug}`
+            "
+            type="button"
+            class="btn btn-primary text-decoration-none text-white d-flex align-items-center"
+          >
+            <div>Next chapter: {{ getNextChapter().title }}</div>
+            <i class="ri-arrow-right-s-line ms-1"></i>
+          </NuxtLink>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -36,6 +65,18 @@ export default {
   async fetch() {
     await this.GET_COURSE(this.$route.params.id)
   },
+  head() {
+    return {
+      title: `${this.doc.chapter} - ${this.doc.course}`,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: `${this.doc.description}`
+        }
+      ]
+    }
+  },
   computed: {
     ...mapGetters({
       COURSE: 'courses/COURSE'
@@ -57,13 +98,39 @@ export default {
     }),
     updateCode(val) {
       this.code = val
+    },
+    getNextChapter() {
+      const currentOrder = this.doc.order
+      const chapters = this.COURSE.chapters
+      let nextChapter = chapters.find((x) => {
+        return x.order == currentOrder + 1
+      })
+      if (!nextChapter) {
+        nextChapter = {
+          title: 'Finish',
+          slug: 'finish'
+        }
+      }
+      return nextChapter
+    },
+    getPrevChapter() {
+      const currentOrder = this.doc.order
+      const chapters = this.COURSE.chapters
+      let prevChapter = chapters.find((x) => {
+        return x.order == currentOrder - 1
+      })
+      if (!prevChapter) {
+        prevChapter = false
+      }
+      return prevChapter
     }
   }
 }
 </script>
 
 <style>
-pre {
+.nuxt-content-highlight {
   max-width: 95%;
+  margin: auto;
 }
 </style>

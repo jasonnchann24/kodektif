@@ -4,7 +4,7 @@ chapter: Variables
 description: Learn the basics of javascript, Javascript Variables.
 order: 1
 ---
-# Variables
+# Variables merupakan
 
 You can define javascript variables with `let` / `const`
 

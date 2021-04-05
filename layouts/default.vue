@@ -5,7 +5,7 @@
     </transition>
     <CoreNavbar />
     <main id="top-main">
-      <nuxt class="py-4" />
+      <nuxt class="py-4 container-fluid" />
     </main>
     <CoreFooter />
   </div>
@@ -40,7 +40,7 @@ textarea {
 
 #top-main {
   min-height: 60vh;
-  width: 100vw;
+  width: 100%;
 }
 
 .slowFade-enter-active,
