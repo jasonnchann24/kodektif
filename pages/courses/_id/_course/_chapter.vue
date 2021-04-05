@@ -3,7 +3,9 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-12" :class="{ 'col-lg-6': !isIntro }">
-          <nuxt-content :document="doc" />
+          <div :class="{ container: isIntro }">
+            <nuxt-content :document="doc" />
+          </div>
         </div>
         <div class="col-12 col-lg-6" :class="{ 'd-none': isIntro }">
           <client-only>
@@ -132,5 +134,12 @@ export default {
 .nuxt-content-highlight {
   max-width: 95%;
   margin: auto;
+}
+
+.nuxt-content code {
+  background-color: rgba(120, 120, 120, 0.612);
+  padding: 2px 4px;
+  border-radius: 3px;
+  color: #f67e7d;
 }
 </style>
