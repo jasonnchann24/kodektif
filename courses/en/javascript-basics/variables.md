@@ -13,9 +13,11 @@ order: 1
 
 You can define javascript variables with `let` / `const`
 
-> example:
+example:
 
-```javascript
+```js
 let value = 'Hello'
 const tax = 10
 ```
+
+testing

@@ -8,9 +8,20 @@
           </div>
         </div>
         <div class="col-12 col-lg-6" :class="{ 'd-none': isIntro }">
-          <client-only>
-            <CoreCodeEditor @update="updateCode" />
-          </client-only>
+          <div class="row">
+            <div class="col">
+              <client-only>
+                <CoreCodeEditor :initial-code="code" @update="updateCode" />
+              </client-only>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <button class="btn btn-primary" @click="executeCode">
+                Execute
+              </button>
+            </div>
+          </div>
         </div>
       </div>
       <div v-if="COURSE" class="row mt-5">
@@ -61,7 +72,7 @@ export default {
   },
   data() {
     return {
-      code: ''
+      code: 'function test(){\n  console.log("test")\n}\ntest();'
     }
   },
   async fetch() {
@@ -125,6 +136,12 @@ export default {
         prevChapter = false
       }
       return prevChapter
+    },
+    executeCode() {
+      this.$axios.$post('https://emkc.org/api/v1/piston/execute', {
+        language: 'js',
+        source: this.code
+      })
     }
   }
 }
@@ -137,9 +154,6 @@ export default {
 }
 
 .nuxt-content code {
-  background-color: rgba(120, 120, 120, 0.612);
-  padding: 2px 4px;
-  border-radius: 3px;
   color: #f67e7d;
 }
 </style>
