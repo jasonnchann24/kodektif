@@ -52,7 +52,8 @@ export default {
     '@/plugins/global.js',
     { src: '@/plugins/loadingOverlay.js', mode: 'client' },
     { src: '@/plugins/vue2dropzone.js', mode: 'client' },
-    { src: '@/plugins/treeSelect.js', mode: 'client' }
+    { src: '@/plugins/treeSelect.js', mode: 'client' },
+    { src: '@/plugins/aos.js', mode: 'client' }
   ],
   /*
    ** Nuxt.js dev-modules

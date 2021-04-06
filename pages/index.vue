@@ -7,10 +7,17 @@
             <div class="hero-container text-start text-md-end">
               <div
                 class="hero-img d-flex justify-content-center d-md-block justify-content-md-end"
+                data-aos="fade-left"
+                data-aos-duration="900"
               >
-                <SvgImageDeveloper />
+                <SvgImageDeveloper :width="800" />
               </div>
-              <div class="centered-text text-start">
+              <div
+                class="centered-text text-start"
+                data-aos="fade-right"
+                data-aos-duration="800"
+                data-aos-delay="300"
+              >
                 <h1>{{ $t('landing.welcome-title') }}</h1>
                 <h4>{{ $t('landing.welcome-subtitle') }}</h4>
               </div>
@@ -22,7 +29,11 @@
     <main role="main" class="bg-secondary text-dark py-5 rounded shadow-lg">
       <div class="container">
         <div class="row">
-          <div class="col-12 text-center">
+          <div
+            class="col-12 text-center"
+            data-aos="fade-down"
+            data-aos-duration="500"
+          >
             <h1>{{ $t('landing.main.title') }}</h1>
           </div>
         </div>
@@ -30,14 +41,16 @@
           <template v-for="(item, index) in cardList">
             <div :key="index" class="col-12 col-md-6">
               <div
-                class="card mx-auto rounded shadow border-0 hover-card-scale"
+                class="card mx-auto rounded shadow border-0 "
+                data-aos="fade-down"
+                :data-aos-duration="index * 100 + 400"
               >
                 <div class="card-img-top text-center py-2">
                   <i class="ri-4x" :class="item.icon"></i>
                 </div>
                 <div class="card-body">
                   <div class="row">
-                    <div class="col text-center">
+                    <div class="col text-center ">
                       <h2 class="h4">{{ item.title }}</h2>
                       <p class="mb-0">{{ item.description }}</p>
                     </div>
@@ -94,8 +107,9 @@ export default {
 }
 
 @media screen and (max-width: 692px) {
-  .her-img {
+  .hero-img {
     margin-right: 0;
+    margin-top: 100px;
   }
 }
 
@@ -109,8 +123,16 @@ export default {
   left: 10%;
 }
 
+@media screen and (max-width: 692px) {
+  .centered-text {
+    position: absolute;
+    top: 0%;
+    left: 10%;
+  }
+}
+
 .hover-card-scale {
-  transition: all 0.5s ease;
+  transition: all 0.3s ease;
 }
 .hover-card-scale:hover {
   transform: scale(1.04);

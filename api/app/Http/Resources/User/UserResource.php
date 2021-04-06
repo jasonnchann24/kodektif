@@ -18,6 +18,7 @@ class UserResource extends JsonResource
             'id' => $this->id,
             'email' => $this->email,
             'name' => $this->name,
+            'is_suspended' => $this->is_suspended,
             'roles' => RoleResource::collection($this->roles),
             'provider' => new ProviderResource($this->whenLoaded('provider'))
         ];

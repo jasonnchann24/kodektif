@@ -22,6 +22,7 @@ use App\Http\Controllers\Post\PostComment\PostCommentVoteController;
 use App\Http\Controllers\Post\PostController;
 use App\Http\Controllers\Post\PostVoteController;
 use App\Http\Controllers\SuspendController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Resources\User\UserResource;
 use App\Models\User;
@@ -43,6 +44,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', MeController::class);
 
 Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
     Route::post('logout', [LoginController::class, 'logout'])->name('auth.logout');
 
     Route::post('/base-images', BaseImageController::class);

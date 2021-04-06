@@ -1,6 +1,6 @@
 <template>
   <svg
-    width="550"
+    :width="width"
     viewBox="0 0 1144 618"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
@@ -1210,7 +1210,13 @@
 
 <script>
 export default {
-  name: 'SvgImageDeveloper'
+  name: 'SvgImageDeveloper',
+  props: {
+    width: {
+      type: Number,
+      default: 550
+    }
+  }
 }
 </script>
 
