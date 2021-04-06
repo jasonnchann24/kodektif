@@ -5,7 +5,10 @@
 </template>
 
 <script>
-export default {}
+export default {
+  name: 'DashboardIndex',
+  middleware: ['onlyAdmin']
+}
 </script>
 
 <style></style>

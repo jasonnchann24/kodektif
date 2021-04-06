@@ -67,6 +67,8 @@
 import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'CourseManagementIndex',
+  middleware: ['onlyAdmin'],
+
   computed: {
     ...mapGetters({
       COURSES: 'courses/COURSES'

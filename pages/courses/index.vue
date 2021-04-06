@@ -14,6 +14,11 @@
     </div>
     <div class="container">
       <div class="row mt-4">
+        <div class="col">
+          <h1>Courses</h1>
+        </div>
+      </div>
+      <div class="row mt-3">
         <div
           v-for="course in COURSES.data"
           :key="course.id"

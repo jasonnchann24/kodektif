@@ -3,6 +3,20 @@ course: Javascript Basics
 chapter: Variables
 description: Learn the basics of javascript, Javascript Variables.
 order: 1
+function_name: variable
+initial_code: |
+  function variable(value){
+    //edit code below
+
+    //edit code above
+  }
+test_cases:
+  - input:
+      - '"Hello World"'
+    expect: 'Hello World'
+  - input:
+      - 10
+    expect: 10
 ---
 
 # Javascript Basics
@@ -16,41 +30,35 @@ You can define javascript variables with `let` / `const`
 example:
 
 ```js
-let value = 'Hello'
-const tax = 10
+let name = 'Hello'
+const price = 10
 ```
 
-testing
-
-You can define javascript variables with `let` / `const`
-
-example:
+The difference between `let` & `const` is `let` can be reassigned while `const` cannot be reassigned.
 
 ```js
-let value = 'Hello'
-const tax = 10
+let value = 1
+value = 2
+console.log(value) // returns 2
+
+const discount = 0.5
+discount = 1 // will be error
 ```
 
-testing
+---
 
-You can define javascript variables with `let` / `const`
+#### Task
 
-example:
+Log to console output from the variable you created. The variable must store the value from the function argument.
 
-```js
-let value = 'Hello'
-const tax = 10
-```
+---
 
-testing
+#### Example Tests
 
-You can define javascript variables with `let` / `const`
+1. ```js
+   assert.equal(variable('Hello World'), 'Hello World')
+   ```
 
-example:
-
-```js
-let value = 'Hello'
-const tax = 10
-```
-
-testing
+2. ```js
+   assert.equal(variable(10), 10)
+   ```

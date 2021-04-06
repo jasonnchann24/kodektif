@@ -10,6 +10,7 @@
         <client-only>
           <CoreCodeEditor
             :initial-code="code"
+            :readonly="!isAuthenticated"
             @update="updateCode"
             @ctrlEnter="executeCode"
           />
@@ -18,12 +19,25 @@
     </div>
     <div class="row mt-4">
       <div class="col">
-        <button class="btn btn-primary" @click="executeCode">
+        <button
+          class="btn btn-primary"
+          :class="{ disabled: !isAuthenticated }"
+          :disabled="!isAuthenticated"
+          @click="executeCode"
+        >
           Execute
         </button>
-        <button class="btn btn-success text-white">
+        <button
+          class="btn btn-success text-white"
+          :class="{ disabled: !isAuthenticated }"
+          :disabled="!isAuthenticated"
+          @click="submitCode"
+        >
           Submit
         </button>
+        <p v-if="!isAuthenticated" class="mt-3 mb-0 text-danger">
+          Please login to be able to finish this course!
+        </p>
       </div>
     </div>
     <div class="row mt-4">
@@ -42,13 +56,29 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   name: 'CoursesCodeEditor',
+  props: {
+    document: {
+      type: Object,
+      default: () => {},
+      required: true
+    }
+  },
   data() {
     return {
-      code: 'function test(a,b){\n  return a + b;\n}\nconsole.log(test(1,2));',
+      code: '',
       output: ''
     }
+  },
+  computed: {
+    ...mapGetters({
+      isAuthenticated: 'isAuthenticated'
+    })
+  },
+  created() {
+    this.code = this.document.initial_code
   },
   methods: {
     updateCode(val) {
@@ -62,11 +92,39 @@ export default {
           source: this.code
         })
 
-        this.output = res.output
+        this.output = res.output ?? 'No output please print/log something.'
         this.$toast.clear()
       } catch (err) {
         this.$toast.error('Something went wrong')
         console.log(err)
+      }
+    },
+    async submitCode() {
+      this.output = ''
+      let tests = this.document.test_cases
+      for (let i = 0; i < tests.length; i++) {
+        let runnerCode = this.code
+        runnerCode +=
+          this.document.function_name + `(${tests[i].input.join(',')});`
+        try {
+          const res = await this.$axios.$post(this.$config.CODE_RUNNER_URL, {
+            language: 'js',
+            source: runnerCode
+          })
+
+          let passIcon = ''
+
+          res.output == tests[i].expect
+            ? (passIcon = '-- PASS ✔')
+            : (passIcon = '-- FAIL ✘')
+
+          this.output += `Output Test #${i + 1} : ${res.output} ${passIcon}\n`
+        } catch (err) {
+          this.$toast.error('Something went wrong')
+          console.log(err)
+        }
+
+        await this.$delay(650)
       }
     }
   }

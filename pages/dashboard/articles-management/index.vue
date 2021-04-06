@@ -79,7 +79,7 @@
 import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'ArticlesManagement',
-  middleware: 'onlyAdmin',
+  middleware: ['onlyAdmin'],
   computed: {
     ...mapGetters({
       ARTICLES: 'articles/ARTICLES'

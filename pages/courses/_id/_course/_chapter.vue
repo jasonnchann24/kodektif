@@ -6,7 +6,7 @@
           <div :class="{ container: isIntro }">
             <nuxt-content
               :document="doc"
-              style="height: 85vh; overflow: auto;"
+              :class="{ 'content-style': !isIntro }"
             />
           </div>
         </div>
@@ -14,7 +14,7 @@
           class="col-12 col-lg-6 border-start border-primary"
           :class="{ 'd-none': isIntro }"
         >
-          <CoursesCodeEditor />
+          <CoursesCodeEditor :document="doc" />
         </div>
       </div>
       <div v-if="COURSE" class="row mt-5">
@@ -136,5 +136,10 @@ export default {
 
 .nuxt-content code {
   color: #f67e7d;
+}
+
+.content-style {
+  height: 85vh;
+  overflow: auto;
 }
 </style>

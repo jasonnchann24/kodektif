@@ -89,6 +89,8 @@
 import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'CourseManagementCreate',
+  middleware: ['onlyAdmin'],
+
   data() {
     return {
       form: {

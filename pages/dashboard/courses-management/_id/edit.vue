@@ -96,6 +96,8 @@
 import { mapGetters, mapActions } from 'vuex'
 export default {
   name: 'CourseManagementEdit',
+  middleware: ['onlyAdmin'],
+
   data() {
     return {
       form: {

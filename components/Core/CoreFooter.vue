@@ -10,7 +10,7 @@
             width="75"
           />
           <small class="d-block mb-3 text-muted"
-            >&copy; Kodektif<br />2021 - present</small
+            >&copy; Kodektif - {{ new Date().getFullYear() }}</small
           >
         </div>
         <div class="col-6 col-md">

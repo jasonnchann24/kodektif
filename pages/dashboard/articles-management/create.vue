@@ -95,6 +95,8 @@
 import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'CreateArticle',
+  middleware: ['onlyAdmin'],
+
   data() {
     return {
       dropzoneOptions: {
