@@ -4,6 +4,8 @@
     class="my-editor"
     :highlight="highlighter"
     line-numbers
+    :readonly="readonly"
+    @keyup="passEvent"
   ></PrismEditor>
 </template>
 
@@ -26,12 +28,23 @@ export default {
     initialCode: {
       type: String,
       default: 'function(){\n\n\n\n}'
+    },
+    readonly: {
+      type: Boolean,
+      default: false
+    },
+    output: {
+      type: String,
+      default: ''
     }
   },
   data: () => ({ code: '' }),
   watch: {
     code() {
       this.$emit('update', this.code)
+    },
+    output() {
+      this.code = this.output
     }
   },
   mounted() {
@@ -42,6 +55,12 @@ export default {
   methods: {
     highlighter(code) {
       return highlight(code, languages.js) //returns html
+    },
+    passEvent(event) {
+      const isExecute = event.key == 'Enter' && event.ctrlKey == true
+      if (isExecute) {
+        this.$emit('ctrlEnter')
+      }
     }
   }
 }

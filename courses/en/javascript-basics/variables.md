@@ -21,3 +21,36 @@ const tax = 10
 ```
 
 testing
+
+You can define javascript variables with `let` / `const`
+
+example:
+
+```js
+let value = 'Hello'
+const tax = 10
+```
+
+testing
+
+You can define javascript variables with `let` / `const`
+
+example:
+
+```js
+let value = 'Hello'
+const tax = 10
+```
+
+testing
+
+You can define javascript variables with `let` / `const`
+
+example:
+
+```js
+let value = 'Hello'
+const tax = 10
+```
+
+testing

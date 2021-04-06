@@ -4,24 +4,17 @@
       <div class="row">
         <div class="col-12" :class="{ 'col-lg-6': !isIntro }">
           <div :class="{ container: isIntro }">
-            <nuxt-content :document="doc" />
+            <nuxt-content
+              :document="doc"
+              style="height: 85vh; overflow: auto;"
+            />
           </div>
         </div>
-        <div class="col-12 col-lg-6" :class="{ 'd-none': isIntro }">
-          <div class="row">
-            <div class="col">
-              <client-only>
-                <CoreCodeEditor :initial-code="code" @update="updateCode" />
-              </client-only>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col">
-              <button class="btn btn-primary" @click="executeCode">
-                Execute
-              </button>
-            </div>
-          </div>
+        <div
+          class="col-12 col-lg-6 border-start border-primary"
+          :class="{ 'd-none': isIntro }"
+        >
+          <CoursesCodeEditor />
         </div>
       </div>
       <div v-if="COURSE" class="row mt-5">
@@ -70,11 +63,7 @@ export default {
     ).fetch()
     return { doc }
   },
-  data() {
-    return {
-      code: 'function test(){\n  console.log("test")\n}\ntest();'
-    }
-  },
+
   async fetch() {
     await this.GET_COURSE(this.$route.params.id)
   },
@@ -109,9 +98,7 @@ export default {
     ...mapActions({
       GET_COURSE: 'courses/GET_COURSE'
     }),
-    updateCode(val) {
-      this.code = val
-    },
+
     getNextChapter() {
       const currentOrder = this.doc.order
       const chapters = this.COURSE.chapters
@@ -136,12 +123,6 @@ export default {
         prevChapter = false
       }
       return prevChapter
-    },
-    executeCode() {
-      this.$axios.$post('https://emkc.org/api/v1/piston/execute', {
-        language: 'js',
-        source: this.code
-      })
     }
   }
 }

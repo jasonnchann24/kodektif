@@ -3,7 +3,8 @@ import i18n from './config/i18n'
 export default {
   publicRuntimeConfig: {
     BASE_URL: process.env.BASE_URL,
-    BACKEND_URL: process.env.BACKEND_URL
+    BACKEND_URL: process.env.BACKEND_URL,
+    CODE_RUNNER_URL: process.env.CODE_RUNNER_URL
   },
   /*
    ** Headers of the page
