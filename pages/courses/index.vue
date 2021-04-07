@@ -18,7 +18,7 @@
           <h1>Courses</h1>
         </div>
       </div>
-      <div class="row mt-3">
+      <div class="row mt-3 g-3">
         <div
           v-for="course in COURSES.data"
           :key="course.id"

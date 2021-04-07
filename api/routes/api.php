@@ -59,6 +59,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
 Route::apiResource('courses', CourseController::class)->except(['store', 'update', 'destroy']);
 
+Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
 Route::apiResource('user-profiles', UserProfileController::class)->except(['index', 'destroy']);
 Route::apiResource('categories', CategoryController::class);
 Route::apiResource('languages', LanguageController::class);

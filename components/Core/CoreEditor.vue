@@ -209,7 +209,7 @@ export default {
             new Underline(),
             new History()
           ],
-          content: '<p>Body Content</p>',
+          content: '<p>Write something amazing here ...</p>',
           onUpdate: ({ getHTML }) => {
             this.htmlContent = getHTML()
             this.$emit('update', this.htmlContent)

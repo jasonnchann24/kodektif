@@ -10,7 +10,7 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('role.check:admin');
+        $this->middleware('role.check:admin')->except(['show']);
     }
 
     /**
@@ -42,7 +42,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
+        return new UserResource($user);
     }
 
     /**

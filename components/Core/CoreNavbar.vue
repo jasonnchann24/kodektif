@@ -74,7 +74,7 @@
           </li>
           <li v-else class="nav-item">
             <nuxtLink
-              :to="localePath('/user/profile')"
+              :to="localePath(`/user/${loggedInUser.id}/profile`)"
               class="nav-link"
               tag="a"
               active-class="active"

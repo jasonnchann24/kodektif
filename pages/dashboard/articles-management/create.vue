@@ -190,8 +190,4 @@ export default {
 .dz-progress {
   display: none !important;
 }
-
-.vue-treeselect__menu {
-  color: black;
-}
 </style>

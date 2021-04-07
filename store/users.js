@@ -1,10 +1,14 @@
 export const state = () => ({
-  users: []
+  users: [],
+  user: {}
 })
 
 export const getters = {
   USERS(state) {
     return state.users
+  },
+  USER(state) {
+    return state.user
   }
 }
 
@@ -25,6 +29,9 @@ export const mutations = {
     })
 
     user.is_suspended = 0
+  },
+  SET_USER(state, payload) {
+    state.user = payload
   }
 }
 
@@ -43,5 +50,12 @@ export const actions = {
   async UNSUSPEND_USER({ commit }, id) {
     await this.$axios.$delete('unsuspend-user/' + id)
     commit('UNSUSPEND_USER', id)
+  },
+  async GET_USER({ commit, state }, id) {
+    if (state.user.data && state.user.data.id == id) {
+      return
+    }
+    const res = await this.$axios.$get(`users/${id}`)
+    commit('SET_USER', res)
   }
 }

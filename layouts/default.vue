@@ -51,4 +51,8 @@ textarea {
 .slowFade-leave-to {
   opacity: 0;
 }
+
+.vue-treeselect__menu {
+  color: black;
+}
 </style>
