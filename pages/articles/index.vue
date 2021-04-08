@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row">
         <div class="col">
-          <h1>Articles</h1>
+          <h1>Articles by Kodektif Team</h1>
         </div>
       </div>
       <div class="row mt-3 justify-content-center">

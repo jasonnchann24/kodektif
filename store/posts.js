@@ -33,6 +33,10 @@ export const actions = {
     const res = await this.$axios.$get(url)
     commit('SET_POSTS', res)
   },
+  async GET_POST({ commit }, { id, slug }) {
+    const res = await this.$axios.$get(`posts/${id}/${slug}`)
+    commit('SET_POST', res.data)
+  },
   async CREATE_POST({ commit }, payload) {
     const res = await this.$axios.$post('posts', payload)
     commit('SET_POST', res)

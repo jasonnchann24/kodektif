@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div v-if="!$fetchState.pending" class="container">
+  <div v-if="user.provider && provider && POSTS.data">
+    <div class="container">
       <div class="row d-flex align-items-center">
         <div class="col-12 col-md-4 text-center">
           <img
@@ -45,7 +45,7 @@
       <hr />
       <div class="row mt-4">
         <div class="col-12">
-          <h1>Posts</h1>
+          <h1>{{ user.name }}'s Posts</h1>
         </div>
         <div v-if="currentUser">
           <UserProfilePostCreate />
@@ -60,7 +60,14 @@
         >
           <div class="card bg-primary">
             <div class="card-body">
-              {{ post.title }}
+              <h3>{{ post.title }}</h3>
+              <p class="text-truncate">{{ post.description }}</p>
+              <NuxtLink
+                :to="`/posts/${post.id}/${post.slug}`"
+                class="btn btn-sm btn-info float-end text-white"
+              >
+                Read More ...
+              </NuxtLink>
             </div>
           </div>
         </div>
@@ -85,20 +92,27 @@ export default {
     }
   },
   async fetch() {
-    if (this.$route.params.id !== this.loggedInUser.id) {
-      try {
-        await this.GET_USER(this.$route.params.id)
-        this.user = this.USER.data
-      } catch (err) {
-        console.log(err)
-        this.$toast.error(err.response.statusText)
+    try {
+      this.UPDATE_LOADING()
+      if (this.$route.params.id !== this.loggedInUser?.id) {
+        try {
+          await this.GET_USER(this.$route.params.id)
+          this.user = this.USER.data
+        } catch (err) {
+          console.log(err)
+          this.$toast.error(err.response.statusText)
+        }
+      } else {
+        this.user = this.loggedInUser
       }
-    } else {
-      this.user = this.loggedInUser
-    }
 
-    await this.getUserProviderData()
-    await this.GET_POSTS({ user_id: this.user.id })
+      await this.getUserProviderData()
+      await this.GET_POSTS({ user_id: this.user.id })
+    } catch (err) {
+      this.$toast.error(err.response.statusText)
+    } finally {
+      this.UPDATE_LOADING(false)
+    }
   },
   computed: {
     ...mapGetters({
@@ -107,14 +121,15 @@ export default {
       POSTS: 'posts/POSTS'
     }),
     currentUser() {
-      return this.user.id == this.loggedInUser.id
+      return this.user.id == this.loggedInUser?.id
     }
   },
 
   methods: {
     ...mapActions({
       GET_USER: 'users/GET_USER',
-      GET_POSTS: 'posts/GET_POSTS'
+      GET_POSTS: 'posts/GET_POSTS',
+      UPDATE_LOADING: 'UPDATE_LOADING'
     }),
     async signOut() {
       await this.$auth.logout()

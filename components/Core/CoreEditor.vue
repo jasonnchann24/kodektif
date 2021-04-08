@@ -278,10 +278,6 @@ button.is-active {
   background: #343747;
 }
 
-code {
-  background-color: rgba(76, 76, 76, 0.843);
-}
-
 pre {
   &::before {
     content: attr(data-language);
