@@ -21,6 +21,22 @@ export const mutations = {
   },
   CREATE_POST(state, payload) {
     state.posts.data.unshift(payload)
+  },
+  CREATED_POST_VOTE(state, payload) {
+    state.post.has_voted = payload.data
+    payload.data.upvote
+      ? (state.post.upvote_count += 1)
+      : (state.post.downvote_count += 1)
+  },
+  UPDATED_POST_VOTE(state, payload) {
+    state.post.has_voted = payload.data
+    payload.data.upvote
+      ? (state.post.downvote_count -= 1)((state.post.upvote_count += 1))
+      : (state.post.downvote_count += 1)((state.post.upvote_count -= 1))
+  },
+  DELETED_POST_VOTE(state, payload) {
+    state.post.has_voted = null
+    payload ? (state.post.upvote_count -= 1) : (state.post.downvote_count -= 1)
   }
 }
 
@@ -41,5 +57,20 @@ export const actions = {
     const res = await this.$axios.$post('posts', payload)
     commit('SET_POST', res)
     commit('CREATE_POST', res.data)
+  },
+  async CREATE_POST_VOTE({ commit }, payload) {
+    const res = await this.$axios.$post('post-votes', payload)
+    commit('CREATED_POST_VOTE', res)
+  },
+  async UPDATE_POST_VOTE({ commit }, payload) {
+    const res = await this.$axios.$patch(`post-votes/${payload.post_vote_id}`, {
+      upvote: payload.upvote
+    })
+    commit('UPDATED_POST_VOTE', res)
+  },
+  async DELETE_POST_VOTE({ commit }, payload) {
+    const dir = payload.upvote
+    await this.$axios.$delete(`post-votes/${payload.id}`)
+    commit('DELETED_POST_VOTE', dir)
   }
 }

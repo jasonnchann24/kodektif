@@ -28,20 +28,40 @@
                   </p>
                 </div>
               </div>
-              <!-- <p class="d-flex align-items-center">
-              <i
-                v-if="!article.has_liked"
-                class="ri-thumb-up-line ri-lg me-3"
-                @click="handleLike"
-              ></i>
-              <i
-                v-else
-                class="ri-thumb-up-fill ri-lg me-3"
-                @click="handleUnlike"
-              ></i>
+              <div class="row mt-3 d-flex align-items-center">
+                <div class="col-2">
+                  <p class="d-flex align-items-center">
+                    <i
+                      v-if="!POST.has_voted || POST.has_voted.upvote != true"
+                      class="ri-thumb-up-line ri-lg me-3"
+                      @click="handlePostVote('up')"
+                    ></i>
+                    <i
+                      v-else-if="POST.has_voted.upvote == true"
+                      class="ri-thumb-up-fill ri-lg me-3"
+                      @click="deletePostVote()"
+                    ></i>
 
-              <span>{{ article.likes_count }}</span>
-            </p> -->
+                    <span>{{ POST.upvote_count }}</span>
+                  </p>
+                </div>
+                <div class="col-2">
+                  <p class="d-flex align-items-center">
+                    <i
+                      v-if="!POST.has_voted || POST.has_voted.upvote != false"
+                      class="ri-thumb-down-line ri-lg me-3"
+                      @click="handlePostVote('down')"
+                    ></i>
+                    <i
+                      v-else-if="POST.has_voted.upvote == false"
+                      class="ri-thumb-down-fill ri-lg me-3"
+                      @click="deletePostVote()"
+                    ></i>
+
+                    <span>{{ POST.downvote_count }}</span>
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
           <div class="row mt-4">
@@ -68,6 +88,11 @@
 import { mapGetters, mapActions } from 'vuex'
 export default {
   name: 'PostShow',
+  data() {
+    return {
+      loading: false
+    }
+  },
   async fetch() {
     await this.GET_POST({
       id: this.$route.params.id,
@@ -81,10 +106,67 @@ export default {
   },
   methods: {
     ...mapActions({
-      GET_POST: 'posts/GET_POST'
-    })
+      GET_POST: 'posts/GET_POST',
+      CREATE_POST_VOTE: 'posts/CREATE_POST_VOTE',
+      UPDATE_POST_VOTE: 'posts/UPDATE_POST_VOTE',
+      DELETE_POST_VOTE: 'posts/DELETE_POST_VOTE'
+    }),
+    handlePostVote(direction) {
+      const hasVoted = this.POST.has_voted
+      switch (hasVoted) {
+        case null:
+          this.createPostVote(direction)
+          break
+        default:
+          this.updatePostVote(direction)
+          break
+      }
+    },
+    async createPostVote(dir) {
+      try {
+        this.loading = true
+        await this.CREATE_POST_VOTE({
+          post_id: this.$route.params.id,
+          upvote: dir == 'up' ? true : false
+        })
+      } catch (err) {
+        this.$toast.error(err.response.statusText)
+      } finally {
+        this.loading = false
+      }
+    },
+    async updatePostVote(dir) {
+      try {
+        this.loading = true
+        await this.UPDATE_POST_VOTE({
+          post_vote_id: this.POST.has_voted.id,
+          upvote: dir == 'up' ? true : false
+        })
+      } catch (err) {
+        this.$toast.error(err.response.statusText)
+      } finally {
+        this.loading = false
+      }
+    },
+    async deletePostVote() {
+      try {
+        this.loading = true
+        await this.DELETE_POST_VOTE(this.POST.has_voted)
+      } catch (err) {
+        this.$toast.error(err.response.statusText)
+      } finally {
+        this.loading = false
+      }
+    }
   }
 }
 </script>
 
-<style></style>
+<style>
+.ri-thumb-up-line,
+.ri-thumb-up-fill,
+.ri-thumb-down-line,
+.ri-thumb-down-fill {
+  cursor: pointer;
+}
+</style>
