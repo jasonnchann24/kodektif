@@ -36,18 +36,13 @@
 ------------
 
 # About
-**en** : Kodektif mission is mainly to help beginners to learn, discuss about programming for free ( in many languages ), especially for people who are still hard in English language. This platform is developed in Indonesia. So in the meantime, this platform is meant to support English and Indonesian language.
+**en** : Kodektif mission is mainly to help beginners to learn, discuss about programming for free ( in many languages ), especially for people who are still hard in English language. Kodektif has courses feature where users can learn and code in the browser to finish each chapter tasks. This platform is developed in Indonesia. So in the meantime, this platform is meant to support English and Indonesian language.
 
 Kodektif hopes this platform can be useful for newcomers - advanced programmers.
 
-# To do
-WIP
 
 # Development Updates
-**en** : Kodektif is still in API development phase.
+**en** : Currently, Kodektif is in client side development.
 
 # Contributing
 **en** : Kodektif won't accept any PRs until it is officially release for beta testing. Feel free to star this repository for further notices. However, kodektif is accepting any design, mock-ups UI, etc. related to front-end design. Please submit an issue to suggest any designs or ask any questions. 😁
-
-# Tech Stacks
-**en** : Kodektif API is powered by Laravel Framework. Kodektif front-end is powered by NuxtJs. RDMS using MySQL.
