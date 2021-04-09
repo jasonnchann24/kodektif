@@ -61,6 +61,10 @@ export default {
     topPage: {
       type: String,
       default: 'top-main'
+    },
+    additionalParams: {
+      type: Object,
+      default: () => {}
     }
   },
   data() {
@@ -103,9 +107,13 @@ export default {
     async updateData() {
       this.UPDATE_LOADING(true)
       try {
-        await this.$store.dispatch(`${this.module}/${this.action}`, {
+        const page = {
           page: this.currentPage
-        })
+        }
+        const additional = this.additionalParams
+
+        const payload = { ...page, ...additional }
+        await this.$store.dispatch(`${this.module}/${this.action}`, payload)
         this.$scrollTo(`#${this.topPage}`)
       } catch (err) {
         this.$toast.error(

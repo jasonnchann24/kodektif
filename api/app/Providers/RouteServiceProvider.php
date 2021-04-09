@@ -61,7 +61,7 @@ class RouteServiceProvider extends ServiceProvider
         });
 
         RateLimiter::for('tight-throttle', function (Request $request) {
-            return Limit::perMinute(1)->by($request->ip());
+            return Limit::perMinute(10)->by($request->ip());
         });
     }
 }

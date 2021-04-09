@@ -40,7 +40,7 @@ class PostCommentStoreRequest extends FormRequest
             'user_id' => 'required',
             'post_id' => ['required', 'exists:posts,id'],
             'body' => ['required', 'string'],
-            'mentions' => ['required', 'json'],
+            'mentions' => ['sometimes', 'json'],
         ];
     }
 }

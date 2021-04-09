@@ -16,6 +16,12 @@ class PostCommentController extends Controller
         $this->middleware(['auth:sanctum', 'not.suspended']);
         $this->middleware('throttle:tight-throttle')->except('show');
     }
+
+    public function index(Request $request)
+    {
+        $postId = $request->get('post_id') ?? '';
+        return PostCommentResource::collection(PostComment::where('post_id', $postId)->latest()->paginate(20));
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -28,7 +34,7 @@ class PostCommentController extends Controller
 
         $postComment = PostComment::create($validated);
 
-        return Response::json($postComment, 201);
+        return (new PostCommentResource($postComment))->response()->setStatusCode(201);
     }
 
     /**

@@ -40,7 +40,7 @@ class PostCommentReplyStoreRequest extends FormRequest
             'user_id' => 'required',
             'post_comment_id' => 'required|exists:post_comments,id',
             'body' => 'required|string',
-            'mentions' => 'required|json'
+            'mentions' => 'sometimes|json'
         ];
     }
 }

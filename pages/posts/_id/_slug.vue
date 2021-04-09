@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="!$fetchState.pending">
+    <div v-if="!$fetchState.pending && POST.user">
       <div class="container">
         <div class="row">
           <div class="col">
@@ -80,6 +80,8 @@
           </div>
         </article>
       </div>
+      <hr class="my-3" />
+      <PostsComment />
     </div>
   </div>
 </template>

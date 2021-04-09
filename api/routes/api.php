@@ -68,7 +68,7 @@ Route::get('/posts/{post}/{slug}', [PostController::class, 'show'])->name('posts
 Route::apiResource('posts', PostController::class)->except('show');
 Route::apiResource('post-votes', PostVoteController::class)->except(['index', 'show']);
 Route::get('/my-posts', MyPostController::class)->name('my-posts');
-Route::apiResource('post-comments', PostCommentController::class)->except(['update', 'index']);
+Route::apiResource('post-comments', PostCommentController::class)->except(['update']);
 Route::apiResource('post-comment-votes', PostCommentVoteController::class)->except(['index', 'show']);
 Route::apiResource('post-comment-replies', PostCommentReplyController::class)->except(['index', 'update', 'show']);
 

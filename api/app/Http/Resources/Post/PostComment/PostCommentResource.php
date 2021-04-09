@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Post\PostComment;
 
+use App\Http\Resources\User\UserResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class PostCommentResource extends JsonResource
@@ -16,10 +17,7 @@ class PostCommentResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'user' => [
-                'id' => $this->user->id,
-                'name' => $this->user->name
-            ],
+            'user' => new UserResource($this->user),
             'post_id' => $this->post_id,
             'body' => $this->body,
             'mentions' => $this->mentions,

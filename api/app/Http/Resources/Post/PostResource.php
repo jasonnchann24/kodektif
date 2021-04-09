@@ -32,7 +32,7 @@ class PostResource extends JsonResource
             'categories' => CategoryResource::collection($this->categories),
             'has_voted' => $this->has_voted,
             'post_comments' => PostCommentResource::collection(
-                $this->postComments()->paginate(10)
+                $this->postComments()->latest()->paginate(10)
             )
         ];
     }

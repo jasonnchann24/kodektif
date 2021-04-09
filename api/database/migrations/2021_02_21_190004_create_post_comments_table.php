@@ -18,7 +18,7 @@ class CreatePostCommentsTable extends Migration
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('post_id')->constrained('posts');
             $table->longText('body');
-            $table->json('mentions');
+            $table->json('mentions')->nullable();
             $table->bigInteger('upvote_count')->default(0);
             $table->bigInteger('downvote_count')->default(0);
             $table->timestamps();
