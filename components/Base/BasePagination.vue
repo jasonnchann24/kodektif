@@ -16,6 +16,7 @@
           v-model="currentPage"
           class="style-chooser "
           :options="pageIteration"
+          :clearable="false"
           append-to-body
           ><span slot="no-options" class="text-danger">
             Sorry, no matching options
@@ -153,7 +154,8 @@ export default {
   border: none;
   color: #474b60;
   text-transform: lowercase;
-  width: 100%;
+  width: 5rem;
+  height: 3rem;
 }
 
 .style-chooser .vs__clear,

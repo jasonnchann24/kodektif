@@ -11,9 +11,9 @@
       <div class="container">
         <article>
           <div class="row">
-            <div class="col-6">
+            <div class="col-12 col-lg-6">
               <div class="row d-flex align-items-center my-2">
-                <div class="col-2 me-3">
+                <div class="col-2 col-lg-2 me-3">
                   <img
                     :src="POST.user.provider.avatar"
                     class="rounded-circle"
@@ -21,7 +21,7 @@
                     alt="author avatar"
                   />
                 </div>
-                <div class="col-7">
+                <div class="col-10 col-lg-7 mt-3 mt-lg-0">
                   <p class="mb-0">by {{ POST.author }}</p>
                   <p class="text-muted mb-0">
                     {{ $moment(POST.created_at).format('dddd, DD MMM YYYY') }}
@@ -81,7 +81,7 @@
         </article>
       </div>
       <hr class="my-3" />
-      <PostsComment />
+      <PostComments />
     </div>
   </div>
 </template>

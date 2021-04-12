@@ -57,18 +57,17 @@ textarea {
 }
 
 ::-webkit-scrollbar {
-  width: 20px;
+  width: 18px;
 }
 ::-webkit-scrollbar-track {
   background-color: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background-color: #d6dee1;
-  border-radius: 20px;
+  background-color: #e59500;
   border: 6px solid transparent;
   background-clip: content-box;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #a8bbbf;
+  background-color: #ffb42a;
 }
 </style>

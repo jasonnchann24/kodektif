@@ -11,6 +11,9 @@ export const getters = {
 export const mutations = {
   SET_POST_COMMENTS(state, payload) {
     state.post_comments = payload
+  },
+  ADD_COMMENT(state, payload) {
+    state.post_comments.data.unshift(payload.data)
   }
 }
 
@@ -23,6 +26,6 @@ export const actions = {
   },
   async CREATE_POST_COMMENT({ commit }, payload) {
     const res = await this.$axios.$post(`post-comments`, payload)
-    commit('posts/ADD_COMMENT', res, { root: true })
+    commit('ADD_COMMENT', res)
   }
 }

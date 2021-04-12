@@ -26,8 +26,8 @@
                   <img
                     v-else
                     class="card-img-top"
-                    src="undraw/to_the_moon.png"
-                    alt="image not found"
+                    src="@/static/undraw/to_the_moon.png"
+                    alt="default image for article"
                   />
                   <div class="card-body text-dark">
                     <h5 class="text-truncate">{{ item.title }}</h5>
@@ -107,7 +107,6 @@ export default {
     try {
       await this.GET_ARTICLES({ page: this.$route.query.page ?? 1 })
     } catch (err) {
-      console.log(err)
       this.$toast.error('Error! ' + err.response.statusText)
     } finally {
       this.$store.dispatch('UPDATE_LOADING', false)

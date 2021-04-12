@@ -37,9 +37,6 @@ export const mutations = {
   DELETED_POST_VOTE(state, payload) {
     state.post.has_voted = null
     payload ? (state.post.upvote_count -= 1) : (state.post.downvote_count -= 1)
-  },
-  ADD_COMMENT(state, payload) {
-    state.post.post_comments.unshift(payload.data)
   }
 }
 

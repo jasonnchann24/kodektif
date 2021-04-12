@@ -20,7 +20,8 @@ class PostCommentController extends Controller
     public function index(Request $request)
     {
         $postId = $request->get('post_id') ?? '';
-        return PostCommentResource::collection(PostComment::where('post_id', $postId)->latest()->paginate(20));
+        return PostCommentResource::collection(PostComment::where('post_id', $postId)->latest()
+            ->paginate(20));
     }
     /**
      * Store a newly created resource in storage.

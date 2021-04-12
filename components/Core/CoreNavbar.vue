@@ -117,6 +117,13 @@ export default {
     collapse() {
       const el = document.getElementById('navbarToggle').classList
       this.collapse ? el.add('rotate') : el.remove('rotate')
+    },
+    '$route.path'() {
+      if (screen.width < 745) {
+        if (this.collapse) {
+          document.getElementById('navbarToggle').click()
+        }
+      }
     }
   }
 }

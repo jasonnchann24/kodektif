@@ -7,7 +7,7 @@
             src="@/assets/svgs/online_learning.svg"
             alt="course image banner"
             srcset=""
-            style="max-width: 500px"
+            style="max-width: 100%"
           />
         </div>
       </div>
