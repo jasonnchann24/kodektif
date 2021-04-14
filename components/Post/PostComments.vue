@@ -31,37 +31,44 @@
       <div class="row mt-3">
         <div v-if="POST_COMMENTS.data" class="col">
           <div
-            v-for="comment in filteredPostComment"
+            v-for="comment in POST_COMMENTS.data"
             :key="comment.id"
             class="card my-2 bg-transparent text-white border-0"
           >
             <div class="card-body py-0">
               <div class="row">
                 <div class="col-12 col-md-3">
-                  <div class="row d-flex flex-column align-items-start">
-                    <div class="col-4 col-md-6">
-                      <img
-                        :src="comment.user.provider.avatar"
-                        class="rounded-circle"
-                        style="width:75%"
-                        alt="comment avatar"
-                      />
+                  <div class="row d-flex flex-row align-items-start mt-3">
+                    <div class="col-8 col-md-8">
+                      <div class="row d-flex flex-column align-items-start">
+                        <div class="col-4 col-md-6">
+                          <img
+                            :src="comment.user.provider.avatar"
+                            class="rounded-circle"
+                            style="max-width:50px"
+                            alt="comment avatar"
+                          />
+                        </div>
+                        <div class="col-12 mt-3">
+                          <p class="mb-0">
+                            <small class="text-small mb-0"
+                              >by {{ comment.user.name }}</small
+                            >
+                          </p>
+                          <p class="mb-0">
+                            <small class="text-small text-muted mb-0">
+                              {{
+                                $moment(comment.created_at).format(
+                                  'dddd, DD MMM YYYY'
+                                )
+                              }}
+                            </small>
+                          </p>
+                        </div>
+                      </div>
                     </div>
-                    <div class="col-12 mt-3">
-                      <p class="mb-0">
-                        <small class="text-small mb-0"
-                          >by {{ comment.user.name }}</small
-                        >
-                      </p>
-                      <p class="mb-0">
-                        <small class="text-small text-muted mb-0">
-                          {{
-                            $moment(comment.created_at).format(
-                              'dddd, DD MMM YYYY'
-                            )
-                          }}
-                        </small>
-                      </p>
+                    <div class="col-4 col-md-4  align-self-end">
+                      <BaseVote module="postComments" :model="comment" />
                     </div>
                   </div>
                 </div>
@@ -84,11 +91,13 @@
                         ? (currentReplies = 0)
                         : (currentReplies = comment.id)
                     "
-                    >View Replies</a
+                    ><span v-if="currentReplies != comment.id"
+                      >View Replies</span
+                    ><span v-else>Close Replies</span></a
                   >
                   <a
                     href="javascript:void(0);"
-                    class="text-white me-5"
+                    class="text-white me-2 me-md-4 me-lg-5"
                     @click="
                       currentReplies == comment.id
                         ? (currentReplies = 0)
@@ -148,13 +157,7 @@ export default {
       loggedInUser: 'loggedInUser',
       POST: 'posts/POST',
       POST_COMMENTS: 'postComments/POST_COMMENTS'
-    }),
-    filteredPostComment() {
-      if (this.currentReplies == 0) {
-        return this.POST_COMMENTS.data
-      }
-      return this.POST_COMMENTS.data.filter((x) => x.id == this.currentReplies)
-    }
+    })
   },
   created() {
     this.GET_POST_COMMENTS({ post_id: this.$route.params.id })
