@@ -37,11 +37,14 @@ export const mutations = {
       comment.downvote_count += 1
       comment.upvote_count -= 1
     }
+  },
+  DELETED_POST_COMMENT_VOTE(state, payload) {
+    const comment = state.post_comments.data.find(
+      (x) => x.has_voted.id == payload.id
+    )
+    comment.has_voted = null
+    payload.dir ? (comment.upvote_count -= 1) : (comment.downvote_count -= 1)
   }
-  // DELETED_POST_COMMENT_VOTE(state, payload) {
-  //   state.post.has_voted = null
-  //   payload ? (state.post.upvote_count -= 1) : (state.post.downvote_count -= 1)
-  // }
 }
 
 export const actions = {
@@ -68,10 +71,9 @@ export const actions = {
       }
     )
     commit('UPDATED_POST_COMMENT_VOTE', res)
+  },
+  async DELETE_POST_COMMENT_VOTE({ commit }, payload) {
+    await this.$axios.$delete(`post-comment-votes/${payload.id}`)
+    commit('DELETED_POST_COMMENT_VOTE', payload)
   }
-  // async DELETE_POST_COMMENT_VOTE({ commit }, payload) {
-  //   const dir = payload.upvote
-  //   await this.$axios.$delete(`post-comment-votes/${payload.id}`)
-  //   commit('DELETED_POST_COMMENT_VOTE', dir)
-  // }
 }

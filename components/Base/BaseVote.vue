@@ -1,12 +1,18 @@
 <template>
   <div class="d-flex flex-column text-center">
     <i
-      class="ri-arrow-up-s-line ri-2x text-success click-vote"
+      class="ri-arrow-up-s-line ri-2x  click-vote"
+      :class="{
+        'text-success': isUpVote
+      }"
       @click="handleClick('up')"
     ></i>
     <p class="m-0">{{ voteScore }}</p>
     <i
-      class="ri-arrow-down-s-line ri-2x text-danger click-vote"
+      class="ri-arrow-down-s-line ri-2x click-vote"
+      :class="{
+        'text-danger': isDownVote
+      }"
       @click="handleClick('down')"
     ></i>
   </div>
@@ -33,6 +39,12 @@ export default {
       }
 
       return parseInt(this.model.upvote_count - this.model.downvote_count)
+    },
+    isUpVote() {
+      return this.model.has_voted?.upvote
+    },
+    isDownVote() {
+      return this.model.has_voted?.upvote === false
     }
   },
   methods: {
@@ -83,8 +95,22 @@ export default {
         this.UPDATE_LOADING(false)
       }
     },
-    deleteVote() {
-      //
+    async deleteVote(direction) {
+      const payload = {
+        upvote: direction == 'up',
+        id: this.model.has_voted.id
+      }
+      const actionName = 'DELETE_' + this.getActionVuexName() + '_VOTE'
+      try {
+        this.UPDATE_LOADING()
+
+        await this.$store.dispatch(`${this.module}/${actionName}`, payload)
+      } catch (err) {
+        // this.$toast.error(err.response.statusText)
+        console.log(err)
+      } finally {
+        this.UPDATE_LOADING(false)
+      }
     },
     getActionVuexName() {
       const name = this.module.slice(0, -1)
