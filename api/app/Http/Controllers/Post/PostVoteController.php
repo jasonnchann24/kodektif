@@ -38,7 +38,7 @@ class PostVoteController extends Controller
             ]
         );
 
-        return new PostVoteResource($postVote);
+        return (new PostVoteResource($postVote))->response()->setStatusCode(201);
     }
 
     /**

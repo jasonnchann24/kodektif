@@ -43,7 +43,22 @@ export const mutations = {
       (x) => x.has_voted.id == payload.id
     )
     comment.has_voted = null
-    payload.dir ? (comment.upvote_count -= 1) : (comment.downvote_count -= 1)
+    console.log(comment)
+    payload.upvote ? (comment.upvote_count -= 1) : (comment.downvote_count -= 1)
+  },
+  CREATED_POST_COMMENT_REPLY(state, payload) {
+    const comment = state.post_comments.data.find(
+      (x) => x.id == payload.data.post_comment_id
+    )
+    comment.replies.unshift(payload.data)
+  },
+  DELETED_POST_COMMENT_REPLY(state, payload) {
+    const comment = state.post_comments.data.find(
+      (x) => x.id == payload.post_comment_id
+    )
+    const idx = comment.replies.findIndex((reply) => reply.id == payload.id)
+
+    comment.replies.splice(idx, 1)
   }
 }
 
@@ -75,5 +90,13 @@ export const actions = {
   async DELETE_POST_COMMENT_VOTE({ commit }, payload) {
     await this.$axios.$delete(`post-comment-votes/${payload.id}`)
     commit('DELETED_POST_COMMENT_VOTE', payload)
+  },
+  async CREATE_POST_COMMENT_REPLY({ commit }, payload) {
+    const res = await this.$axios.$post(`post-comment-replies`, payload)
+    commit('CREATED_POST_COMMENT_REPLY', res)
+  },
+  async DELETE_POST_COMMENT_REPLY({ commit }, payload) {
+    await this.$axios.$delete(`post-comment-replies/${payload.id}`)
+    commit('DELETED_POST_COMMENT_REPLY', payload)
   }
 }

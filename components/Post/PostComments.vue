@@ -29,7 +29,10 @@
         </div>
       </div>
       <div class="row mt-3">
-        <div v-if="POST_COMMENTS.data" class="col">
+        <div
+          v-if="POST_COMMENTS.data && POST_COMMENTS.data.length > 0"
+          class="col"
+        >
           <div
             v-for="comment in POST_COMMENTS.data"
             :key="comment.id"
@@ -86,6 +89,9 @@
                   <a
                     href="javascript:void(0);"
                     class="text-white me-3"
+                    :class="{
+                      'disabled pe-none text-muted': comment.replies.length < 1
+                    }"
                     @click="
                       currentReplies == comment.id
                         ? (currentReplies = 0)
@@ -98,28 +104,52 @@
                   <a
                     href="javascript:void(0);"
                     class="text-white me-2 me-md-4 me-lg-5"
+                    :class="{ 'disabled pe-none text-muted': !isAuthenticated }"
                     @click="
-                      currentReplies == comment.id
-                        ? (currentReplies = 0)
-                        : (currentReplies = comment.id)
+                      targetedCommentId == comment.id
+                        ? (targetedCommentId = 0)
+                        : (targetedCommentId = comment.id)
                     "
-                    >Reply</a
+                    ><span v-if="targetedCommentId != comment.id">Reply</span
+                    ><span v-else>Cancel Reply</span></a
                   >
-                  <p v-if="currentReplies == comment.id">
-                    test
-                  </p>
+                </div>
+                <div v-if="targetedCommentId == comment.id" class="col-12">
+                  <CommentReplyForm
+                    init-content="Reply comment..."
+                    vuex-module="postComments"
+                    vuex-action="CREATE_POST_COMMENT_REPLY"
+                    :main-payload="replyPayload"
+                    @submitted="targetedCommentId = 0"
+                  />
+                </div>
+              </div>
+              <div
+                v-if="currentReplies === comment.id"
+                class="row justify-content-end"
+              >
+                <div class="col-12 col-md-9 border-start border-info">
+                  <CommentReplies
+                    :replies="comment.replies"
+                    vuex-module="postComments"
+                    vuex-delete-action="DELETE_POST_COMMENT_REPLY"
+                    parent-foreign-key="post_comment_id"
+                  />
                 </div>
               </div>
             </div>
           </div>
         </div>
         <div v-else class="col">
-          <p class="text-danger">No comment</p>
+          <p class="text-danger">
+            <span v-if="loading">Loading</span>
+            <span v-else>No comment</span>
+          </p>
         </div>
       </div>
       <div class="row mt-3">
         <div class="col">
-          <div v-if="POST_COMMENTS.meta && currentReplies == 0" class="mt-3 ">
+          <div v-if="POST_COMMENTS.meta" class="mt-3 ">
             <BasePagination
               module="postComments"
               getter="POST_COMMENTS"
@@ -147,10 +177,12 @@ export default {
       additionalParams: {
         post_id: this.$route.params.id
       },
-      currentReplies: 0
+      currentReplies: 0,
+      targetedCommentId: 0,
+      loading: false,
+      replyPayload: {}
     }
   },
-
   computed: {
     ...mapGetters({
       isAuthenticated: 'isAuthenticated',
@@ -159,8 +191,23 @@ export default {
       POST_COMMENTS: 'postComments/POST_COMMENTS'
     })
   },
-  created() {
-    this.GET_POST_COMMENTS({ post_id: this.$route.params.id })
+  watch: {
+    targetedCommentId() {
+      this.replyPayload = {
+        post_comment_id: this.targetedCommentId
+      }
+    }
+  },
+
+  async created() {
+    try {
+      this.loading = true
+      await this.GET_POST_COMMENTS({ post_id: this.$route.params.id })
+    } catch (err) {
+      this.$toast.error(err.response.statusText)
+    } finally {
+      this.loading = false
+    }
   },
   methods: {
     ...mapActions({
@@ -187,7 +234,7 @@ export default {
 
 <style>
 .max-comment-height {
-  max-height: 300px;
+  max-height: 500px;
   overflow: auto;
 }
 </style>

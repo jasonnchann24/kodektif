@@ -29,7 +29,7 @@
                 </div>
               </div>
               <div class="row mt-3 d-flex align-items-center">
-                <div class="col-2">
+                <div class="col-3 col-md-2">
                   <p class="d-flex align-items-center">
                     <i
                       v-if="!POST.has_voted || POST.has_voted.upvote != true"
@@ -45,7 +45,7 @@
                     <span>{{ POST.upvote_count }}</span>
                   </p>
                 </div>
-                <div class="col-2">
+                <div class="col-3 col-md-2">
                   <p class="d-flex align-items-center">
                     <i
                       v-if="!POST.has_voted || POST.has_voted.upvote != false"
@@ -82,6 +82,9 @@
       </div>
       <hr class="my-3" />
       <PostComments />
+    </div>
+    <div v-else>
+      Loading ...
     </div>
   </div>
 </template>

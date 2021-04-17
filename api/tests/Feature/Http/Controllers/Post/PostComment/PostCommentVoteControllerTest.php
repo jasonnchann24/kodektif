@@ -260,6 +260,6 @@ class PostCommentVoteControllerTest extends TestCase
         $payload['user_id'] = $user->id;
         $this->assertDatabaseHas('post_comment_votes', $payload);
 
-        return PostCommentVote::findOrFail($response['id']);
+        return PostCommentVote::findOrFail($response['data']['id']);
     }
 }

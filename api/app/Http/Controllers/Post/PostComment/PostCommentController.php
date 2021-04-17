@@ -13,7 +13,7 @@ class PostCommentController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth:sanctum', 'not.suspended']);
+        $this->middleware(['auth:sanctum', 'not.suspended'])->except(['index', 'show']);
         $this->middleware('throttle:tight-throttle')->except('show');
     }
 

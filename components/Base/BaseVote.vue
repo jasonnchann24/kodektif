@@ -61,7 +61,7 @@ export default {
         return this.updateVote(direction)
       }
 
-      return this.deleteVote()
+      return this.deleteVote(direction)
     },
     async createVote(direction) {
       const payload = {
@@ -106,7 +106,7 @@ export default {
 
         await this.$store.dispatch(`${this.module}/${actionName}`, payload)
       } catch (err) {
-        // this.$toast.error(err.response.statusText)
+        this.$toast.error(err.response.statusText)
         console.log(err)
       } finally {
         this.UPDATE_LOADING(false)

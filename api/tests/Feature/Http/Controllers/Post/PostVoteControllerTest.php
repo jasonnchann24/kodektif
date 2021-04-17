@@ -321,7 +321,7 @@ class PostVoteControllerTest extends TestCase
         $payload['user_id'] = $user->id;
         $this->assertDatabaseHas('post_votes', $payload);
 
-        $postVote = PostVote::findOrFail($response['id']);
+        $postVote = PostVote::findOrFail($response['data']['id']);
         return $postVote;
     }
 }

@@ -18,6 +18,7 @@ class PostCommentResource extends JsonResource
         return [
             'id' => $this->id,
             'user' => new UserResource($this->user),
+            'user_id' => $this->user_id,
             'post_id' => $this->post_id,
             'body' => $this->body,
             'mentions' => $this->mentions,
@@ -26,7 +27,7 @@ class PostCommentResource extends JsonResource
             'created_at' => $this->created_at,
             'has_voted' => $this->has_voted,
             'replies' => PostCommentReplyResource::collection(
-                $this->postCommentReplies()->paginate(30)
+                $this->postCommentReplies
             )
         ];
     }
