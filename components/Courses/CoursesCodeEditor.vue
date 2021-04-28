@@ -102,6 +102,7 @@ export default {
     async submitCode() {
       this.output = ''
       let tests = this.document.test_cases
+      let allPass = true
       for (let i = 0; i < tests.length; i++) {
         let runnerCode = this.code
         runnerCode +=
@@ -113,10 +114,12 @@ export default {
           })
 
           let passIcon = ''
-
-          res.output == tests[i].expect
-            ? (passIcon = '-- PASS ✔')
-            : (passIcon = '-- FAIL ✘')
+          if (res.output.replace(/[\r\n]/g, '') == tests[i].expect) {
+            passIcon = '-- PASS ✔'
+          } else {
+            passIcon = '-- FAIL ✘'
+            allPass = false
+          }
 
           this.output += `Output Test #${i + 1} : ${res.output} ${passIcon}\n`
         } catch (err) {
@@ -126,6 +129,11 @@ export default {
 
         await this.$delay(650)
       }
+
+      this.$emit('evaluated', {
+        pass: allPass,
+        code: this.code
+      })
     }
   }
 }

@@ -14,7 +14,7 @@
           class="col-12 col-lg-6 border-start border-primary"
           :class="{ 'd-none': isIntro }"
         >
-          <CoursesCodeEditor :document="doc" />
+          <CoursesCodeEditor :document="doc" @evaluated="codeEvaluated" />
         </div>
       </div>
       <div v-if="COURSE" class="row mt-5">
@@ -98,6 +98,10 @@ export default {
     ...mapActions({
       GET_COURSE: 'courses/GET_COURSE'
     }),
+
+    codeEvaluated(val) {
+      console.log(val)
+    },
 
     getNextChapter() {
       const currentOrder = this.doc.order

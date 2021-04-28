@@ -13,7 +13,7 @@ initial_code: |
 test_cases:
   - input:
       - '"Hello World"'
-    expect: 'Hello World'
+    expect: "Hello World"
   - input:
       - 10
     expect: 10

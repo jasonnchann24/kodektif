@@ -4,12 +4,19 @@ namespace App\Http\Controllers\Course;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Course\ChapterAnswerResource;
+use App\Models\Course\Chapter;
 use App\Models\Course\ChapterAnswer;
+use App\Models\Course\Course;
+use App\Models\Course\CourseUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ChapterAnswerController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['not.suspended']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -45,7 +52,18 @@ class ChapterAnswerController extends Controller
             ]
         );
 
-        return (new ChapterAnswerResource($answer))->response()->setStatusCode(201);
+        $chapter = Chapter::findOrFail($validated['chapter_id']);
+        $course = $chapter->course()->first();
+        if ($this->checkIfUserHasCompletedAllChapters($course)) {
+            CourseUser::create([
+                'course_id'  => $course->id,
+                'user_id' => Auth::id()
+            ]);
+        }
+
+        return (new ChapterAnswerResource($answer))
+            ->response()
+            ->setStatusCode(201);
     }
 
     /**
@@ -92,5 +110,17 @@ class ChapterAnswerController extends Controller
     public function destroy(ChapterAnswer $chapterAnswer)
     {
         //
+    }
+
+    private function checkIfUserHasCompletedAllChapters(Course $course): bool
+    {
+        $done = false;
+
+        $chapterCount = $course->chapters()->count();
+        $answerCount = ChapterAnswer::where('user_id', Auth::id())
+            ->where('course_id', $course->id)
+            ->count();
+
+        return $chapterCount == $answerCount;
     }
 }

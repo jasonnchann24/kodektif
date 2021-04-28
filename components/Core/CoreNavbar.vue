@@ -42,14 +42,6 @@
           </li>
           <li class="nav-item">
             <nuxtLink
-              :to="localePath('/discussions')"
-              class="nav-link"
-              active-class="active"
-              >Discussions</nuxtLink
-            >
-          </li>
-          <li class="nav-item">
-            <nuxtLink
               :to="localePath('/courses')"
               class="nav-link"
               active-class="active"
