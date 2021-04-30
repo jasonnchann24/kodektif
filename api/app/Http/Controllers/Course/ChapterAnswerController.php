@@ -52,11 +52,11 @@ class ChapterAnswerController extends Controller
             ]
         );
 
-        $chapter = Chapter::findOrFail($validated['chapter_id']);
+        $chapter = Chapter::findOrFail($request->input('chapter_id'));
         $course = $chapter->course()->first();
         if ($this->checkIfUserHasCompletedAllChapters($course)) {
-            CourseUser::create([
-                'course_id'  => $course->id,
+            CourseUser::firstOrCreate([
+                'course_id'  => $course['id'],
                 'user_id' => Auth::id()
             ]);
         }
@@ -114,13 +114,18 @@ class ChapterAnswerController extends Controller
 
     private function checkIfUserHasCompletedAllChapters(Course $course): bool
     {
-        $done = false;
+        $done = true;
 
-        $chapterCount = $course->chapters()->count();
-        $answerCount = ChapterAnswer::where('user_id', Auth::id())
-            ->where('course_id', $course->id)
-            ->count();
+        $chapters = $course->chapters()->get();
 
-        return $chapterCount == $answerCount;
+        foreach ($chapters as $chapter) {
+            $userChapterDone = $chapter->userChapterDone;
+            if (!$userChapterDone) {
+                $done = false;
+                break;
+            }
+        }
+
+        return $done;
     }
 }

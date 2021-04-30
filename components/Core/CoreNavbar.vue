@@ -48,6 +48,14 @@
               >Courses</nuxtLink
             >
           </li>
+          <li class="nav-item">
+            <nuxtLink
+              :to="localePath('/posts')"
+              class="nav-link"
+              active-class="active"
+              >Posts</nuxtLink
+            >
+          </li>
           <li v-if="isAdmin" class="nav-item">
             <nuxtLink
               :to="localePath('/dashboard')"

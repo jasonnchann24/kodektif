@@ -2,6 +2,23 @@
   <div>
     <div class="container-fluid">
       <div class="row">
+        <div class="col d-flex justify-content-between">
+          <div>
+            <div v-if="currentChapter.user_chapter_done" class="text-success">
+              <i class="ri-checkbox-circle-line ri-xl "></i>
+              <span>You have done this chapter</span>
+            </div>
+            <div v-else class="text-danger">
+              <i class="ri-close-circle-line ri-xl text-danger"></i>
+              <span>You have not done this chapter</span>
+            </div>
+          </div>
+          <div>
+            <h5>{{ doc.order + 1 }} / {{ COURSE.chapter_count }}</h5>
+          </div>
+        </div>
+      </div>
+      <div class="row">
         <div class="col-12" :class="{ 'col-lg-6': !isIntro }">
           <div :class="{ container: isIntro }">
             <nuxt-content
@@ -40,6 +57,7 @@
             "
             type="button"
             class="btn btn-primary text-decoration-none text-white d-flex align-items-center"
+            @click.native="handleNextChapter()"
           >
             <div>Next chapter: {{ getNextChapter().title }}</div>
             <i class="ri-arrow-right-s-line ms-1"></i>
@@ -92,15 +110,51 @@ export default {
       })
 
       return chapterOrder.order == 0
+    },
+    currentChapter() {
+      return this.COURSE.chapters.find((x) => x.slug == this.doc.slug)
     }
   },
   methods: {
     ...mapActions({
       GET_COURSE: 'courses/GET_COURSE'
     }),
+    async handleNextChapter() {
+      if (
+        this.doc.order === 0 &&
+        this.currentChapter.user_chapter_done === null
+      ) {
+        const res = await this.$axios.$post('chapter-answers', {
+          chapter_id: this.currentChapter.id,
+          answer: 'intro done'
+        })
 
-    codeEvaluated(val) {
-      console.log(val)
+        console.log(res)
+      }
+    },
+    async codeEvaluated(val) {
+      if (val.pass && !this.currentChapter.user_chapter_done) {
+        try {
+          await this.$axios.$post('chapter-answers', {
+            chapter_id: this.currentChapter.id,
+            answer: val.code
+          })
+        } catch (err) {
+          this.$toast.error('Something went wrong when submitting your answer')
+        }
+      } else if (val.pass && this.currentChapter.user_chapter_done) {
+        try {
+          await this.$axios.$patch(
+            'chapter-answers/' + this.currentChapter.user_chapter_done.id,
+            {
+              chapter_id: this.currentChapter.id,
+              answer: val.code
+            }
+          )
+        } catch (err) {
+          this.$toast.error('Something went wrong when submitting your answer')
+        }
+      }
     },
 
     getNextChapter() {

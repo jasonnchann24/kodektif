@@ -26,6 +26,14 @@
         >
           <div class="card bg-primary w-100">
             <div class="card-body">
+              <i
+                v-if="course.has_done"
+                class="ri-checkbox-circle-line ri-xl float-end text-success"
+              ></i>
+              <i
+                v-else
+                class="ri-close-circle-line ri-xl text-danger float-end "
+              ></i>
               <h3 class="card-title">{{ course.title }}</h3>
               <h6 class="card-subtitle mb-2 text-warning">
                 <span
