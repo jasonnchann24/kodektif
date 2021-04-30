@@ -142,7 +142,7 @@ class PostCommentControllerTest extends TestCase
         $payload['user_id'] = $user->id;
         $this->assertDatabaseHas('post_comments', Arr::except($payload, ['mentions']));
 
-        $postComment = PostComment::findOrFail($response['id']);
+        $postComment = PostComment::findOrFail($response['data']['id']);
         return $postComment;
     }
 }

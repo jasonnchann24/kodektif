@@ -43,7 +43,7 @@ class PostComment extends Model
 
     public function postCommentReplies()
     {
-        return $this->hasMany(PostCommentReply::class);
+        return $this->hasMany(PostCommentReply::class)->orderBy('created_at', 'DESC');
     }
 
     public function getHasVotedAttribute()

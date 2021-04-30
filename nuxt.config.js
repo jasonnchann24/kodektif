@@ -1,6 +1,11 @@
 import i18n from './config/i18n'
 
 export default {
+  publicRuntimeConfig: {
+    BASE_URL: process.env.BASE_URL,
+    BACKEND_URL: process.env.BACKEND_URL,
+    CODE_RUNNER_URL: process.env.CODE_RUNNER_URL
+  },
   /*
    ** Headers of the page
    */
@@ -8,7 +13,7 @@ export default {
     title: process.env.npm_package_name || '',
     meta: [
       { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1.0' },
       {
         hid: 'description',
         name: 'description',
@@ -25,7 +30,7 @@ export default {
       {
         rel: 'stylesheet',
         type: 'text/css',
-        href: 'https://cdn.lineicons.com/2.0/LineIcons.css'
+        href: 'https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css'
       }
     ]
   },
@@ -41,7 +46,15 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['@/plugins/bootstrap.js'],
+  plugins: [
+    '@/plugins/bootstrap.js',
+    '@/plugins/vSelect.js',
+    '@/plugins/global.js',
+    { src: '@/plugins/loadingOverlay.js', mode: 'client' },
+    { src: '@/plugins/vue2dropzone.js', mode: 'client' },
+    { src: '@/plugins/treeSelect.js', mode: 'client' },
+    { src: '@/plugins/aos.js', mode: 'client' }
+  ],
   /*
    ** Nuxt.js dev-modules
    */
@@ -59,12 +72,14 @@ export default {
           },
           {
             code: 'id',
-            name: 'Bahasa Indonesia'
+            name: 'Bhs. Indonesia'
           }
         ],
+        lazy: true,
         vueI18n: i18n
       }
-    ]
+    ],
+    '@nuxtjs/moment'
   ],
   /*
    ** Nuxt.js modules
@@ -72,9 +87,24 @@ export default {
   modules: [
     '@nuxtjs/axios',
     '@nuxtjs/auth-next',
-    '@nuxtjs/dotenv',
-    '@nuxtjs/style-resources'
+    '@nuxtjs/style-resources',
+    'vue-toastification/nuxt',
+    'vue-scrollto/nuxt',
+    '@nuxt/content'
   ],
+
+  content: {
+    dir: 'courses',
+    markdown: {
+      prism: {
+        theme: 'prism-themes/themes/prism-dracula.css'
+      }
+    }
+  },
+
+  toast: {
+    cssFile: '@/assets/css/toastification.css'
+  },
 
   styleResources: {
     scss: '@/assets/scss/_variables.scss'
@@ -126,23 +156,26 @@ export default {
    ** Build configuration
    */
   build: {
-    /*
-     ** You can extend webpack config here
-     */
-    extend(config, { isDev, isClient }) {
-      config.module.rules.push({
-        test: /\.worker\.js$/,
-        use: { loader: 'worker-loader' }
-      })
+    extractCSS: true
+    // extend(config, { isDev, isClient }) {
+    //   config.module.rules.push({
+    //     test: /\.worker\.js$/,
+    //     use: { loader: 'worker-loader' }
+    //   })
 
-      if (isDev && isClient) {
-        config.module.rules.push({
-          enforce: 'pre',
-          test: /\.(js|vue)$/,
-          loader: 'eslint-loader',
-          exclude: /(node_modules)/
-        })
-      }
+    //   if (isDev && isClient) {
+    //     config.module.rules.push({
+    //       enforce: 'pre',
+    //       test: /\.(js|vue)$/,
+    //       loader: 'eslint-loader',
+    //       exclude: /(node_modules)/
+    //     })
+    //   }
+    // }
+  },
+  watchters: {
+    webpack: {
+      ignored: [/api/, '**/.*']
     }
   }
 }

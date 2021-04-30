@@ -139,7 +139,7 @@ class PostCommentReplyControllerTest extends TestCase
         $response = $this->postJson($this->setRoute('store'), $payload)
             ->assertStatus(201);
 
-        return PostCommentReply::find($response['id']);
+        return PostCommentReply::find($response['data']['id']);
     }
 
     protected function setRoute(string $method, int $params = null): string

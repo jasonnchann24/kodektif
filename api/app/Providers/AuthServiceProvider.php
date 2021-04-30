@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Article;
+use App\Models\Course\ChapterAnswer;
 use App\Models\Discussion\Discussion;
 use App\Models\Discussion\DiscussionComment\DiscussionComment;
 use App\Models\Discussion\DiscussionComment\DiscussionCommentVote;
@@ -11,6 +12,7 @@ use App\Models\Post\PostComment\PostComment;
 use App\Models\Post\PostComment\PostCommentVote;
 use App\Models\UserProfile;
 use App\Policies\ArticlePolicy;
+use App\Policies\ChapterAnswerPolicy;
 use App\Policies\DiscussionCommentPolicy;
 use App\Policies\DiscussionCommentVotePolicy;
 use App\Policies\DiscussionPolicy;
@@ -39,6 +41,8 @@ class AuthServiceProvider extends ServiceProvider
         Discussion::class => DiscussionPolicy::class,
         DiscussionComment::class => DiscussionCommentPolicy::class,
         DiscussionCommentVote::class => DiscussionCommentVotePolicy::class,
+
+        ChapterAnswer::class => ChapterAnswerPolicy::class
     ];
 
     /**

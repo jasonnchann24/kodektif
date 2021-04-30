@@ -1,11 +1,23 @@
 @charset "utf-8";
 
-$body-bg: #282A36;
-$body-color: #F6F6F4; 
+$body-bg: #282a36;
+$body-color: #f6f6f4;
 
 $primary: #474b60;
-$secondary: #FFFFFF;
-$success: #6A8E7F;
-$info: #38AECC;
-$warning: #E59500;
-$danger: #F67E7D;
+$secondary: #ffffff;
+$success: #6a8e7f;
+$info: #38aecc;
+$warning: #e59500;
+$danger: #f67e7d;
+
+$pagination-color: $body-color;
+$pagination-bg: transparent;
+$pagination-border-radius: 0;
+$pagination-border-color: transparent;
+
+$nav-link-color: rgba(255, 255, 255, 0.55);
+$nav-link-hover-color: #fff;
+
+$vs-dropdown-min-width: 5rem !default;
+$vs-dropdown-max-height: 200px !default;
+$vs-border-radius: 0px !default;

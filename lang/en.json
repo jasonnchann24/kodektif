@@ -1,13 +1,13 @@
 {
-    "navbar": {
-        "login": "Login",
-        "profile": "Profile"
-    },
-    "landing": {
-        "welcome-title": "Welcome to Kodektif !",
-        "welcome-subtitle": "The world of programming.",
-        "main": {
-            "title": "What is Kodektif ?"
-        }
+  "navbar": {
+    "login": "Login",
+    "profile": "Profile"
+  },
+  "landing": {
+    "welcome-title": "Welcome to Kodektif !",
+    "welcome-subtitle": "The world of programming.",
+    "main": {
+      "title": "Why Kodektif ?"
     }
+  }
 }

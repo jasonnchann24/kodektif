@@ -28,7 +28,8 @@ class ArticleStoreRequest extends FormRequest
             'description' => 'required|string|max:1500',
             'body' => 'required|string',
             'language_id' => 'required|exists:languages,id',
-            'categories' => 'required|array'
+            'categories' => 'required|array',
+            'image' => 'sometimes|image|max:1000'
         ];
     }
 

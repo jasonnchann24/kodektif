@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Post\PostComment;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Post\PostCommentReply\PostCommentReplyStoreRequest;
+use App\Http\Resources\Post\PostComment\PostCommentReplyResource;
 use App\Models\Post\PostComment\PostCommentReply;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
@@ -31,7 +32,7 @@ class PostCommentReplyController extends Controller
         $validated = $request->validated();
         $reply = PostCommentReply::create($validated);
 
-        return Response::json($reply, 201);
+        return (new PostCommentReplyResource($reply))->response()->setStatusCode(201);
     }
 
     /**

@@ -12,6 +12,8 @@ class Article extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
+        'user_id',
+        'article_image_id',
         'language_id',
         'title',
         'description',
@@ -20,7 +22,7 @@ class Article extends Model
     ];
 
     protected $with = [
-        'user', 'categories', 'language', 'likes'
+        'user', 'categories', 'language', 'likes', 'articleImage'
     ];
 
     public function user()
@@ -43,12 +45,17 @@ class Article extends Model
         return $this->hasMany(ArticleLike::class);
     }
 
+    public function articleImage()
+    {
+        return $this->belongsTo(ArticleImage::class);
+    }
+
     public function getHasLikedAttribute()
     {
         $articleLike = $this->likes()
             ->where('user_id', Auth::id())
             ->first();
 
-        return $articleLike ? true : false;
+        return $articleLike ? $articleLike : false;
     }
 }

@@ -18,7 +18,7 @@ class CreatePostCommentRepliesTable extends Migration
             $table->foreignId('post_comment_id')->constrained('post_comments');
             $table->foreignId('user_id')->constrained('users');
             $table->longText('body');
-            $table->json('mentions');
+            $table->json('mentions')->nullable();
             $table->timestamps();
 
             $table->softDeletes();

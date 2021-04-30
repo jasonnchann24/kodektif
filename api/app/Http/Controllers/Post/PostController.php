@@ -9,6 +9,7 @@ use App\Http\Resources\Post\PostResource;
 use App\Models\Post\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
 
@@ -33,9 +34,12 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return PostResource::collection(Post::latest()->paginate(30));
+        $id = $request->get('user_id');
+        return PostResource::collection(Post::when($id, function ($q, $id) {
+            return $q->where('user_id', $id);
+        })->latest()->paginate(30));
     }
 
     /**
@@ -53,7 +57,9 @@ class PostController extends Controller
         try {
             DB::beginTransaction();
 
-            $post = $this->user->posts()->create($newPost);
+            $newPost['user_id'] = Auth::id();
+
+            $post = Post::create($newPost);
             $post->categories()->sync($newCategories);
 
             DB::commit();

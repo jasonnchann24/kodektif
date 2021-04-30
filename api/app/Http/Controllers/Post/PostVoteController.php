@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Post;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Post\PostVote\PostVoteStoreRequest;
 use App\Http\Requests\Post\PostVote\PostVoteUpdateRequest;
+use App\Http\Resources\Post\PostVoteResource;
 use App\Models\Post\PostVote;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
@@ -37,7 +38,7 @@ class PostVoteController extends Controller
             ]
         );
 
-        return Response::json($postVote, 201);
+        return (new PostVoteResource($postVote))->response()->setStatusCode(201);
     }
 
     /**
@@ -55,7 +56,7 @@ class PostVoteController extends Controller
         $postVote->update($validated);
         $postVote->save();
 
-        return Response::json($postVote, 200);
+        return new PostVoteResource($postVote);
     }
 
     /**

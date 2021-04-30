@@ -1,5 +1,5 @@
 <template>
-  <li class="nav-item dropdown">
+  <li class="nav-item dropdown align-self-lg-center">
     <a
       id="dropDownLang"
       class="nav-link dropdown-toggle"
@@ -8,9 +8,13 @@
       data-bs-toggle="dropdown"
       aria-expanded="false"
     >
-      <img class="mr-1" :src="getFlag($i18n.locale)" alt="" />
+      <!-- <img class="mr-1" :src="getFlag($i18n.locale)" alt="" width="25" /> -->
+      {{ $i18n.locale }}
     </a>
-    <ul class="dropdown-menu overflow-hidden" aria-labelledby="dropDownLang">
+    <ul
+      class="dropdown-menu overflow-hidden p-1"
+      aria-labelledby="dropDownLang"
+    >
       <li v-for="locale in $i18n.locales" :key="locale.code">
         <nuxt-link
           class="dropdown-item"
@@ -40,3 +44,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.dropdown-item {
+  font-size: 0.75rem;
+}
+</style>

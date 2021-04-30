@@ -17,10 +17,14 @@ class CategoryResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'label' => $this->name,
             'parent_id' => $this->parent_id,
             'sub_categories' => CategoryResource::collection(
                 $this->whenLoaded('allSubCategories')
-            )
+            ),
+            'children' => CategoryResource::collection(
+                $this->whenLoaded('allSubCategories')
+            ),
         ];
     }
 }

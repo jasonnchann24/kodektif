@@ -7,15 +7,19 @@ use App\Http\Requests\Article\ArticleStoreRequest;
 use App\Http\Requests\Article\ArticleUpdateRequest;
 use App\Http\Resources\Article\ArticleResource;
 use App\Models\Article;
+use App\Models\ArticleImage;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
+use Intervention\Image\Facades\Image;
 
 class ArticleController extends Controller
 {
+    protected $user;
+
     public function __construct()
     {
         $this->middleware('role.check:admin')->only(['store', 'update', 'destroy']);
@@ -29,7 +33,7 @@ class ArticleController extends Controller
     public function index()
     {
         return  ArticleResource::collection(
-            Article::paginate(30)
+            Article::latest()->paginate(6)
         );
     }
 
@@ -48,11 +52,18 @@ class ArticleController extends Controller
         try {
             DB::beginTransaction();
 
-            $article = $this->user->articles()
-                ->create($newArticle);
+            $newArticle['user_id'] = Auth::id();
+
+            $article = Article::create($newArticle);
 
             $article->categories()
                 ->sync($newCategories);
+
+            if ($request->hasFile('image')) {
+                $articleImage = $this->saveImage($request);
+                $article->articleImage()->associate($articleImage);
+                $article->save();
+            }
 
             DB::commit();
         } catch (\Exception $e) {
@@ -97,6 +108,11 @@ class ArticleController extends Controller
             $article->categories()
                 ->sync($validated['categories']);
 
+            if ($request->hasFile('image')) {
+                $articleImage = $this->saveImage($request);
+                $article->articleImage()->associate($articleImage);
+            }
+
             $article->save();
 
             DB::commit();
@@ -125,5 +141,28 @@ class ArticleController extends Controller
 
         $article->delete();
         return Response::json('', 204);
+    }
+
+    private function saveImage(Request $request)
+    {
+        $image = $request->file('image');
+
+        $width = 600; // max width
+        $height = 600; // max height
+        $img = Image::make($image);
+        $img->height() > $img->width() ? $width = null : $height = null;
+        $img->resize($width, $height, function ($constraint) {
+            $constraint->aspectRatio();
+        });
+
+        $filename = time() . "_" . preg_replace('/\s+/', '_', strtolower($image->getClientOriginalName()));
+        $img->save(storage_path() . "/app/public/article_images/" . $filename, 100);
+
+        $target = 'article_images/' . $filename;
+        $articleImage = ArticleImage::create([
+            'filename' => $target
+        ]);
+
+        return $articleImage;
     }
 }
