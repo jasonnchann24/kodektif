@@ -20,6 +20,15 @@
     </li>
     <li class="nav-item">
       <nuxt-link
+        to="/dashboard/categories-management"
+        class="nav-link"
+        aria-current="page"
+        exact-active-class="active"
+        >Categories Management</nuxt-link
+      >
+    </li>
+    <li class="nav-item">
+      <nuxt-link
         to="/dashboard/users-management"
         class="nav-link"
         aria-current="page"

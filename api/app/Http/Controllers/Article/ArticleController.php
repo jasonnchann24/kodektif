@@ -12,6 +12,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
 use Intervention\Image\Facades\Image;
@@ -32,9 +33,12 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        return  ArticleResource::collection(
-            Article::latest()->paginate(6)
-        );
+        return Cache::tags('articles-index')
+            ->remember('articles-' . request()->get('page', 1), 33600, function () {
+                return ArticleResource::collection(
+                    Article::latest()->paginate(6)
+                );
+            });
     }
 
     /**
@@ -64,6 +68,8 @@ class ArticleController extends Controller
                 $article->articleImage()->associate($articleImage);
                 $article->save();
             }
+
+            Cache::tags('articles-index')->flush();
 
             DB::commit();
         } catch (\Exception $e) {
