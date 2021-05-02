@@ -27,7 +27,7 @@
           </div>
         </div>
       </div>
-      <div class="row mt-3">
+      <div v-if="POSTS.meta" class="row mt-3">
         <BasePagination
           module="posts"
           getter="POSTS"
@@ -45,12 +45,13 @@ export default {
   name: 'IndexPosts',
   async fetch() {
     try {
-      this.UPDATE_LOADING()
+      this.$store.dispatch('UPDATE_LOADING', true)
+
       await this.GET_POSTS({})
     } catch (err) {
       this.$toast.error(err.response.statusText)
     } finally {
-      this.UPDATE_LOADING(false)
+      this.$store.dispatch('UPDATE_LOADING', false)
     }
   },
   computed: {

@@ -66,9 +66,15 @@ import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'CoursesIndex',
   async fetch() {
-    this.UPDATE_LOADING()
-    await this.GET_COURSES()
-    this.UPDATE_LOADING(false)
+    try {
+      this.UPDATE_LOADING()
+
+      await this.GET_COURSES()
+    } catch (err) {
+      this.$toast.error('Something went wrong..')
+    } finally {
+      this.UPDATE_LOADING(false)
+    }
   },
   computed: {
     ...mapGetters({

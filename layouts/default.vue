@@ -14,6 +14,7 @@
 <script>
 export default {
   name: 'DefaultLayout',
+  middleware: 'auth-ssr',
   computed: {
     isLoading() {
       return this.$store.getters.isLoading

@@ -115,7 +115,7 @@ export default {
    */
   axios: {
     credentials: true,
-    baseURL: process.env.BASE_URL || 'http://localhost:8000/api/',
+    baseURL: process.env.BASE_URL,
     https: process.env.HTTPS_BOOLEAN || false,
     proxy: false
   },

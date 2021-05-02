@@ -6,6 +6,9 @@ export default (context, inject) => {
   }
 
   const slugify = (x) => {
+    if (!x) {
+      return
+    }
     return x
       .toString()
       .toLowerCase()
