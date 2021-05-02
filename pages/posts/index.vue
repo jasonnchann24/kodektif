@@ -14,7 +14,7 @@
         >
           <div class="card bg-primary">
             <div class="card-body">
-              <h3>{{ post.title }}</h3>
+              <h3 class="text-truncate">{{ post.title }}</h3>
               <small class="text-warning">{{ post.language.name }}</small>
               <p class="text-truncate">{{ post.description }}</p>
               <NuxtLink

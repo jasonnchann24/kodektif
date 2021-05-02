@@ -46,7 +46,6 @@ export const actions = {
     commit('SET_USER_LOGGED_IN')
   },
   // async nuxtServerInit({ commit }, { req }) {
-  //   console.log('asdfasd')
   //   let res = null
   //   if (req.headers.cookie) {
   //     try {
