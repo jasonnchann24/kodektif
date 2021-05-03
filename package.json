@@ -22,7 +22,7 @@
     "@nuxtjs/style-resources": "^1.0.0",
     "@popperjs/core": "^2.6.0",
     "@riophae/vue-treeselect": "^0.4.0",
-    "aos": "^2.3.4",
+    "aos": "^3.0.0-beta.6",
     "bootstrap": "^5.0.0-beta1",
     "chai": "^4.3.4",
     "epic-spinners": "^1.1.0",

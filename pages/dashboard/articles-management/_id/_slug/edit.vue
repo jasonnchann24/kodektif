@@ -59,7 +59,7 @@
           <p>Old Main Image</p>
           <img
             id="oldImage"
-            :src="`${this.$config.BACKEND_URL}${ARTICLE.data.article_image}`"
+            :src="`${$config.BACKEND_URL}${ARTICLE.data.article_image}`"
             alt=""
           />
         </div>

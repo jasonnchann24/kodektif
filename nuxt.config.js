@@ -47,13 +47,13 @@ export default {
    ** Plugins to load before mounting the App
    */
   plugins: [
+    { src: '@/plugins/aos.js', mode: 'client' },
     '@/plugins/bootstrap.js',
     '@/plugins/vSelect.js',
     '@/plugins/global.js',
     { src: '@/plugins/loadingOverlay.js', mode: 'client' },
     { src: '@/plugins/vue2dropzone.js', mode: 'client' },
-    { src: '@/plugins/treeSelect.js', mode: 'client' },
-    { src: '@/plugins/aos.js', mode: 'client' }
+    { src: '@/plugins/treeSelect.js', mode: 'client' }
   ],
   /*
    ** Nuxt.js dev-modules
@@ -68,14 +68,17 @@ export default {
         locales: [
           {
             code: 'en',
-            name: 'English'
+            name: 'English',
+            file: 'en.json'
           },
           {
             code: 'id',
-            name: 'Bhs. Indonesia'
+            name: 'Bhs. Indonesia',
+            file: 'id.json'
           }
         ],
         lazy: true,
+        langDir: '~/lang/',
         vueI18n: i18n
       }
     ],
@@ -114,6 +117,7 @@ export default {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
+    retry: false,
     credentials: true,
     baseURL: process.env.BASE_URL,
     https: process.env.HTTPS_BOOLEAN || false,
@@ -156,7 +160,10 @@ export default {
    ** Build configuration
    */
   build: {
-    extractCSS: true
+    extractCSS: true,
+    babel: {
+      plugins: [['@babel/plugin-proposal-private-methods', { loose: true }]]
+    }
     // extend(config, { isDev, isClient }) {
     //   config.module.rules.push({
     //     test: /\.worker\.js$/,
