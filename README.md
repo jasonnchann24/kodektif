@@ -35,6 +35,8 @@
 
 ------------
 
+# Alpha Ver.: [KODEKTIF](https://kodektif.com)
+
 # About
 **en** : Kodektif mission is mainly to help beginners to learn, discuss about programming for free ( in many languages ), especially for people who are still hard in English language. Kodektif has courses feature where users can learn and code in the browser to finish each chapter tasks. This platform is developed in Indonesia. So in the meantime, this platform is meant to support English and Indonesian language.
 
