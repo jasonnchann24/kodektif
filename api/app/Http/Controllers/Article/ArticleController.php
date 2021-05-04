@@ -162,7 +162,7 @@ class ArticleController extends Controller
         });
 
         $filename = time() . "_" . preg_replace('/\s+/', '_', strtolower($image->getClientOriginalName()));
-        $img->save(storage_path("/app/public/article_images/" . $filename), 100);
+        $img->save(storage_path("app/public/article_images/" . $filename), 100);
 
         $target = 'article_images/' . $filename;
         $articleImage = ArticleImage::create([
