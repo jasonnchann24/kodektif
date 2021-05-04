@@ -63,8 +63,6 @@ class DatabaseSeeder extends Seeder
                 RoleSeeder::class,
                 CategorySeeder::class,
                 LanguageSeeder::class,
-                CourseSeeder::class,
-                ChapterSeeder::class
             ]);
         }
 
