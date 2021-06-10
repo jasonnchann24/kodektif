@@ -177,7 +177,9 @@ export default {
         await this.$delay(2000)
         this.$router.push('/dashboard/articles-management')
       } catch (err) {
-        this.$toast.error(err.response.statusText)
+        this.$toast.error(
+          'Sorry! Something went wrong. Please try again later.'
+        )
       } finally {
         this.UPDATE_LOADING(false)
       }

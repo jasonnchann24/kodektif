@@ -100,7 +100,9 @@ export default {
           this.user = this.USER.data
         } catch (err) {
           console.log(err)
-          this.$toast.error(err.response.statusText)
+          this.$toast.error(
+            'Sorry! Something went wrong. Please try again later.'
+          )
         }
       } else {
         this.user = this.loggedInUser
@@ -109,7 +111,7 @@ export default {
       await this.getUserProviderData()
       await this.GET_POSTS({ user_id: this.user.id })
     } catch (err) {
-      this.$toast.error(err.response.statusText)
+      this.$toast.error('Sorry! Something went wrong. Please try again later.')
     } finally {
       this.UPDATE_LOADING(false)
     }

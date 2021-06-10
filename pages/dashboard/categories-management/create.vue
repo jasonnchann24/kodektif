@@ -58,7 +58,7 @@ export default {
         this.$router.push('/dashboard/categories-management')
       } catch (err) {
         console.log(err)
-        // this.$toast.error(err.response.statusText)
+        // this.$toast.error("Sorry! Something went wrong. Please try again later.")
       } finally {
         this.UPDATE_LOADING(false)
       }

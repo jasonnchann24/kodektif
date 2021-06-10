@@ -216,7 +216,9 @@ export default {
         this.$toast.success('Updated Chapter ...')
         this.resetFormChapter()
       } catch (err) {
-        this.$toast.error(err.response.statusText)
+        this.$toast.error(
+          'Sorry! Something went wrong. Please try again later.'
+        )
       } finally {
         this.UPDATE_LOADING(false)
       }
@@ -230,7 +232,9 @@ export default {
         this.$toast.success('Chapter Added.')
         this.resetFormChapter()
       } catch (err) {
-        this.$toast.error(err.response.statusText)
+        this.$toast.error(
+          'Sorry! Something went wrong. Please try again later.'
+        )
       } finally {
         this.UPDATE_LOADING(false)
       }
@@ -244,7 +248,9 @@ export default {
           this.REMOVE_CHAPTER_FROM_COURSE(id)
         } catch (err) {
           console.log(err)
-          this.$toast.error(err.response.statusText)
+          this.$toast.error(
+            'Sorry! Something went wrong. Please try again later.'
+          )
         } finally {
           this.UPDATE_LOADING(false)
         }

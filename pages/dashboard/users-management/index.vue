@@ -73,7 +73,7 @@ export default {
       this.UPDATE_LOADING()
       this.GET_USERS({})
     } catch (err) {
-      this.$toast.error(err.response.statusText)
+      this.$toast.error('Sorry! Something went wrong. Please try again later.')
     } finally {
       this.UPDATE_LOADING(false)
     }

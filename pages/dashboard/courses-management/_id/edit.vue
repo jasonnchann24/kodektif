@@ -154,7 +154,9 @@ export default {
         })
         this.$toast.success('Course updated')
       } catch (err) {
-        this.$toast.error(err.response.statusText)
+        this.$toast.error(
+          'Sorry! Something went wrong. Please try again later.'
+        )
       } finally {
         this.UPDATE_LOADING(false)
       }
@@ -168,7 +170,9 @@ export default {
           await this.$delay(1500)
           this.$router.push('/dashboard/courses-management')
         } catch (err) {
-          this.$toast.error(err.response.statusText)
+          this.$toast.error(
+            'Sorry! Something went wrong. Please try again later.'
+          )
         } finally {
           this.UPDATE_LOADING(false)
         }

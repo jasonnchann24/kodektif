@@ -145,7 +145,9 @@ export default {
           `/dashboard/courses-management/${this.COURSE.id}/edit`
         )
       } catch (err) {
-        this.$toast.error(err.response.statusText)
+        this.$toast.error(
+          'Sorry! Something went wrong. Please try again later.'
+        )
       } finally {
         this.UPDATE_LOADING(false)
       }

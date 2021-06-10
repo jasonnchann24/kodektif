@@ -120,7 +120,7 @@ export default {
     try {
       await this.GET_ARTICLES({ page: this.$route.query.page ?? 1 })
     } catch (err) {
-      this.$toast.error('Error! ' + err.response.statusText)
+      this.$toast.error('Error when fetching articles. Please try again later.')
     } finally {
       this.$store.dispatch('UPDATE_LOADING', false)
     }

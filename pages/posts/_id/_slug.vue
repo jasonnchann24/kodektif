@@ -136,7 +136,9 @@ export default {
           upvote: dir == 'up' ? true : false
         })
       } catch (err) {
-        this.$toast.error(err.response.statusText)
+        this.$toast.error(
+          'Sorry! Something went wrong. Please try again later.'
+        )
       } finally {
         this.loading = false
       }
@@ -149,7 +151,9 @@ export default {
           upvote: dir == 'up' ? true : false
         })
       } catch (err) {
-        this.$toast.error(err.response.statusText)
+        this.$toast.error(
+          'Sorry! Something went wrong. Please try again later.'
+        )
       } finally {
         this.loading = false
       }
@@ -159,7 +163,9 @@ export default {
         this.loading = true
         await this.DELETE_POST_VOTE(this.POST.has_voted)
       } catch (err) {
-        this.$toast.error(err.response.statusText)
+        this.$toast.error(
+          'Sorry! Something went wrong. Please try again later.'
+        )
       } finally {
         this.loading = false
       }
