@@ -46,6 +46,7 @@
                       <div class="row d-flex flex-column align-items-start">
                         <div class="col-4 col-md-6">
                           <img
+                            v-if="comment.user.provider"
                             :src="comment.user.provider.avatar"
                             class="rounded-circle"
                             style="max-width:50px"

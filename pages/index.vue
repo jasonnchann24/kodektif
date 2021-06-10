@@ -87,12 +87,12 @@ export default {
         },
         {
           title: 'why-community',
-          description: 'why-free',
+          description: 'why-community',
           icon: 'ri-group-line'
         },
         {
           title: 'why-learn',
-          description: 'why-free',
+          description: 'why-learn',
           icon: 'ri-stack-line'
         }
       ]

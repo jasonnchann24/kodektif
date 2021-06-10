@@ -15,6 +15,7 @@
               <div class="row d-flex align-items-center my-2">
                 <div class="col-2 col-lg-2 me-3">
                   <img
+                    v-if="POST.user.provider"
                     :src="POST.user.provider.avatar"
                     class="rounded-circle"
                     style="width: 75px"
