@@ -1,7 +1,10 @@
 {
   "navbar": {
     "login": "Masuk",
-    "profile": "Profil"
+    "profile": "Profil",
+    "articles": "Artikel",
+    "courses": "Kursus",
+    "posts": "Unggahan"
   },
   "landing": {
     "welcome-title": "Selamat Datang di Kodektif !",
@@ -25,5 +28,10 @@
       "title": "Belajar",
       "description": "Kami terus melakukan peningkatan untuk memberikan Anda kursus yang terbaik dan standar internasional."
     }
+  },
+  "footer": {
+    "links": "Tautan",
+    "contribute": "Kontribusi",
+    "license": "Lisensi"
   }
 }

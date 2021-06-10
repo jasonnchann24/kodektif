@@ -14,11 +14,17 @@
           >
         </div>
         <div class="col-6 col-md-10">
-          <h5>Links</h5>
+          <h5>{{ $t('footer.links') }}</h5>
           <ul class="list-unstyled text-small">
             <li><a class="link-secondary" href="#">Github</a></li>
-            <li><a class="link-secondary" href="#">Contribute</a></li>
-            <li><a class="link-secondary" href="#">License</a></li>
+            <li>
+              <a class="link-secondary" href="#">{{
+                $t('footer.contribute')
+              }}</a>
+            </li>
+            <li>
+              <a class="link-secondary" href="#">{{ $t('footer.license') }}</a>
+            </li>
           </ul>
         </div>
       </div>

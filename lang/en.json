@@ -1,7 +1,10 @@
 {
   "navbar": {
     "login": "Login",
-    "profile": "Profile"
+    "profile": "Profile",
+    "articles": "Articles",
+    "courses": "Courses",
+    "posts": "Posts"
   },
   "landing": {
     "welcome-title": "Welcome to Kodektif !",
@@ -25,5 +28,10 @@
       "title": "Learn",
       "description": "We constantly improving to give you the best and international standards of our courses."
     }
+  },
+  "footer": {
+    "links": "Links",
+    "contribute": "Contribute",
+    "license": "License"
   }
 }

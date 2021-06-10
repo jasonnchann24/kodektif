@@ -79,7 +79,8 @@ export default {
         ],
         lazy: true,
         langDir: '~/lang/',
-        vueI18n: i18n
+        vueI18n: i18n,
+        vueI18nLoader: true
       }
     ],
     '@nuxtjs/moment'

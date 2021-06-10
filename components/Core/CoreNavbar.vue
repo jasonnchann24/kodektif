@@ -37,7 +37,7 @@
               :to="localePath('/articles')"
               class="nav-link"
               active-class="active"
-              >Articles</nuxtLink
+              >{{ $t('navbar.articles') }}</nuxtLink
             >
           </li>
           <li class="nav-item">
@@ -45,7 +45,7 @@
               :to="localePath('/courses')"
               class="nav-link"
               active-class="active"
-              >Courses</nuxtLink
+              >{{ $t('navbar.courses') }}</nuxtLink
             >
           </li>
           <li class="nav-item">
@@ -53,7 +53,7 @@
               :to="localePath('/posts')"
               class="nav-link"
               active-class="active"
-              >Posts</nuxtLink
+              >{{ $t('navbar.posts') }}</nuxtLink
             >
           </li>
           <li v-if="isAdmin" class="nav-item">
