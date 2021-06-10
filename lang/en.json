@@ -1,13 +1,43 @@
 {
   "navbar": {
     "login": "Login",
-    "profile": "Profile"
+    "profile": "Profile",
+    "articles": "Articles",
+    "courses": "Courses",
+    "posts": "Posts"
   },
   "landing": {
     "welcome-title": "Welcome to Kodektif !",
     "welcome-subtitle": "The world of programming.",
     "main": {
       "title": "Why Kodektif ?"
+    },
+    "why-help": {
+      "title": "Help",
+      "description": "Kodektif will try the best to help your learning process."
+    },
+    "why-free": {
+      "title": "Free",
+      "description": "It's free for all, we won't stop you from trying to learn"
+    },
+    "why-community": {
+      "title": "Community",
+      "description": "We are trying to make a good community in this platform, so we all can help each other."
+    },
+    "why-learn": {
+      "title": "Learn",
+      "description": "We constantly improving to give you the best and international standards of our courses."
     }
+  },
+  "footer": {
+    "links": "Links",
+    "contribute": "Contribute",
+    "license": "License"
+  },
+  "dict": {
+    "read-more": "Read More",
+    "language": "Language",
+    "categories": "Categories",
+    "login": "Login"
   }
 }

@@ -46,6 +46,7 @@
                       <div class="row d-flex flex-column align-items-start">
                         <div class="col-4 col-md-6">
                           <img
+                            v-if="comment.user.provider"
                             :src="comment.user.provider.avatar"
                             class="rounded-circle"
                             style="max-width:50px"
@@ -204,7 +205,7 @@ export default {
       this.loading = true
       await this.GET_POST_COMMENTS({ post_id: this.$route.params.id })
     } catch (err) {
-      this.$toast.error(err.response.statusText)
+      this.$toast.error('Sorry! Something went wrong. Please try again later.')
     } finally {
       this.loading = false
     }
@@ -223,7 +224,9 @@ export default {
         this.UPDATE_LOADING()
         await this.CREATE_POST_COMMENT(this.form)
       } catch (err) {
-        this.$toast.error(err.response.statusText)
+        this.$toast.error(
+          'Sorry! Something went wrong. Please try again later.'
+        )
       } finally {
         this.UPDATE_LOADING(false)
       }

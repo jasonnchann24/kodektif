@@ -1,12 +1,23 @@
+<i18n>
+{
+  "en": {
+    "article-title": "Articles by Kodektif Team"
+  },
+   "id": {
+    "article-title": "Artikel dari Tim Kodektif"
+  }
+}
+</i18n>
+
 <template>
   <div id="articlesTop">
     <div class="container">
-      <div class="row">
+      <div class="row mt-3">
         <div class="col">
-          <h1>Articles by Kodektif Team</h1>
+          <h1 class="fs-2">{{ $t('article-title') }}</h1>
         </div>
       </div>
-      <div class="row mt-3 justify-content-center">
+      <div class="row mt-5 justify-content-center">
         <div class="col-12 col-md-8 order-2 order-lg-1 mt-3 mt-lg-0">
           <div class="row g-3">
             <template v-if="!$fetchState.pending">
@@ -35,10 +46,12 @@
                       {{ item.description }}
                     </p>
                     <p class="mb-0">
-                      <strong>Language</strong>: {{ item.language.name }}
+                      <strong>{{ $t('dict.language') }}</strong
+                      >: {{ item.language.name }}
                     </p>
                     <p class="mb-0">
-                      <strong>Categories</strong>:
+                      <strong>{{ $t('dict.categories') }}</strong
+                      >:
                       <span
                         v-for="cat in item.categories"
                         :key="`${item.id}${cat.id}`"
@@ -54,7 +67,7 @@
                     <NuxtLink
                       :to="`/articles/${item.id}/${item.slug}`"
                       class="btn btn-primary"
-                      >Read more ...</NuxtLink
+                      >{{ $t('dict.read-more') }} ...</NuxtLink
                     >
                   </div>
                 </div>
@@ -107,7 +120,7 @@ export default {
     try {
       await this.GET_ARTICLES({ page: this.$route.query.page ?? 1 })
     } catch (err) {
-      this.$toast.error('Error! ' + err.response.statusText)
+      this.$toast.error('Error when fetching articles. Please try again later.')
     } finally {
       this.$store.dispatch('UPDATE_LOADING', false)
     }

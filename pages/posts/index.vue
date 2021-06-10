@@ -49,7 +49,7 @@ export default {
 
       await this.GET_POSTS({})
     } catch (err) {
-      this.$toast.error(err.response.statusText)
+      this.$toast.error('Sorry! Something went wrong. Please try again later.')
     } finally {
       this.$store.dispatch('UPDATE_LOADING', false)
     }

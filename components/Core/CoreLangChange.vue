@@ -16,10 +16,7 @@
       aria-labelledby="dropDownLang"
     >
       <li v-for="locale in $i18n.locales" :key="locale.code">
-        <nuxt-link
-          class="dropdown-item"
-          :to="switchLocalePath(locale.code)"
-          tag="a"
+        <nuxt-link class="dropdown-item" :to="switchLocalePath(locale.code)"
           >{{ locale.name }} -
           <img class="ml-2 mr-4" :src="getFlag(locale.code)" alt="" />
         </nuxt-link>

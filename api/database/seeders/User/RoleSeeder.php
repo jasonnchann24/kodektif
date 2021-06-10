@@ -16,17 +16,19 @@ class RoleSeeder extends Seeder
     public function run()
     {
         $roles = ['admin', 'member'];
-        $users = User::all();
         foreach ($roles as $role) {
             Role::create(
                 ['name' => $role]
             );
         }
 
-        $roles = Role::pluck('id')->toArray();
-        foreach ($users as $user) {
-            $random = array_rand($roles, 1);
-            $user->roles()->sync([$roles[$random]]);
+        if (config('app.env') != 'production') {
+            $users = User::all();
+            $roles = Role::pluck('id')->toArray();
+            foreach ($users as $user) {
+                $random = array_rand($roles, 1);
+                $user->roles()->sync([$roles[$random]]);
+            }
         }
     }
 }

@@ -110,7 +110,9 @@ export default {
           await this.GET_ARTICLES({})
           this.$toast.success('Article Deleted')
         } catch (err) {
-          this.$toast.error(`${err.response.statusText}`)
+          this.$toast.error(
+            `${'Sorry! Something went wrong. Please try again later.'}`
+          )
         } finally {
           this.UPDATE_LOADING(false)
         }

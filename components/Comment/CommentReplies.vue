@@ -6,7 +6,7 @@
           <div class="col d-flex justify-content-between">
             <p class="mb-2">by {{ reply.user.name }}</p>
             <i
-              v-if="loggedInUser.id == reply.user.id"
+              v-if="ownComment(reply)"
               class="ri-delete-bin-line cursor-pointer"
               @click="deleteReply(reply)"
             ></i>
@@ -69,6 +69,14 @@ export default {
       } finally {
         this.$store.dispatch('UPDATE_LOADING', false)
       }
+    },
+    ownComment(reply) {
+      if (this.loggedInUser) {
+        this.loggedInUser.id == reply.user.id
+        return
+      }
+
+      return false
     }
   }
 }

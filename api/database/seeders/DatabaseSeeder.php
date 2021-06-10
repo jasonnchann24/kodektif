@@ -30,8 +30,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $start = microtime(true);
         if (config('app.env') != 'production') {
-            $start = microtime(true);
 
             $this->call([
                 UserProfileSeeder::class,
@@ -58,11 +58,17 @@ class DatabaseSeeder extends Seeder
                 CourseSeeder::class,
                 ChapterSeeder::class
             ]);
-
-            $end = microtime(true);
-            $time = number_format(($end - $start) * 1000, 2);
-            $info = 'Seeded database in ' . $time . ' ms';
-            $this->command->info($info);
+        } else {
+            $this->call([
+                RoleSeeder::class,
+                CategorySeeder::class,
+                LanguageSeeder::class,
+            ]);
         }
+
+        $end = microtime(true);
+        $time = number_format(($end - $start) * 1000, 2);
+        $info = 'Seeded database in ' . $time . ' ms';
+        $this->command->info($info);
     }
 }

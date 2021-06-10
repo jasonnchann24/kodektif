@@ -71,7 +71,7 @@ export default {
         slug: this.$route.params.slug
       })
     } catch (err) {
-      this.$toast.error(`Error! ${err.response.statusText}`)
+      this.$toast.error(`Error when fetching articles. Please try again later.`)
     } finally {
       this.UPDATE_LOADING(false)
     }
@@ -103,7 +103,9 @@ export default {
       try {
         await this.LIKE_ARTICLE(this.$route.params.id)
       } catch (err) {
-        this.$toast.error(err.response.statusText)
+        this.$toast.error(
+          'Sorry, error when like / unliking. Please try again later.'
+        )
       } finally {
         this.UPDATE_LOADING(false)
       }
@@ -113,7 +115,9 @@ export default {
       try {
         await this.UNLIKE_ARTICLE(this.article.has_liked.id)
       } catch (err) {
-        this.$toast.error(err.response.statusText)
+        this.$toast.error(
+          'Sorry, error when like / unliking. Please try again later.'
+        )
       } finally {
         this.UPDATE_LOADING(false)
       }

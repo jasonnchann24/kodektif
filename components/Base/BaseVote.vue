@@ -74,7 +74,9 @@ export default {
 
         await this.$store.dispatch(`${this.module}/${actionName}`, payload)
       } catch (err) {
-        this.$toast.error(err.response.statusText)
+        this.$toast.error(
+          'Sorry! Something went wrong. Please try again later.'
+        )
       } finally {
         this.UPDATE_LOADING(false)
       }
@@ -90,7 +92,9 @@ export default {
 
         await this.$store.dispatch(`${this.module}/${actionName}`, payload)
       } catch (err) {
-        this.$toast.error(err.response.statusText)
+        this.$toast.error(
+          'Sorry! Something went wrong. Please try again later.'
+        )
       } finally {
         this.UPDATE_LOADING(false)
       }
@@ -106,7 +110,9 @@ export default {
 
         await this.$store.dispatch(`${this.module}/${actionName}`, payload)
       } catch (err) {
-        this.$toast.error(err.response.statusText)
+        this.$toast.error(
+          'Sorry! Something went wrong. Please try again later.'
+        )
         console.log(err)
       } finally {
         this.UPDATE_LOADING(false)

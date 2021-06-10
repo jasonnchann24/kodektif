@@ -12,7 +12,7 @@
             <BaseLogo width="150" />
           </nuxt-link>
         </div>
-        <h1 class="h3">LOGIN</h1>
+        <h1 class="h3 text-uppercase">{{ $t('dict.login') }}</h1>
         <button
           class="btn btn-outline-light d-flex align-items-center mt-3"
           @click="login('github')"

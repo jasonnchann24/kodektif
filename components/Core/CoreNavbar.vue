@@ -3,12 +3,12 @@
     class="navbar navbar-expand-lg navbar-dark bg-transparent border-bottom border-warning border-1"
   >
     <div class="container px-4">
-      <nuxtLink :to="localePath('/')" class="navbar-brand" tag="a">
+      <nuxtLink :to="localePath('/')" class="navbar-brand">
         <img
           src="/logo/logo_kodektif_bg.svg"
           width="40"
           class="d-inline-block align-text-center"
-          alt=""
+          alt="kodektif logo"
           srcset=""
         />
       </nuxtLink>
@@ -37,7 +37,7 @@
               :to="localePath('/articles')"
               class="nav-link"
               active-class="active"
-              >Articles</nuxtLink
+              >{{ $t('navbar.articles') }}</nuxtLink
             >
           </li>
           <li class="nav-item">
@@ -45,7 +45,7 @@
               :to="localePath('/courses')"
               class="nav-link"
               active-class="active"
-              >Courses</nuxtLink
+              >{{ $t('navbar.courses') }}</nuxtLink
             >
           </li>
           <li class="nav-item">
@@ -53,7 +53,7 @@
               :to="localePath('/posts')"
               class="nav-link"
               active-class="active"
-              >Posts</nuxtLink
+              >{{ $t('navbar.posts') }}</nuxtLink
             >
           </li>
           <li v-if="isAdmin" class="nav-item">
@@ -71,7 +71,6 @@
             <nuxtLink
               :to="localePath('/auth/login')"
               class="nav-link"
-              tag="a"
               active-class="active"
             >
               {{ $t('navbar.login') }}
@@ -81,7 +80,6 @@
             <nuxtLink
               :to="localePath(`/user/${loggedInUser.id}/profile`)"
               class="nav-link"
-              tag="a"
               active-class="active"
             >
               <!-- <span class="text-uppercase pe-2">

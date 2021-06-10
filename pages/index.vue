@@ -51,8 +51,12 @@
                 <div class="card-body">
                   <div class="row">
                     <div class="col text-center ">
-                      <h2 class="h4">{{ item.title }}</h2>
-                      <p class="mb-0">{{ item.description }}</p>
+                      <h2 class="h4">
+                        {{ $t(`landing.${item.title}.title`) }}
+                      </h2>
+                      <p class="mb-0">
+                        {{ $t(`landing.${item.description}.description`) }}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -72,23 +76,23 @@ export default {
     return {
       cardList: [
         {
-          title: 'Help',
-          description: 'some quick example text to build on the card',
+          title: 'why-help',
+          description: 'why-help',
           icon: 'ri-hand-heart-line'
         },
         {
-          title: 'Free',
-          description: 'some quick example text to build on the card',
+          title: 'why-free',
+          description: 'why-free',
           icon: 'ri-service-line'
         },
         {
-          title: 'Community',
-          description: 'some quick example text to build on the card',
+          title: 'why-community',
+          description: 'why-community',
           icon: 'ri-group-line'
         },
         {
-          title: 'Learn',
-          description: 'some quick example text to build on the card',
+          title: 'why-learn',
+          description: 'why-learn',
           icon: 'ri-stack-line'
         }
       ]

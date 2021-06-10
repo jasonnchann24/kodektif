@@ -26,7 +26,7 @@
                 <th scope="col">Order</th>
                 <th scope="col">Title</th>
                 <th scope="col">Slug</th>
-                <th scope="col" class="text-center">Action</th>
+                <th scope="col" class="text-end">Action</th>
               </tr>
             </thead>
             <tbody>
@@ -35,7 +35,7 @@
                   <th scope="row">{{ chapter.order }}</th>
                   <td>{{ chapter.title }}</td>
                   <td>{{ chapter.slug }}</td>
-                  <td class="text-center">
+                  <td class="text-end">
                     <button
                       type="button"
                       class="btn btn-success text-white"
@@ -216,7 +216,9 @@ export default {
         this.$toast.success('Updated Chapter ...')
         this.resetFormChapter()
       } catch (err) {
-        this.$toast.error(err.response.statusText)
+        this.$toast.error(
+          'Sorry! Something went wrong. Please try again later.'
+        )
       } finally {
         this.UPDATE_LOADING(false)
       }
@@ -230,7 +232,9 @@ export default {
         this.$toast.success('Chapter Added.')
         this.resetFormChapter()
       } catch (err) {
-        this.$toast.error(err.response.statusText)
+        this.$toast.error(
+          'Sorry! Something went wrong. Please try again later.'
+        )
       } finally {
         this.UPDATE_LOADING(false)
       }
@@ -244,7 +248,9 @@ export default {
           this.REMOVE_CHAPTER_FROM_COURSE(id)
         } catch (err) {
           console.log(err)
-          this.$toast.error(err.response.statusText)
+          this.$toast.error(
+            'Sorry! Something went wrong. Please try again later.'
+          )
         } finally {
           this.UPDATE_LOADING(false)
         }

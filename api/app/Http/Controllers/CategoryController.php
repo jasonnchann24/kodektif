@@ -15,7 +15,7 @@ class CategoryController extends Controller
     public function __construct()
     {
         $this->middleware('auth:sanctum')->except(['index', 'show']);
-        $this->middleware('only.admin')->only(['store', 'update']);
+        $this->middleware('only.admin')->only(['store', 'update', 'delete']);
     }
 
     /**
@@ -42,7 +42,7 @@ class CategoryController extends Controller
     {
         $validated = $request->validated();
         $category = Category::create($validated);
-        return Response::json($category, 201);
+        return (new CategoryResource($category))->response()->setStatusCode(201);
     }
 
     /**
@@ -53,7 +53,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        return new CategoryResource($category);
+        return new CategoryResource($category->load('allSubCategories'));
     }
 
     /**
@@ -67,7 +67,7 @@ class CategoryController extends Controller
     {
         $validated = $request->validated();
         $category->update($validated);
-        return Response::json($category, 200);
+        return new CategoryResource($category);
     }
 
     /**
@@ -78,6 +78,8 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+
+        return Response::json('', 204);
     }
 }

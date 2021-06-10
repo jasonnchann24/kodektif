@@ -1,3 +1,18 @@
+<i18n>
+{
+  "en": {
+    "previous": "Previous",
+    "next": "Next",
+    "no-match": "Sorry, no matching options"
+  },
+  "id": {
+    "previous": "Sebelumnya",
+    "next": "Selanjutnya",
+    "no-match": "Maaf, tidak ada pilihan"
+  }
+}
+</i18n>
+
 <template>
   <nav v-if="getData.meta" aria-label="Page navigation example">
     <ul class="pagination justify-content-center">
@@ -8,7 +23,7 @@
           :class="{ 'disabled pe-none text-muted': dataLinks.prev == null }"
           href="javascript:void(0)"
           @click="changePage('prev')"
-          >Previous</a
+          >{{ $t('previous') }}</a
         >
       </li>
       <li class="page-item mx-2 d-flex align-items-center">
@@ -19,7 +34,7 @@
           :clearable="false"
           append-to-body
           ><span slot="no-options" class="text-danger">
-            Sorry, no matching options
+            {{ $t('no-match') }}
           </span></v-select
         >
       </li>
@@ -30,7 +45,7 @@
           :class="{ 'disabled pe-none text-muted': dataLinks.next == null }"
           href="javascript:void(0)"
           @click="changePage('next')"
-          >Next</a
+          >{{ $t('next') }}</a
         >
       </li>
     </ul>
@@ -118,7 +133,7 @@ export default {
         this.$scrollTo(`#${this.topPage}`)
       } catch (err) {
         this.$toast.error(
-          `Sorry.. Something went wrong! ${err.response.statusText}`
+          `Sorry.. Something went wrong! ${'Sorry! Something went wrong. Please try again later.'}`
         )
       } finally {
         this.UPDATE_LOADING(false)

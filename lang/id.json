@@ -1,10 +1,43 @@
 {
-    "navbar": {
-        "login": "Masuk",
-        "profile": "Profil"
+  "navbar": {
+    "login": "Masuk",
+    "profile": "Profil",
+    "articles": "Artikel",
+    "courses": "Kursus",
+    "posts": "Unggahan"
+  },
+  "landing": {
+    "welcome-title": "Selamat Datang di Kodektif !",
+    "welcome-subtitle": "Dunia mengenai pemograman.",
+    "main": {
+      "title": "Mengapa Kodektif ?"
     },
-    "landing": {
-        "welcome-title": "Selamat Datang di Kodektif !",
-        "welcome-subtitle": "Dunia mengenai pemograman."
+    "why-help": {
+      "title": "Membantu",
+      "description": "Kodektif akan mencoba yang terbaik dalam membantu proses belajar Anda."
+    },
+    "why-free": {
+      "title": "Gratis",
+      "description": "Gratis untuk semuanya, kami tidak akan memberhentikan dalam mencoba belajar."
+    },
+    "why-community": {
+      "title": "Komunitas",
+      "description": "Kami mencoba untuk membuat komunitas yang baik dalam platform ini, agar kita dapat membantu satu sama lain."
+    },
+    "why-learn": {
+      "title": "Belajar",
+      "description": "Kami terus melakukan peningkatan untuk memberikan Anda kursus yang terbaik dan standar internasional."
     }
+  },
+  "footer": {
+    "links": "Tautan",
+    "contribute": "Kontribusi",
+    "license": "Lisensi"
+  },
+  "dict": {
+    "read-more": "Baca Lebih Lanjut",
+    "language": "Bahasa",
+    "categories": "Kategori",
+    "login": "Masuk"
+  }
 }
