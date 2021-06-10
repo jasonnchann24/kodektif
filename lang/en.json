@@ -8,6 +8,22 @@
     "welcome-subtitle": "The world of programming.",
     "main": {
       "title": "Why Kodektif ?"
+    },
+    "why-help": {
+      "title": "Help",
+      "description": "test"
+    },
+    "why-free": {
+      "title": "Free",
+      "description": "test"
+    },
+    "why-community": {
+      "title": "Community",
+      "description": "test"
+    },
+    "why-learn": {
+      "title": "Learn",
+      "description": "test"
     }
   }
 }

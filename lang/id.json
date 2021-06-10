@@ -1,10 +1,29 @@
 {
-    "navbar": {
-        "login": "Masuk",
-        "profile": "Profil"
+  "navbar": {
+    "login": "Masuk",
+    "profile": "Profil"
+  },
+  "landing": {
+    "welcome-title": "Selamat Datang di Kodektif !",
+    "welcome-subtitle": "Dunia mengenai pemograman.",
+    "main": {
+      "title": "Mengapa Kodektif ?"
     },
-    "landing": {
-        "welcome-title": "Selamat Datang di Kodektif !",
-        "welcome-subtitle": "Dunia mengenai pemograman."
+    "why-help": {
+      "title": "Membantu",
+      "description": "test"
+    },
+    "why-free": {
+      "title": "Gratis",
+      "description": "test"
+    },
+    "why-community": {
+      "title": "Komunitas",
+      "description": "test"
+    },
+    "why-learn": {
+      "title": "Belajar",
+      "description": "test"
     }
+  }
 }

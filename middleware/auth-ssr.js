@@ -16,7 +16,7 @@ export default async function(context) {
       context.$auth.$state.loggedIn = true
       //   await context.$auth.setUser(context.$auth.user)
     } catch (e) {
-      console.error('debugAuthMiddleware', e)
+      console.log('Not logged in')
     }
   }
 }
