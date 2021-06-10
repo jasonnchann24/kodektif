@@ -33,5 +33,11 @@
     "links": "Links",
     "contribute": "Contribute",
     "license": "License"
+  },
+  "dict": {
+    "read-more": "Read More",
+    "language": "Language",
+    "categories": "Categories",
+    "login": "Login"
   }
 }

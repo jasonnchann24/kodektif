@@ -19,17 +19,17 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-12" :class="{ 'col-lg-6': !isIntro }">
-          <div :class="{ container: isIntro }">
+        <div class="col-12" :class="{ 'col-lg-6': !isIntroOrFinish }">
+          <div :class="{ container: isIntroOrFinish }">
             <nuxt-content
               :document="doc"
-              :class="{ 'content-style': !isIntro }"
+              :class="{ 'content-style': !isIntroOrFinish }"
             />
           </div>
         </div>
         <div
           class="col-12 col-lg-6 border-start border-primary"
-          :class="{ 'd-none': isIntro }"
+          :class="{ 'd-none': isIntroOrFinish }"
         >
           <CoursesCodeEditor :document="doc" @evaluated="codeEvaluated" />
         </div>
@@ -51,17 +51,30 @@
             </NuxtLink>
           </div>
           <div v-else></div>
-          <NuxtLink
-            :to="
-              `/courses/${COURSE.id}/${COURSE.slug}/${getNextChapter().slug}`
-            "
-            type="button"
-            class="btn btn-primary text-decoration-none text-white d-flex align-items-center"
-            @click.native="handleNextChapter()"
-          >
-            <div>Next chapter: {{ getNextChapter().title }}</div>
-            <i class="ri-arrow-right-s-line ms-1"></i>
-          </NuxtLink>
+          <div v-if="getNextChapter().slug == 'done'">
+            <NuxtLink
+              :to="`/courses`"
+              type="button"
+              class="btn btn-primary text-decoration-none text-white d-flex align-items-center"
+              @click.native="handleNextChapter()"
+            >
+              <div>{{ getNextChapter().title }}</div>
+              <i class="ri-arrow-right-s-line ms-1"></i>
+            </NuxtLink>
+          </div>
+          <div v-else>
+            <NuxtLink
+              :to="
+                `/courses/${COURSE.id}/${COURSE.slug}/${getNextChapter().slug}`
+              "
+              type="button"
+              class="btn btn-primary text-decoration-none text-white d-flex align-items-center"
+              @click.native="handleNextChapter()"
+            >
+              <div>Next chapter: {{ getNextChapter().title }}</div>
+              <i class="ri-arrow-right-s-line ms-1"></i>
+            </NuxtLink>
+          </div>
         </div>
       </div>
     </div>
@@ -99,9 +112,10 @@ export default {
   },
   computed: {
     ...mapGetters({
-      COURSE: 'courses/COURSE'
+      COURSE: 'courses/COURSE',
+      isAuthenticated: 'isAuthenticated'
     }),
-    isIntro() {
+    isIntroOrFinish() {
       if (!Object.keys(this.COURSE)) {
         return true
       }
@@ -109,7 +123,7 @@ export default {
         return obj.slug == this.$route.params.chapter
       })
 
-      return chapterOrder.order == 0
+      return chapterOrder.order == 0 || chapterOrder.slug == 'finish'
     },
     currentChapter() {
       return this.COURSE.chapters.find((x) => x.slug == this.doc.slug)
@@ -117,43 +131,77 @@ export default {
   },
   methods: {
     ...mapActions({
-      GET_COURSE: 'courses/GET_COURSE'
+      GET_COURSE: 'courses/GET_COURSE',
+      DONE_CHAPTER_IN_COURSE: 'courses/DONE_CHAPTER_IN_COURSE'
     }),
     async handleNextChapter() {
       if (
-        this.doc.order === 0 &&
+        (this.doc.order === 0 || this.doc.chapter == 'Finish') &&
         this.currentChapter.user_chapter_done === null
       ) {
-        const res = await this.$axios.$post('chapter-answers', {
-          chapter_id: this.currentChapter.id,
-          answer: 'intro done'
-        })
-
-        console.log(res)
+        if (this.isAuthenticated) {
+          const res = await this.$axios.$post('chapter-answers', {
+            chapter_id: this.currentChapter.id,
+            answer: this.doc.order === 0 ? 'intro done' : 'finish chapter'
+          })
+          console.log(res)
+        }
       }
     },
     async codeEvaluated(val) {
+      if (!this.isAuthenticated) {
+        this.$toast.info('Please login to save your answer.')
+        return
+      }
+
+      if (!val.pass) {
+        this.$toast.info('Tests failing, please try again.')
+      }
+
+      let res
       if (val.pass && !this.currentChapter.user_chapter_done) {
         try {
-          await this.$axios.$post('chapter-answers', {
+          res = await this.$axios.$post('chapter-answers', {
             chapter_id: this.currentChapter.id,
             answer: val.code
           })
+
+          this.$toast.success(
+            'Success saving your answer, you can go to the next chapter'
+          )
         } catch (err) {
           this.$toast.error('Something went wrong when submitting your answer')
         }
+
+        const payload = {
+          chapterId: res.data.chapter_id,
+          data: res.data
+        }
+
+        this.DONE_CHAPTER_IN_COURSE(payload)
       } else if (val.pass && this.currentChapter.user_chapter_done) {
         try {
-          await this.$axios.$patch(
+          res = await this.$axios.$patch(
             'chapter-answers/' + this.currentChapter.user_chapter_done.id,
             {
               chapter_id: this.currentChapter.id,
               answer: val.code
             }
           )
+
+          this.$toast.success(
+            'Success saving your answer, you can go to the next chapter'
+          )
         } catch (err) {
           this.$toast.error('Something went wrong when submitting your answer')
         }
+
+        const payload = {
+          chapterId: res.data.chapter_id,
+          data: res.data
+        }
+
+        this.DONE_CHAPTER_IN_COURSE(payload)
       }
     },
 
@@ -165,8 +213,8 @@ export default {
       })
       if (!nextChapter) {
         nextChapter = {
-          title: 'Finish',
-          slug: 'finish'
+          title: 'Done',
+          slug: 'done'
         }
       }
       return nextChapter

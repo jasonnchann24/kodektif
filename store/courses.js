@@ -36,6 +36,11 @@ export const mutations = {
     if (index !== -1) {
       state.course.chapters.splice(index, 1)
     }
+  },
+
+  SET_USER_CHAPTER_DONE(state, payload) {
+    const chapter = state.course.chapters.find((x) => x.id == payload.chapterId)
+    chapter.user_chapter_done = payload.data
   }
 }
 
@@ -70,5 +75,8 @@ export const actions = {
   async DELETE_COURSE({ commit }, id) {
     await this.$axios.$delete(`courses/${id}`)
     commit('DELETE_COURSE', id)
+  },
+  DONE_CHAPTER_IN_COURSE({ commit }, payload) {
+    commit('SET_USER_CHAPTER_DONE', payload)
   }
 }

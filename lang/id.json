@@ -33,5 +33,11 @@
     "links": "Tautan",
     "contribute": "Kontribusi",
     "license": "Lisensi"
+  },
+  "dict": {
+    "read-more": "Baca Lebih Lanjut",
+    "language": "Bahasa",
+    "categories": "Kategori",
+    "login": "Masuk"
   }
 }
