@@ -81,7 +81,7 @@ class CategoryControllerTest extends TestCase
         $this->actingAs($user)
             ->json('PATCH', route('categories.update', ['category' => $categoryTwo->id]), $data)
             ->assertStatus(200)
-            ->assertJson(
+            ->assertJsonFragment(
                 [
                     'name' => 'Category Updated.',
                     'parent_id' => $category->id
