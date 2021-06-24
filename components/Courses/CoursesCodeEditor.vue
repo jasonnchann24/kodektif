@@ -114,7 +114,7 @@ export default {
           })
 
           let passIcon = ''
-          if (res.output.replace(/[\r\n]/g, '') == tests[i].expect) {
+          if (res.output.replace(/[\r\n]/g, '') == tests[i].expect.toString()) {
             passIcon = '-- PASS ✔'
           } else {
             passIcon = '-- FAIL ✘'
