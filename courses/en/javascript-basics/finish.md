@@ -2,7 +2,7 @@
 course: Javascript Basics
 chapter: Finish
 description: Finish learning Javascript Basics.
-order: 2
+order: 101
 language: id
 ---
 

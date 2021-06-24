@@ -29,39 +29,37 @@
                 <th scope="col" class="text-end">Action</th>
               </tr>
             </thead>
-            <tbody>
-              <template v-if="COURSE.chapters.length > 0">
-                <tr v-for="chapter in COURSE.chapters" :key="chapter.id">
-                  <th scope="row">{{ chapter.order }}</th>
-                  <td>{{ chapter.title }}</td>
-                  <td>{{ chapter.slug }}</td>
-                  <td class="text-end">
-                    <button
-                      type="button"
-                      class="btn btn-success text-white"
-                      data-bs-toggle="modal"
-                      data-bs-target="#modalAddChapter"
-                      @click="initUpdateChapter(chapter)"
-                    >
-                      Edit
-                    </button>
-                    <button
-                      type="button"
-                      class="btn btn-danger text-white"
-                      @click="deleteChapter(chapter.id)"
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              </template>
-              <template v-else>
-                <tr>
-                  <th colspan="4" class="text-center">
-                    <span class="text-danger">No chapters found</span>
-                  </th>
-                </tr>
-              </template>
+            <tbody v-if="COURSE.chapters.length > 0">
+              <tr v-for="chapter in COURSE.chapters" :key="chapter.id">
+                <th scope="row">{{ chapter.order }}</th>
+                <td>{{ chapter.title }}</td>
+                <td>{{ chapter.slug }}</td>
+                <td class="text-end">
+                  <button
+                    type="button"
+                    class="btn btn-success text-white"
+                    data-bs-toggle="modal"
+                    data-bs-target="#modalAddChapter"
+                    @click="initUpdateChapter(chapter)"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-danger text-white"
+                    @click="deleteChapter(chapter.id)"
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+            <tbody v-else>
+              <tr>
+                <th colspan="4" class="text-center">
+                  <span class="text-danger">No chapters found</span>
+                </th>
+              </tr>
             </tbody>
           </table>
         </div>
