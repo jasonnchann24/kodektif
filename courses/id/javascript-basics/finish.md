@@ -2,10 +2,9 @@
 course: Javascript Basics
 chapter: Finish
 description: Finish learning Javascript Basics.
-order: 2
-language: id
+order: 7
 ---
 
-# Javascript Dasar
+# Javascript Basics
 
-Selesai
+Thank you for your participation in this course!

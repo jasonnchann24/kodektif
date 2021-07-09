@@ -2,61 +2,61 @@
 course: Javascript Basics
 chapter: Variables
 description: Learn the basics of javascript, Javascript Variables.
-order: 1
+order: 2
 function_name: variable
 initial_code: |
   function variable(value){
-    // ketik kode dibawah ini
+    //edit code below
 
-    // ketik kode diatas ini
+    //edit code above
   }
 test_cases:
   - input:
-      - '"Halo Dunia"'
-    expect: 'Halo Dunia'
+      - '"Hello World"'
+    expect: 'Hello World'
   - input:
       - 10
     expect: 10
 ---
 
-# Pengenalan Javascript
+# Javascript Basics
 
-## Bagian: Variabel
+## Chapter: Variables
 
 ---
 
-Anda dapat mendefinisikan variabel pada javascript dengan `let` / `const`
+You can define javascript variables with `let` / `const`
 
-contoh:
+example:
 
 ```js
-let nama = 'Kodektif'
-const harga = 10
+let name = 'Hello'
+const price = 10
 ```
 
-Perbedaan antara `let` & `const` adalah jika `let` dapat di tetapkan ulang nilainya, sedangkan `const` tidak.
+The difference between `let` & `const` is `let` can be reassigned while `const` cannot be reassigned.
 
 ```js
 let value = 1
 value = 2
-console.log(value) // returns 2 / hasilnya 2
+console.log(value) // returns 2
 
-const korting = 0.5
-korting = 1 // error
+const discount = 0.5
+discount = 1 // will be error
 ```
 
 ---
 
-#### Tugas
+#### Task
 
-Munculkan hasil variabel yang telah Anda buat ke dalam _console output_. Variabel harus menyimpan nilai dari argument yang terdapat pada fungsi.
+Log to console output from the variable you created. The variable must store the value from the function argument.
 
 ---
 
-#### Contoh Pengujian
+#### Example Tests
 
 1. ```js
-   assert.equal(variable('Halo Dunia'), 'Halo Dunia')
+   assert.equal(variable('Hello World'), 'Hello World')
    ```
 
 2. ```js

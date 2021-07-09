@@ -3,12 +3,12 @@ course: Javascript Basics
 chapter: Introduction
 description: Learn the basics of javascript, Javascript introduction.
 order: 0
-language: id
+language: en
 ---
 
-# Javascript Dasar
+# Javascript Basics
 
-## Bagian: Pengenalan
+## Chapter: Introduction
 
 ---
 
