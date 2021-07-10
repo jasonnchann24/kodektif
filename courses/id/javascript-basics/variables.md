@@ -6,9 +6,9 @@ order: 2
 function_name: variable
 initial_code: |
   function variable(value){
-    //edit code below
+    //ubah kode di bawah ini
 
-    //edit code above
+    //ubah kode di atas ini
   }
 test_cases:
   - input:
@@ -19,41 +19,41 @@ test_cases:
     expect: 10
 ---
 
-# Javascript Basics
+# Javascript Dasar
 
-## Chapter: Variables
+## Bagian: _Variables_
 
 ---
 
-You can define javascript variables with `let` / `const`
+Anda bisa menentukan variabel dalam Javascript dengan `let` / `const`
 
-example:
+contoh:
 
 ```js
-let name = 'Hello'
-const price = 10
+let nama = 'Hello'
+const harga = 10
 ```
 
-The difference between `let` & `const` is `let` can be reassigned while `const` cannot be reassigned.
+Perbedaan antara `let` & `const` adalah `let` dapat ditentukan ulang nilainya sedangkan, `const` tidak dapat ditentukan ulang nilainya.
 
 ```js
-let value = 1
-value = 2
-console.log(value) // returns 2
+let nilai = 1
+nilai = 2
+console.log(nilai) // returns 2
 
-const discount = 0.5
-discount = 1 // will be error
+const korting = 0.5
+korting = 1 // akan error
 ```
 
 ---
 
-#### Task
+#### Tugas
 
-Log to console output from the variable you created. The variable must store the value from the function argument.
+_Log_ ke dalam konsol dari variabel yang Anda telah buat. Variabel harus menyimpan nilai dari fungsi yang dikirimkan dalam argumen.
 
 ---
 
-#### Example Tests
+#### Contoh Uji
 
 1. ```js
    assert.equal(variable('Hello World'), 'Hello World')

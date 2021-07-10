@@ -6,9 +6,9 @@ order: 1
 function_name: func
 initial_code: |
   function func(value){
-    //edit code below
+    //ubah kode di bawah ini
 
-    //edit code above
+    //ubah kode di atas ini
   }
 test_cases:
   - input:
@@ -16,22 +16,21 @@ test_cases:
     expect: 'Hello World'
 ---
 
-# Javascript Basics
+# Javascript Dasar
 
-## Chapter: Hello World
+## Bagian: Hello World
 
 ---
 
-In this course you will learn to print to the console by Javascript;
+Pada kursus ini, Anda akan mempelajari bagaimana melakukan _print_ ke dalam konsol dengan Javascript.
 
-In Javascript you can use the `console.log()` function to print your desired output to the console.
-This function is an inbuilt function in Javascript.
+Pada bahasa pemograman Javascript, Anda dapat menggunakan fungsi `console.log()` untuk menampilkan _output_ yang Anda inginkan ke dalam konsol. Ini merupakan fungsi bawaan di dalam Javascript.
 
-example:
+contoh:
 
 ```js
 console.log('Hello World!')
-// logs Hello from Kodektif! to the console.
+// logs Hello World! ke dalam konsol.
 ```
 
 ```js
@@ -41,13 +40,13 @@ console.log(a) // Logs Kodektif
 
 ---
 
-#### Task
+#### Tugas
 
-Log to console output any value passed to the function named `func`.
+Log ke dalam konsol nilai apapun yang di kirimkan kedalam fungsi bernama `func`.
 
 ---
 
-#### Example Tests
+#### Contoh Uji
 
 1. ```js
    assert.equal(func('Hello World'), 'Hello World')

@@ -6,9 +6,9 @@ order: 3
 function_name: types
 initial_code: |
   function types(value){
-    //edit code below
+    //ubah kode di bawah ini
 
-    //edit code above
+    //ubah kode di atas ini
   }
 test_cases:
   - input:
@@ -22,27 +22,27 @@ test_cases:
     expect: 'boolean'
 ---
 
-# Javascript Basics
+# Javascript Dasar
 
-## Chapter: Data Types
+## Bagian: Tipe Data
 
 ---
 
-Like many other programming languages, Javascript has its own Data Types.
+Seperti banyak bahasa pemograman lain, Javascript juga memiliki berbagai tipe data.
 
-Several of its basic Data Types :
+Beberapa tipe data dasar dalam Javascript :
 
-- Number -> any numbers, integer, decimal, etc. The integer is limited to ( 2^53 - 1 )
-- String -> any strings. e.g. "My Name is John. I am 20 years old."
+- Number -> angka apapun, bilangan bulat, desimal, dan sebagainya. Bilangan bulat memiliki limitasi ( 2^53 - 1 )
+- String -> _string_ apapun. cth. "Nama saya John. Saya berumur 20 tahun"
 - Boolean -> `true` / `false`
 
-We can use the `typeof` operator to see the data type of a value;
+Kita dapat menggunakan `typeof` untuk melihat tipe data pada suatu nilai.
 
-example:
+contoh:
 
 ```js
-let name = 'Hello'
-typeof name // string
+let nama = 'Hello'
+typeof nama // string
 
 typeof 0 // number
 
@@ -51,13 +51,13 @@ typeof false // boolean
 
 ---
 
-#### Task
+#### Tugas
 
-Log to console with `console.log()` the type of the value passed to the function.
+Log ke dalam konsol dengan `console.log()`, tipe data yang dikirimkan melalui fungsi argumen.
 
 ---
 
-#### Example Tests
+#### Contoh Uji
 
 1. ```js
    assert.equal(types('Hello World'), 'string')

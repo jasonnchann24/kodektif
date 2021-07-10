@@ -6,9 +6,9 @@ order: 5
 function_name: myFunction
 initial_code: |
   function myFunction(a,b,c){
-    //edit code below
+    //ubah kode di bawah ini
 
-    //edit code above
+    //ubah kode di atas ini
   }
 test_cases:
   - input:
@@ -28,75 +28,74 @@ test_cases:
     expect: false
 ---
 
-# Javascript Basics
+# Javascript Dasar
 
-## Chapter: Comparison & Logical Operators
+## Bagian: Perbandingan & Operator Logis
 
 ---
 
-In this chapter we will learn the comparison & logical operators.
+Dalam bagian ini, kita akan mempelajari perbandingan & operator logis.
 
-### Comparisons Operators
+### Operator Perbandingan
 
-Available **comparison operators** in Javascript are :
+Operator perbandingan yang tersedia dalam Javascript adalah :
 
-- Greater / Less than `a > b` / `a < c`
-- Greater / Less than or equals `a >= b` / `a <= c`
-- Equals `a == b`
-- Not equals `a != b` (using the ! and =)
+- Lebih besar / lebih kecil `a > b` / `a < c`
+- Lebih besar / lebih kecil sama dengan `a >= b` / `a <= c`
+- Sama dengan `a == b`
+- Tidak sama dengan `a != b` (menggunakan tanda ! dan =)
 
-The result of these comparison operators is `Boolean`
+Hasil dari operasi perbandingan ini merupakan `Boolean`
 
-Example :
+Contoh :
 
 ```js
 const a = 5
 const z = 10
 
-const isLessThan = a < b
-const isEquals = a == b
-const isNotEquals = a != b
+const lebihKecilDari = a < b
+const samaDengan = a == b
+const tidakSamaDengan = a != b
 
-console.log(isLessThan) // true
+console.log(lebihKecilDari) // true
 
-console.log(isEquals) // false
+console.log(samaDengan) // false
 
-console.log(isNotEquals) // true
+console.log(tidakSamaDengan) // true
 
-// Comparison can be use also in strings
+// Perbandingan juga dapat digunakan pada string
 
 console.log('C' > 'A') // true
 ```
 
-### Logical Operators
+### Operator Logis
 
-Logical operators are used when we want to compare between some of comparisons.
+Operator logis digunakan jika kita ingin melakukan perbandingan antara perbandingan tertentu.
 
-Available logical operators in Javascript are :
+Operator logis yang tersedia pada Javascript :
 
-- And `&&`
-- Or `||`
-- Not `!`
+- Dan `&&`
+- Atau `||`
+- Tidak `!`
 
-Examples:
+Contoh:
 
 ```js
-const thisIsTrue = 1 + 5 == 6
-const thisIsFalse = 1 > 2
+const iniBenar = 1 + 5 == 6
+const iniSalah = 1 > 2
 
-console.log(thisIsTrue && thisIsFalse) // logs false
+console.log(iniBenar && iniSalah) // logs false
 
-console.log(thisIsTrue || thisIsFalse) // logs true
+console.log(iniBenar || iniSalah) // logs true
 
-console.log(!thisIsTrue) // logs false
+console.log(!iniBenar) // logs false
 ```
 
 ---
 
-#### Task
+#### Tugas
 
-Log to console with `console.log()` with these rules.
-a must be smaller than b, and c must be greater than a;
+Log ke dalam konsol dengan `console.log()` dengan peraturan sebagai berikut. Variabel a harus lebih kecil dari b dan c harus lebih besar dari a
 
 ---
 

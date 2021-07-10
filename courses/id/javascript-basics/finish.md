@@ -5,6 +5,6 @@ description: Finish learning Javascript Basics.
 order: 7
 ---
 
-# Javascript Basics
+# Javascript Dasar
 
-Thank you for your participation in this course!
+Terima Kasih atas partisipasi Anda dalam kursus ini!

@@ -6,9 +6,9 @@ order: 4
 function_name: myFunction
 initial_code: |
   function myFunction(a,b,c){
-    //edit code below
+    //ubah kode di bawah ini
 
-    //edit code above
+    //ubah kode di atas ini
   }
 test_cases:
   - input:
@@ -28,50 +28,50 @@ test_cases:
     expect: 19
 ---
 
-# Javascript Basics
+# Javascript Dasar
 
-## Chapter: Maths & Operators
+## Bagian: Maths & Operators
 
 ---
 
-Operators in programming is just like basic maths, addition, substraction, multiplication, etc.
+Operator dalam pemograman sama dengan matematika dasar, pertambahan, pengurangan, perkalian, dan sebagainya.
 
-Javascript have these operations:
+Javascript memiliki operator - operator sebagai berikut:
 
-- Addition `+`
-- Substraction `-`
-- Multiplication `*`
-- Division `/`
-- Remainder `%`
-- Exponentiation `**`
+- Pertambahan `+`
+- Pengurangan `-`
+- Perkalian `*`
+- Pembagian `/`
+- Sisa `%`
+- Pangkat `**`
 
-All of these operations is basically the same as maths at school, except the remainder and exponent.
+Operator - operator ini sama dengan matematika dalam sekolah, hanya sisa dan pangkat yang berbeda penulisan.
 
-Example of using remainder and exponentiation:
+Contoh penggunaan sisa dan pangkat:
 
 ```js
 const a = 10
 const b = 3
 
-console.log(a % b) // logs 1 (10 / 3 = 3 remainder 1)
+console.log(a % b) // logs 1 (10 / 3 = 3 sisa 1)
 console.log(a ** b) // logs 1000 (10³ = 1000)
 ```
 
-In programming languages like Javascript, we can use `+` to concatenate strings
+Dalam bahasa pemograman seperti Javascript, kita dapat menggunakan `+` untuk menggabungkan _string_.
 
-Example:
+Contoh:
 
 ```js
-const firstName = 'Tom'
-const lastName = 'Holland'
+const namaDepan = 'Tom'
+const namaBelakang = 'Holland'
 
-const fullName = firstName + ' ' + lastName
-// if we dont specify the space, it will be TomHolland
+const namaLengkap = namaDepan + ' ' + namaBelakang
+// jika kita tidak menambahkan spasi di tengah, maka akan menjadi TomHolland
 
-console.log(fullName) // Tom Holland
+console.log(namaLengkap) // Tom Holland
 ```
 
-At last, we can use the addition and substraction for increment or decrement.
+Yang terakhir, kita dapat menggunakan penambahan dan pengurangan untuk menaikan 1 atau mengurangkan 1.
 
 ```js
 let increment = 1
@@ -85,13 +85,13 @@ console.log(decrement) // Logs 4
 
 ---
 
-#### Task
+#### Tugas
 
-Log to console with `console.log()` to sum the value of a, b and c.
+Log kedalam konsol dengan `console.log()` untuk menghitung jumbah variabel a, b, dan c.
 
 ---
 
-#### Example Tests
+#### Contoh Uji
 
 1. ```js
    assert.equal(myFunction(1, 2, 3), 6)
