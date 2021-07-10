@@ -133,7 +133,7 @@ export default {
         this.$scrollTo(`#${this.topPage}`)
       } catch (err) {
         this.$toast.error(
-          `Sorry.. Something went wrong! ${'Sorry! Something went wrong. Please try again later.'}`
+          `${'Sorry! Something went wrong. Please try again later.'}`
         )
       } finally {
         this.UPDATE_LOADING(false)

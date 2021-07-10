@@ -1,5 +1,26 @@
+<i18n>
+{
+  "en": {
+     "meta": {
+        "title": "Welcome - Kodektif",
+        "description": "Learn Programming with Freedom!"
+      }
+  },
+  "id": {
+     "meta": {
+        "title": "Selamat Datang - Kodektif",
+        "description": "Belajar Pemograman dengan Bebas!"
+      }
+  }
+}
+</i18n>
+
 <template>
   <div class="p-0">
+    <SocialHead
+      :title="$t('meta.title')"
+      :description="$t('meta.description')"
+    />
     <header>
       <div class="container-fluid">
         <div class="row mt-4 mx-0 header-hero w-100">
@@ -96,6 +117,12 @@ export default {
           icon: 'ri-stack-line'
         }
       ]
+    }
+  },
+  head() {
+    return {
+      title: this.$t('meta.title'),
+      description: this.$t('meta.description')
     }
   }
 }

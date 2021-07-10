@@ -4,13 +4,14 @@ export default {
   publicRuntimeConfig: {
     BASE_URL: process.env.BASE_URL,
     BACKEND_URL: process.env.BACKEND_URL,
-    CODE_RUNNER_URL: process.env.CODE_RUNNER_URL
+    CODE_RUNNER_URL: process.env.CODE_RUNNER_URL,
+    FRONTEND_URL: process.env.BROWSER_URL
   },
   /*
    ** Headers of the page
    */
   head: {
-    title: process.env.npm_package_name || '',
+    title: 'Kodektif',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1.0' },
@@ -31,6 +32,41 @@ export default {
         rel: 'stylesheet',
         type: 'text/css',
         href: 'https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css'
+      },
+      {
+        rel: 'apple-touch-icon',
+        sizes: '180x180',
+        type: 'text/css',
+        href: '/apple-touch-icon.png'
+      },
+      {
+        rel: 'icon',
+        type: 'image/png',
+        sizes: '32x32',
+        href: '/favicon-32x32.png'
+      },
+      {
+        rel: 'icon',
+        type: 'image/png',
+        sizes: '16x16',
+        href: '/favicon-16x16.png'
+      },
+      {
+        rel: 'manifest',
+        href: '/site.webmanifest'
+      },
+      {
+        rel: 'mask-icon',
+        href: '/safari-pinned-tab.svg',
+        color: '#474b60'
+      },
+      {
+        name: 'msapplication-TileColor',
+        content: '#da532c'
+      },
+      {
+        name: 'theme-color',
+        content: '#ffffff'
       }
     ]
   },
@@ -79,7 +115,9 @@ export default {
         ],
         lazy: true,
         langDir: '~/lang/',
-        vueI18n: i18n,
+        vueI18n: {
+          silentFallbackWarn: true
+        },
         vueI18nLoader: true
       }
     ],

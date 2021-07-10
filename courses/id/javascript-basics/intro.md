@@ -3,7 +3,7 @@ course: Javascript Basics
 chapter: Introduction
 description: Learn the basics of javascript, Javascript introduction.
 order: 0
-language: id
+language: en
 ---
 
 # Javascript Dasar
@@ -12,8 +12,8 @@ language: id
 
 ---
 
-Javascript is one of the most popular programming languages. Javascript is the main language of the Web. It is used to be scripting language for the client-side of web applications, but now Javascript can be use as a language for the server-side too with the help of `Node JS`.
+Javascript merupakan salah satu bahasa pemograman yang paling populer. Javascript merupakan bahasa pemograman utama dalam Web. Ia digunakan untuk bahasa _scripting_ pada sisi klien dari aplikasi web, tetapi sekarang, Javascript juga dapat menjadi bahasa pemograman pada sisi _server_ dengan bantuan `Node Js`.
 
-By learning Javascript language, you will be familiar with client-side as well as server-side scripts.
+Dengan mempelajari bahasa pemograman Javascript, Anda dapat berkenalan dengan bahasa pemograman sisi klien (tampilan) dan juga pada sisi _server_.
 
-This course is for absolute beginners that doesn't know Javascript yet, or absolute beginners in programming language.
+Kursus ini merupakan kursus yang ditujukan untuk pemula yang sama sekali tidak mengetahui Javascript, atau pemula dalam bahasa pemograman.

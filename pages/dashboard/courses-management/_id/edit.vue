@@ -88,7 +88,7 @@
       </div>
     </div>
     <hr class="my-5" />
-    <DashboardChapterSection />
+    <DashboardChapterSection :key="chapterSelectionKey" />
   </div>
 </template>
 
@@ -106,7 +106,8 @@ export default {
         slug: '',
         description: '',
         chapter_count: 1
-      }
+      },
+      chapterSelectionKey: 0
     }
   },
   computed: {
@@ -153,6 +154,7 @@ export default {
           payload: this.form
         })
         this.$toast.success('Course updated')
+        await this.GET_COURSE(this.$route.params.id)
       } catch (err) {
         this.$toast.error(
           'Sorry! Something went wrong. Please try again later.'

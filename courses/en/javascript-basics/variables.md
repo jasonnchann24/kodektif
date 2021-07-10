@@ -2,7 +2,7 @@
 course: Javascript Basics
 chapter: Variables
 description: Learn the basics of javascript, Javascript Variables.
-order: 1
+order: 2
 function_name: variable
 initial_code: |
   function variable(value){
@@ -13,7 +13,7 @@ initial_code: |
 test_cases:
   - input:
       - '"Hello World"'
-    expect: "Hello World"
+    expect: 'Hello World'
   - input:
       - 10
     expect: 10
