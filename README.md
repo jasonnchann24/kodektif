@@ -1,5 +1,5 @@
 <h1 align="center">KODEKTIF</h1>
-<h2 align="center">Currently unmaintainable, feel free to contact if wanted to support this project.</h2>
+<h2 align="center">Currently unmaintainable, feel free to contact me if you want to support this project.</h2>
 
 <p align="center">
   <img src="/static/logo/logo_kodektif_bg.svg" width="175" align="center"/>
